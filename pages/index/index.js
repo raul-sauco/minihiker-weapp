@@ -1,5 +1,7 @@
 //index.js
 //获取应用实例
+
+var tripProvider = require('../../helpers/tripProvider.js');
 const app = getApp()
 
 Page({
@@ -7,7 +9,8 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    trips: tripProvider.trips
   },
   //事件处理函数
   bindViewTap: function() {

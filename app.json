@@ -38,5 +38,6 @@
       "selectedIconPath": "img/icon_API_HL.png",
       "text": "地图"
     }]
-  }
+  },
+  "debug": true
 }
