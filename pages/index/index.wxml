@@ -1,16 +1,28 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view wx:for="{{trips}}" class='trip-wrapper'>
+  <view wx:for="{{trips}}" wx:key='trips' class='trip-wrapper'>
 
     <view class='image-container'>
-      <image src='{{item.cover}}'>
-      </image>
+
+      <image src='{{item.cover}}'></image>
+
+      <block wx:if="{{item.registering}}">
+        <view class='registration-status registration-open'>
+          开
+        </view>
+      </block>
+      <block wx:else>
+        <view class='registration-status registration-closed'>
+          关
+        </view>
+      </block>
+      
     </view>
 
-    <view id='trip-details-container'>
-      <h1 id='trip-details-name'>{{ item.name }}</h1>
-      <view id='trip-details-description'>{{ item.description }}</view>
+    <view class='trip-details-container'>
+      <h1 class='trip-details-name'>{{ item.name }}</h1>
+      <view class='trip-details-description'>{{ item.description }}</view>
     </view>   
 
   </view>
