@@ -68,3 +68,22 @@
 
   color: #999;
 }
+
+.trip-details-multirow {
+  display: flex;
+  font-size: 0.7rem;
+  color: #555;
+  text-align: center;
+}
+
+.trip-ages {
+  flex-grow: 1;
+}
+
+.trip-type {
+  flex-grow: 1;
+}
+
+.trip-period {
+  flex-grow: 1;
+}

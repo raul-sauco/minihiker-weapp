@@ -9,6 +9,7 @@ let trips = [
     minAge: 7,
     maxAge: 12,
     period: '寒假',
+    type: '单飞'
   }, {
     id: 2,
     name: '2019日本 滑雪体验',
@@ -19,6 +20,7 @@ let trips = [
     minAge: 7,
     maxAge: 12,
     period: '寒假',
+    type: '单飞'
   }, {
     id: 3,
     name: 'Go Meiguo',
@@ -29,6 +31,7 @@ let trips = [
     minAge: 7,
     maxAge: 12,
     period: '寒假',
+    type: '亲子团'
   }, {
     id: 4,
     name: 'Go Meiguo',
@@ -39,6 +42,7 @@ let trips = [
     minAge: 7,
     maxAge: 12,
     period: '寒假',
+    type: '单飞'
   },
 ];
 

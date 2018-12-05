@@ -26,7 +26,17 @@
 
       <view class='trip-details-description'>{{ item.description }}</view>
 
+      <view class='trip-details-multirow'>
 
+        <view class='trip-ages'>
+          {{ item.minAge }}-{{ item.maxAge }}岁
+        </view>
+
+        <view class='trip-type'>{{ item.type }}</view>
+
+        <view class='trip-period'>{{ item.period }}</view>
+      
+      </view>
     </view>   
 
   </view>
