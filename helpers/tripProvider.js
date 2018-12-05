@@ -8,7 +8,7 @@ let trips = [
     registering: true,
     minAge: 7,
     maxAge: 12,
-    period: '寒假',
+    period: '夏令营',
     type: '单飞'
   }, {
     id: 2,

@@ -1,0 +1,4 @@
+/* pages/trip.wxss */
+.container {
+  padding: 0.3rem 0;
+}

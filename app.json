@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/trip/trip"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,29 +16,32 @@
     "selectedColor": "#3cc51f",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "iconPath": "img/icon_component.png",
-      "selectedIconPath": "img/icon_component_HL.png",
-      "text": "首页"
-    },{
-      "pagePath": "pages/map/map",
-      "iconPath": "img/icon_API.png",
-      "selectedIconPath": "img/icon_API_HL.png",
-      "text": "地图"
-    },
-    {
-      "pagePath": "pages/map/map",
-      "iconPath": "img/icon_API.png",
-      "selectedIconPath": "img/icon_API_HL.png",
-      "text": "地图"
-    },
-    {
-      "pagePath": "pages/map/map",
-      "iconPath": "img/icon_API.png",
-      "selectedIconPath": "img/icon_API_HL.png",
-      "text": "地图"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "img/icon_component.png",
+        "selectedIconPath": "img/icon_component_HL.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "iconPath": "img/icon_API.png",
+        "selectedIconPath": "img/icon_API_HL.png",
+        "text": "地图"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "iconPath": "img/icon_API.png",
+        "selectedIconPath": "img/icon_API_HL.png",
+        "text": "地图"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "iconPath": "img/icon_API.png",
+        "selectedIconPath": "img/icon_API_HL.png",
+        "text": "地图"
+      }
+    ]
   },
   "debug": true
 }

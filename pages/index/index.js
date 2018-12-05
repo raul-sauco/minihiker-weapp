@@ -55,5 +55,13 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  showTrip: function (event) {
+    var targetTripId = event.currentTarget.dataset.tripid;
+    console.log('Navigating to trip-' + targetTripId);
+
+    wx.navigateTo({
+      url: '../trip/trip?id=' + targetTripId,
+    })
+  },
 })

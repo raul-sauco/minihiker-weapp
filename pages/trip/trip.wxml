@@ -1,0 +1,10 @@
+<!--pages/trip.wxml-->
+<view class="container">
+
+  <image src='{{ trip.cover }}'></image>
+
+  <text>{{ trip.name }}</text>
+
+  <text>{{ trip.description }}</text>
+
+</view>

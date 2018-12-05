@@ -1,7 +1,9 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view wx:for="{{trips}}" wx:key='trips' class='trip-wrapper'>
+  <view wx:for="{{trips}}" wx:key='trips' 
+    class='trip-wrapper' ontap='showTrip' 
+    data-tripid='{{item.id}}'>
 
     <view class='image-container'>
 
