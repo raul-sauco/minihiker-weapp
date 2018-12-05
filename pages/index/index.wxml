@@ -21,8 +21,12 @@
     </view>
 
     <view class='trip-details-container'>
-      <h1 class='trip-details-name'>{{ item.name }}</h1>
+
+      <view class='trip-details-name'>{{ item.name }}</view>
+
       <view class='trip-details-description'>{{ item.description }}</view>
+
+
     </view>   
 
   </view>
