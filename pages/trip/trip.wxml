@@ -1,10 +1,60 @@
 <!--pages/trip.wxml-->
 <view class="container">
 
-  <image src='{{ trip.cover }}'></image>
+  <image src='{{ trip.cover }}' class='trip-cover-image'></image>
 
-  <text>{{ trip.name }}</text>
+  <view class='trip-details-container'>
 
-  <text>{{ trip.description }}</text>
+    <view class='trip-details-entry'>主题: {{ trip.theme }}</view>
+
+    <view class='trip-details-entry'>地区: {{ trip.location }}</view>
+
+    <view class='trip-details-entry'>期数: {{ trip.id }}</view>
+
+    <view class='trip-details-entry'>年龄: {{ trip.minAge }} ~ {{ trip.maxAge }}岁</view>
+
+    <view class='trip-details-entry'>家长: {{ trip.type === '单飞' ? '不需要陪' : '需要陪' }}</view>
+
+  </view>
+
+  <scroll-view scroll-x="true" id='instances-container'>
+
+    <view wx:for='{{ trip.instances }}' wx:key='trip-instances' 
+      class='trip-instance-container'>
+
+      <view class='trip-instance-inner'>
+
+        <view class='trip-instance-period trip-instance-inner-entry'>
+          {{ item.period }}
+        </view>
+
+        <view class='trip-instance-start trip-instance-inner-entry'>
+          <text class='attr-name'>出发时间:</text>
+          <text class='attr-value'>{{ item.startDate }}</text>
+        </view>
+
+        <view class='trip-instance-end trip-instance-inner-entry'>
+          <text class='attr-name'>返回时间:</text>
+          <text class='attr-value'>{{ item.endDate }}</text>
+        </view>
+
+        <view class='trip-instance-price trip-instance-inner-entry'>
+          <text class='attr-name'>价格:</text>
+          <text class='attr-value'>{{ item.price }}</text>
+        </view>
+      
+      </view>
+
+    </view>
+  
+  </scroll-view>
+
+  <view class='trip-description'>{{ trip.description }}</view>
+
+  <view class='trip-images'>
+    <image wx:for='{{ images }}' wx:key='trip-images' data-imageId='{{ item }}'
+      src='{{ item }}' class='trip-image-small' ontap='clickImage'>
+    </image>
+  </view>
 
 </view>
