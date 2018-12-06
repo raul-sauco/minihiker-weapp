@@ -102,6 +102,7 @@ Page({
    * Handle clicks on the trip thumbnail images
    */
   clickImage: function (e) {
+    // TODO implement this function
     console.log('Registered click on ' + e.currentTarget.dataset.imageid);
   },
 

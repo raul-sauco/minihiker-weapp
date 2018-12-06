@@ -11,12 +11,12 @@
 
       <block wx:if="{{item.registering}}">
         <view class='registration-status registration-open'>
-          开
+          报名中
         </view>
       </block>
       <block wx:else>
         <view class='registration-status registration-closed'>
-          关
+          名额已满
         </view>
       </block>
       
