@@ -12,6 +12,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     trips: tripProvider.trips
   },
+
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -20,7 +21,12 @@ Page({
     });
     console.log('tap on view');
   },
+
+  /**
+   * Lifecycle function--Called when page load
+   */
   onLoad: function () {
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -48,6 +54,7 @@ Page({
       })
     }
   },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo

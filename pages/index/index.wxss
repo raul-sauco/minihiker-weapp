@@ -8,7 +8,6 @@
 
 .image-container {
   position: relative;  
-  
 }
 
 .image-container > image {

@@ -31,12 +31,19 @@
       <view class='trip-details-multirow'>
 
         <view class='trip-ages'>
+          <text class="fas fa-ruler-vertical"></text>
           {{ item.minAge }}-{{ item.maxAge }}岁
         </view>
 
-        <view class='trip-type'>{{ item.type }}</view>
+        <view class='trip-type'>        
+          <text class="fas fa-child"></text>
+          {{ item.type }}
+        </view>
 
-        <view class='trip-period'>{{ item.period }}</view>
+        <view class='trip-period'>          
+          <text class="far fa-calendar-alt"></text>
+          {{ item.period }}
+        </view>
       
       </view>
     </view>   

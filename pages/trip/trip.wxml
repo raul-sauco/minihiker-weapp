@@ -40,7 +40,12 @@
 
         <view class='trip-instance-price trip-instance-inner-entry'>
           <text class='attr-name'>价格:</text>
-          <text class='attr-value'>{{ item.price }}</text>
+          <text class='attr-value'>¥{{ item.price }}</text>
+        </view>
+
+        <view class='trip-instance-price trip-instance-inner-entry'>
+          <text class='attr-name'>名额:</text>
+          <text class='attr-value'>仅剩{{ item.vacancies }}人</text>
         </view>
       
       </view>
