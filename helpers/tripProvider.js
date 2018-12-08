@@ -24,12 +24,6 @@ let trips = [
         endDate: '2019-07-24',
         price: 28800,
         vacancies: 8
-      }, {
-        period: '第三期',
-        startDate: '2019-07-24',
-        endDate: '2019-07-31',
-        price: 27800,
-        vacancies: 35
       }
     ]
   }, {
@@ -57,6 +51,12 @@ let trips = [
         endDate: '2019-07-24',
         price: 28800,
         vacancies: 8
+      }, {
+        period: '第三期',
+        startDate: '2019-07-24',
+        endDate: '2019-07-31',
+        price: 27800,
+        vacancies: 35
       }, {
         period: '第三期',
         startDate: '2019-07-24',

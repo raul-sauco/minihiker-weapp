@@ -67,9 +67,13 @@
 
 .trip-details-multirow {
   display: flex;
+  color: #225222;
   font-size: 0.7rem;
-  color: #555;
   text-align: center;
+}
+
+.trip-details-multirow text {
+  color: #0ba360;
 }
 
 .trip-ages {

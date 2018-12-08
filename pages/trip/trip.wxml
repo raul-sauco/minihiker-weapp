@@ -5,15 +5,25 @@
 
   <view class='trip-details-container'>
 
-    <view class='trip-details-entry'>主题: {{ trip.theme }}</view>
+    <view class='trip-details-entry'>
+      <text class='fas fa-thumbtack'></text>
+      主题: {{ trip.theme }}</view>
 
-    <view class='trip-details-entry'>地区: {{ trip.location }}</view>
+    <view class='trip-details-entry'>
+      <text class='fas fa-map-marker-alt'></text>
+      地区: {{ trip.location }}</view>
 
-    <view class='trip-details-entry'>期数: {{ trip.id }}</view>
+    <view class='trip-details-entry'>
+      <text class='fas fa-list'></text>
+      期数: {{ trip.instances.length }}</view>
 
-    <view class='trip-details-entry'>年龄: {{ trip.minAge }} ~ {{ trip.maxAge }}岁</view>
+    <view class='trip-details-entry'>
+      <text class='fas fa-ruler-vertical'></text>
+      年龄: {{ trip.minAge }} ~ {{ trip.maxAge }}岁</view>
 
-    <view class='trip-details-entry'>家长: {{ trip.type === '单飞' ? '不需要陪' : '需要陪' }}</view>
+    <view class='trip-details-entry'>
+      <text class='fas fa-child'></text>
+      家长: {{ trip.type === '单飞' ? '不需要陪' : '需要陪' }}</view>
 
   </view>
 
@@ -29,22 +39,29 @@
         </view>
 
         <view class='trip-instance-start trip-instance-inner-entry'>
-          <text class='attr-name'>出发时间:</text>
+          <text class='attr-name'>
+            <text class='far fa-clock'></text> 出发时间:
+          </text>
           <text class='attr-value'>{{ item.startDate }}</text>
         </view>
 
         <view class='trip-instance-end trip-instance-inner-entry'>
-          <text class='attr-name'>返回时间:</text>
+          <text class='attr-name'>
+            <text class='fas fa-clock'></text> 返回时间:
+          </text>
           <text class='attr-value'>{{ item.endDate }}</text>
         </view>
 
         <view class='trip-instance-price trip-instance-inner-entry'>
-          <text class='attr-name'>价格:</text>
+          <text class='attr-name'>
+            <text class='fas fa-yen-sign'></text> 价格:
+          </text>
           <text class='attr-value'>¥{{ item.price }}</text>
         </view>
 
         <view class='trip-instance-price trip-instance-inner-entry'>
-          <text class='attr-name'>名额:</text>
+          <text class='attr-name'>
+            <text class='far fa-hourglass'></text> 名额:</text>
           <text class='attr-value'>仅剩{{ item.vacancies }}人</text>
         </view>
       
