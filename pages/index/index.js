@@ -2,6 +2,8 @@
 //获取应用实例
 
 var tripProvider = require('../../helpers/tripProvider.js');
+const ProgramProvider = require('../../helpers/programProvider.js');
+
 const app = getApp()
 
 Page({
@@ -27,6 +29,11 @@ Page({
    */
   onLoad: function () {
 
+    // Get program-group information
+    let programProvider = new ProgramProvider();
+    programProvider.fetchProgramGroups();
+
+    /*
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -53,6 +60,7 @@ Page({
         }
       })
     }
+    */
   },
 
   getUserInfo: function(e) {
