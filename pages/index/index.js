@@ -1,8 +1,7 @@
 //index.js
 //获取应用实例
 
-var tripProvider = require('../../helpers/tripProvider.js');
-const ProgramProvider = require('../../helpers/programProvider.js');
+const tripProvider = require('../../helpers/tripProvider.js');
 
 const app = getApp()
 
@@ -12,7 +11,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    trips: tripProvider.trips
+    trips: tripProvider.trips,
+    programProvider: app.globalData.programProvider
   },
 
   //事件处理函数
@@ -28,10 +28,6 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-
-    // Get program-group information
-    let programProvider = new ProgramProvider();
-    programProvider.fetchProgramGroups();
 
     /*
     if (app.globalData.userInfo) {

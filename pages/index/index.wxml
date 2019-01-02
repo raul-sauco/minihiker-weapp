@@ -1,6 +1,14 @@
 <!--index.wxml-->
 <view class="container">
 
+  <view wx:for="{{ programProvider.programs}}" wx:key='programs' 
+    class='program-wrapper' ontap='showProgram' 
+    data-tripid='{{item.id}}'>
+
+    Program Test Content  
+
+  </view>
+
   <view wx:for="{{trips}}" wx:key='trips' 
     class='trip-wrapper' ontap='showTrip' 
     data-tripid='{{item.id}}'>
