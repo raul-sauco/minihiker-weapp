@@ -3,9 +3,51 @@
 
   <view wx:for="{{ programProvider.programs}}" wx:key='programs' 
     class='program-wrapper' ontap='showProgram' 
-    data-tripid='{{item.id}}'>
+    data-programid='{{item.id}}'>
 
-    Program Test Content  
+    <view class='image-container'>
+
+      <image src='{{item.weapp_cover_image}}'></image>
+
+      <block wx:if="{{item.registering}}">
+        <view class='registration-status registration-open'>
+          报名中
+        </view>
+      </block>
+      <block wx:else>
+        <view class='registration-status registration-closed'>
+          名额已满
+        </view>
+      </block>
+      
+    </view>
+
+    <view class='program-details-container'>
+
+      <view class='program-details-name'>{{ item.weapp_display_name }}</view>
+
+      <view class='program-details-description'>{{ item.weapp_description }}</view>
+
+      <view class='program-details-multirow'>
+
+        <view class='program-ages'>
+          <text class="fas fa-ruler-vertical"></text>
+          {{ item.min_age }}-{{ item.max_age }}岁
+        </view>
+
+        <view class='program-type'>        
+          <text class="fas fa-child"></text>
+          {{ item.type }}
+        </view>
+
+        <view class='program-period'>          
+          <text class="far fa-calendar-alt"></text>
+          {{ item.period }}
+        </view>
+      
+      </view>
+
+    </view>
 
   </view>
 
