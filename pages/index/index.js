@@ -46,10 +46,9 @@ Page({
 
   showProgram: function (event) {
     var targetProgramId = event.currentTarget.dataset.programid;
-    console.log('Navigating to trip-' + targetProgramId);
 
     wx.navigateTo({
       url: '../program/program?id=' + targetProgramId,
-    })
+    });
   },
 })

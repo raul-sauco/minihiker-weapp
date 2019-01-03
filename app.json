@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/map/map",
-    "pages/trip/trip"
+    "pages/trip/trip",
+    "pages/program/program"
   ],
   "window": {
     "backgroundTextStyle": "light",

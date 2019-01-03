@@ -9,16 +9,15 @@ class ProgramProvider {
   url = 'http://minihiker.com/api/';
   resUrl = 'http://minihiker.com/webapp/';
   authToken = 'Bearer Bt6w40-Z9l7biq8PiNNpYdSKFR5nirbv';
-  programGroups = {};
+  programGroups = [];
   programTypes = {};
   programPeriods = {};
-  programs = {};
 
   /**
    * Fetch all program group information from the server
    */
   fetchProgramGroups() {
-    console.log('Sending Request for program-groups');
+    console.log('Fetching program-groups from the server');
 
     var endpoint = 'program-groups?weapp_visible=true';
 
@@ -29,16 +28,13 @@ class ProgramProvider {
         'Authorization': this.authToken
       },
       success: (res) => {
-        // If the request is successful we should get programs back
-        
-        res.data.forEach((item) => {
+        // If the request is successful we should get programs back        
+        this.programGroups = res.data;
 
-          if (item !== undefined && item.id !== undefined) {
-            this.programGroups[item.id] = item;
-            this.fetchProgramDetails(this.programGroups[item.id]);
-          }
-
+        this.programGroups.forEach((programGroup) => {
+          this.fetchProgramDetails(programGroup);
         });
+
         this.ready = true;
       },
       fail: (res) => {
@@ -70,7 +66,7 @@ class ProgramProvider {
     programGroup.registration_open = false;
 
     // Fetch program instances
-    this.fetchProgramInstances(programGroup.id);  
+    this.fetchProgramInstances(programGroup);
   }
 
   /**
@@ -79,9 +75,10 @@ class ProgramProvider {
    * This method will use each program's registration_open attribute
    * to determine and set the registration status of the program group.
    */
-  fetchProgramInstances(groupId) {
+  fetchProgramInstances(programGroup) {
 
-    var endpoint = 'programs?program_group_id=' + groupId;
+    var endpoint = 'programs?program_group_id=' + programGroup.id + 
+      '&expand=registrations,period';
 
     wx.request({
       url: this.url + endpoint,
@@ -90,16 +87,14 @@ class ProgramProvider {
         'Authorization': this.authToken
       },
       success: (res) => {
-        // If the request is successful assign to object
-        res.data.forEach((item) => {
-          this.programs[item.id] = item;
 
-          /**
-           * If any instance of the program group is still registering show
-           * registration as open
-           */
-          if (item.registration_open) {
-            this.programGroups[item.program_group_id].registration_open = true;
+        // If the request is successful assign to object
+        programGroup.programs = res.data;
+
+        // Update the program registration status
+        programGroup.programs.forEach((program) => {
+          if (program.registration_open) {
+            programGroup.registration_open = true;
           }
         });
       },
@@ -142,6 +137,15 @@ class ProgramProvider {
       }
     });
 
+  }
+
+  /**
+   * Find a return a programGroup given it's ID value
+   */
+  getProgramGroup(id) {
+    return this.programGroups.find(item => {
+      return item.id === parseInt(id, 10);
+    });
   }
 
 }
