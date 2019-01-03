@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view wx:for="{{ programProvider.programs}}" wx:key='programs' 
+  <view wx:for="{{ programProvider.programGroups}}" wx:key='programGroups' 
     class='program-wrapper' ontap='showProgram' 
     data-programid='{{item.id}}'>
 
@@ -9,7 +9,7 @@
 
       <image src='{{item.weapp_cover_image}}'></image>
 
-      <block wx:if="{{item.registering}}">
+      <block wx:if="{{item.registration_open}}">
         <view class='registration-status registration-open'>
           报名中
         </view>
