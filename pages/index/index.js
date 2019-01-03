@@ -1,27 +1,12 @@
 //index.js
-//获取应用实例
-
-const tripProvider = require('../../helpers/tripProvider.js');
-
 const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    trips: tripProvider.trips,
     programProvider: app.globalData.programProvider
-  },
-
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      // url: '../logs/logs'
-      url: '../map/map'
-    });
-    console.log('tap on view');
   },
 
   /**
@@ -59,20 +44,12 @@ Page({
     */
   },
 
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  showTrip: function (event) {
-    var targetTripId = event.currentTarget.dataset.tripid;
-    console.log('Navigating to trip-' + targetTripId);
+  showProgram: function (event) {
+    var targetProgramId = event.currentTarget.dataset.programid;
+    console.log('Navigating to trip-' + targetProgramId);
 
     wx.navigateTo({
-      url: '../trip/trip?id=' + targetTripId,
+      url: '../program/program?id=' + targetProgramId,
     })
   },
 })

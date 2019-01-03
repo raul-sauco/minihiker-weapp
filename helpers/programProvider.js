@@ -31,7 +31,6 @@ class ProgramProvider {
         // If the request is successful we should get programs back
         this.programs = res.data;
         this.ready = true;
-        console.log(this.programs);
 
         // Fetch missing program information
         this.fetchProgramDetails();
@@ -58,10 +57,8 @@ class ProgramProvider {
       
       // Fetch the program type
       if (this.programTypes[program.type_id] === undefined) {
-        console.log('unknown program type, go get it');
+        console.log('unknown program type, fetching from server');
         this.fetchProgramType(program.type_id);
-      } else {
-        console.log('known program type, already have it');
       }
       
     });
@@ -84,7 +81,6 @@ class ProgramProvider {
       success: (res) => {
         // If the request is successful we should get programs back
         this.programTypes[id] = res.data;
-        console.log(this.programTypes);
       },
       fail: (res) => {
         console.warn('Request failed. ' + this.url + endpoint);
