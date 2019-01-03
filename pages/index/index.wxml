@@ -26,7 +26,9 @@
 
       <view class='program-details-name'>{{ item.weapp_display_name }}</view>
 
-      <view class='program-details-description'>{{ item.weapp_description }}</view>
+      <view class='program-details-description'>
+        <rich-text nodes="{{ item.weapp_description }}"></rich-text>
+      </view>
 
       <view class='program-details-multirow'>
 
@@ -37,12 +39,12 @@
 
         <view class='program-type'>        
           <text class="fas fa-child"></text>
-          {{ item.type }}
+          单飞
         </view>
 
         <view class='program-period'>          
-          <text class="far fa-calendar-alt"></text>
-          {{ item.period }}
+          <text class="far fa-calendar-alt"></text>          
+          {{ programProvider.programTypes[item.type_id].name }}
         </view>
       
       </view>
