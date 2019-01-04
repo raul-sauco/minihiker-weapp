@@ -56,7 +56,7 @@
           <text class='attr-value'>¥ TODO</text>
         </view>
 
-        <view class='program-price program-inner-entry'>
+        <view class='program-vacancies program-inner-entry'>
           <text class='attr-name'>
             <text class='far fa-hourglass'></text> 名额: </text>
           <text class='attr-value'>仅剩{{ (item.client_limit - item.registrations) }}人</text>
@@ -73,8 +73,12 @@
   </view>
 
   <view class='program-group-images'>
-    <image wx:for='{{ images }}' wx:key='program-group-images' data-imageId='{{ item }}'
-      src='{{ item }}' class='program-group-image-small' ontap='clickImage'>
+    <image wx:for='{{ programGroup.images }}'  
+      wx:key='program-group-images' 
+      data-imageId='{{ item.id }}'
+      src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/th/{{ item.name }}' 
+      class='program-group-image-small' 
+      ontap='clickImage'>
     </image>
   </view>
 

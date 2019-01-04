@@ -67,6 +67,10 @@ class ProgramProvider {
 
     // Fetch program instances
     this.fetchProgramInstances(programGroup);
+
+    // Fetch programGroup images
+    // TODO lazy fetch image data
+    this.fetchProgramGroupImages(programGroup.id);
   }
 
   /**
@@ -137,6 +141,41 @@ class ProgramProvider {
       }
     });
 
+  }
+
+  /**
+   * Fetch from the server the image data related to one
+   * programGroup and save it into the programGroup.
+   */
+  fetchProgramGroupImages(id) {
+
+    var programGroup = this.getProgramGroup(id);
+
+    if (programGroup === null || programGroup === undefined) {
+      console.warn('No programGroup found for id ' + id);
+    } else if(programGroup.images === undefined) {
+
+      var endpoint = 'images?program_group_id=' + id;
+
+      wx.request({
+        url: this.url + endpoint,
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': this.authToken
+        },
+        success: (res) => {
+          // If the request is successful we should get programs back
+          programGroup.images = res.data;
+        },
+        fail: (res) => {
+          console.warn('Request failed. ' + this.url + endpoint);
+        },
+        complete: (res) => {
+          console.log('Request completed. ' + this.url + endpoint);
+        }
+      });
+
+    }
   }
 
   /**
