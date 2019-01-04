@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/map/map",
-    "pages/trip/trip",
     "pages/program/program"
   ],
   "window": {
@@ -25,10 +24,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/map/map",
+        "pagePath": "pages/logs/logs",
         "iconPath": "img/icon_API.png",
         "selectedIconPath": "img/icon_API_HL.png",
-        "text": "地图"
+        "text": "Logs"
       },
       {
         "pagePath": "pages/map/map",
