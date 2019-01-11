@@ -5,9 +5,10 @@
 class ProgramProvider {
 
   ready = false;
+  fetchedProgramGroups = false;
 
-  url = 'http://minihiker.com/api/';
-  resUrl = 'http://minihiker.com/webapp/';
+  url = 'https://minihiker.com/api/';
+  resUrl = 'https://minihiker.com/webapp/';
   authToken = 'Bearer Bt6w40-Z9l7biq8PiNNpYdSKFR5nirbv';
   programGroups = [];
   programTypes = {};
@@ -17,9 +18,9 @@ class ProgramProvider {
    * Fetch all program group information from the server
    */
   fetchProgramGroups() {
-    console.log('Fetching program-groups from the server');
+    console.debug('Fetching program-groups from the server');
 
-    var endpoint = 'program-groups?weapp_visible=true';
+    var endpoint = 'program-groups?weapp_visible=true&expand=location';
 
     wx.request({
       url: this.url + endpoint,
@@ -35,7 +36,7 @@ class ProgramProvider {
           this.fetchProgramDetails(programGroup);
         });
 
-        this.ready = true;
+        this.fetchedProgramGroups = true;
       },
       fail: (res) => {
         console.warn('Request failed. ' + this.url + endpoint);
@@ -101,6 +102,9 @@ class ProgramProvider {
             programGroup.registration_open = true;
           }
         });
+
+        programGroup.ready = true; 
+        this.isProviderReady();
       },
       fail: (res) => {
         console.warn('Request failed. ' + this.url + endpoint);
@@ -164,14 +168,14 @@ class ProgramProvider {
           'Authorization': this.authToken
         },
         success: (res) => {
-          // If the request is successful we should get programs back
+          // If the request is successful we should get programgroup images back
           programGroup.images = res.data;
         },
         fail: (res) => {
           console.warn('Request failed. ' + this.url + endpoint);
         },
         complete: (res) => {
-          console.log('Request completed. ' + this.url + endpoint);
+          console.trace('Request completed. ' + this.url + endpoint);
         }
       });
 
@@ -185,6 +189,28 @@ class ProgramProvider {
     return this.programGroups.find(item => {
       return item.id === parseInt(id, 10);
     });
+  }
+
+  /**
+   * Check if the provider is ready, return 
+   */
+  isProviderReady() {
+    var ready = true;
+
+    if (!this.fetchedProgramGroups) {
+      return false;
+    } else if (!this.ready) {
+      this.programGroups.forEach((pg) => {
+        if (pg.ready !== true) {
+          ready = false
+        } 
+      });
+      this.ready = ready;
+    }
+
+    console.debug('Polling for provider readiness returned ' + ready);
+
+    return ready;
   }
 
 }

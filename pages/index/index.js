@@ -6,13 +6,20 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    programProvider: app.globalData.programProvider
+    programProvider: null,
+    programName: null
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
+
+    wx.showLoading({
+      title: '获取数据',
+    });
+
+    setTimeout(this.checkProviderReady, 500);
 
     /*
     if (app.globalData.userInfo) {
@@ -42,6 +49,21 @@ Page({
       })
     }
     */
+  },
+
+  /**
+   * Check if the program provider has finished fetching info from
+   * the server and we can start displaying it.
+   */
+  checkProviderReady: function() {
+    if (app.globalData.programProvider.isProviderReady()) {
+      this.setData({
+        programProvider: app.globalData.programProvider
+      });
+      wx.hideLoading();
+    } else {
+      setTimeout(this.checkProviderReady, 200);
+    }
   },
 
   showProgram: function (event) {

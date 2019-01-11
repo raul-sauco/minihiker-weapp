@@ -37,10 +37,18 @@
           {{ item.min_age }}-{{ item.max_age }}岁
         </view>
 
-        <view class='program-type'>        
-          <text class="fas fa-child"></text>
-          单飞
-        </view>
+        <block wx:if="{{item.accompanied}}">
+          <view class='program-type'>        
+            <text class="fas fa-user-friends"></text>
+            亲子
+          </view>
+        </block>
+        <block wx:else>
+          <view class='program-type'>        
+            <text class="fas fa-child"></text>
+            单飞
+          </view>
+        </block>
 
         <view class='program-period'>          
           <text class="far fa-calendar-alt"></text>          

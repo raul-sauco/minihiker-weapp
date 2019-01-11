@@ -22,8 +22,8 @@
       年龄: {{ programGroup.min_age }} ~ {{ programGroup.max_age }}岁</view>
 
     <view class='program-group-details-entry'>
-      <text class='fas fa-child'></text>
-      家长: TODO add '单飞' or '需要陪'</view>
+      <text class="fas {{ programGroup.accompanied ? 'fa-user-friends' : 'fa-child'}}"></text>
+      家长: {{ programGroup.accompanied ? '需要陪' : '单飞'}}</view>
 
   </view>
 
@@ -53,7 +53,7 @@
         <view class='program-price program-inner-entry'>
           <text class='attr-name'>
             <text class='fas fa-yen-sign'></text> 价格: </text>
-          <text class='attr-value'>¥ TODO</text>
+          <text class='attr-value'>¥ {{ item.price }}</text>
         </view>
 
         <view class='program-vacancies program-inner-entry'>
