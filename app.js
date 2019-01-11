@@ -9,9 +9,8 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // Get an instance of ProgramProvider and initialize it
+    // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
-    this.globalData.programProvider.fetchProgramGroups();
 
     // 登录
     wx.login({
@@ -43,5 +42,8 @@ App({
   globalData: {
     userInfo: null,
     programProvider: null,
+    url: 'https://minihiker.com/api/',
+    resUrl: 'https://minihiker.com/webapp/',
+    authToken: 'Bearer Bt6w40-Z9l7biq8PiNNpYdSKFR5nirbv'
   }
 })

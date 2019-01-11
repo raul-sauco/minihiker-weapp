@@ -1,13 +1,16 @@
 <!--pages/program/program.wxml-->
-<view class="container">
+<view class="container" wx:if="{{ programGroup }}">
 
-  <image src='{{ programGroup.weapp_cover_image }}' class='program-group-cover-image'></image>
+  <image 
+    src="{{ resUrl + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"
+    class='program-group-cover-image'>
+  </image>
 
   <view class='program-group-details-container'>
 
     <view class='program-group-details-entry'>
       <text class='fas fa-thumbtack'></text>
-      主题: TODO do we want a theme for pgs?</view>
+      主题: {{ programGroup.theme }}</view>
 
     <view class='program-group-details-entry'>
       <text class='fas fa-map-marker-alt'></text>
@@ -73,7 +76,7 @@
   </view>
 
   <view class='program-group-images'>
-    <image wx:for='{{ programGroup.images }}'  
+    <image wx:for='{{ images }}'  
       wx:key='program-group-images' 
       data-imageId='{{ item.id }}'
       src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/th/{{ item.name }}' 

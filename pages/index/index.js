@@ -6,20 +6,16 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    programProvider: null,
-    programName: null
+    programGroups: [],
+    resUrl: null
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-
-    wx.showLoading({
-      title: '获取数据',
-    });
-
-    setTimeout(this.checkProviderReady, 500);
+    
+    this.fetchProgramGroups();
 
     /*
     if (app.globalData.userInfo) {
@@ -52,22 +48,58 @@ Page({
   },
 
   /**
-   * Check if the program provider has finished fetching info from
-   * the server and we can start displaying it.
+   * Fetch program groups from the server
    */
-  checkProviderReady: function() {
-    if (app.globalData.programProvider.isProviderReady()) {
-      this.setData({
-        programProvider: app.globalData.programProvider
-      });
-      wx.hideLoading();
-    } else {
-      setTimeout(this.checkProviderReady, 200);
-    }
+  fetchProgramGroups: function() {
+
+    // TODO allow for pagination
+
+    wx.showLoading({
+      title: '获取数据',
+    });
+    
+    // We are fetching international programs
+    var endpoint = 'program-groups?weapp_visible=true&int=true&expand=location,programs,type,programs.registrations.programs.period';
+
+    wx.request({
+      url: app.globalData.url + endpoint,
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': app.globalData.authToken
+      },
+      success: (res) => {
+        // If the request is successful we should get programGroups back   
+        this.setData({
+          resUrl: app.globalData.resUrl,
+          programGroups: res.data,
+          isRegistrationOpen: this.isRegistrationOpen
+        });
+
+        wx.hideLoading();
+      },
+      fail: (res) => {
+        console.warn('Request failed. ' + app.globalData.url + endpoint);
+      },
+      complete: (res) => {
+        console.log('Request completed. ' + app.globalData.url + endpoint);
+      }
+    });
+
   },
 
+  /**
+   * Navigate to one ProgramGroup's page
+   */
   showProgram: function (event) {
+
     var targetProgramId = event.currentTarget.dataset.programid;
+
+    var pg = this.data.programGroups.find(item => {
+      return item.id === parseInt(targetProgramId, 10);
+    });
+
+    // Set the ProgramGroup on the provider
+    app.globalData.programProvider[pg.id] = pg;
 
     wx.navigateTo({
       url: '../program/program?id=' + targetProgramId,
