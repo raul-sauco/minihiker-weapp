@@ -1,0 +1,86 @@
+<!--pages/national/national.wxml-->
+<view class="container">
+
+  <view wx:for="{{ programGroups}}" wx:key='programGroups' 
+    class='program-wrapper' ontap='showProgram' 
+    data-programid='{{item.id}}'>
+
+    <view class='image-container'>
+
+      <image src="{{ resUrl  + 'img/pg/' + item.id + '/' + item.weapp_cover_image }}"></image>
+
+      <wxs module="mreg">
+
+      var checkRegistration = function(pg) {
+
+        var registration_open = false;
+
+        pg.programs.forEach(function(p) {
+          
+          if (p.registration_open) {
+            registration_open = true;
+          }
+
+        });
+
+        return registration_open;
+      };
+
+      module.exports.checkRegistration = checkRegistration;
+
+      </wxs>
+
+      <block wx:if="{{ mreg.checkRegistration(item) }}">
+        <view class='registration-status registration-open'>
+          报名中
+        </view>
+      </block>
+      <block wx:else>
+        <view class='registration-status registration-closed'>
+          名额已满
+        </view>
+      </block>
+      
+    </view>
+
+    <view class='program-details-container'>
+
+      <view class='program-details-name'>{{ item.weapp_display_name }}</view>
+
+      <view class='program-details-description'>
+        <rich-text nodes="{{ item.weapp_description }}"></rich-text>
+      </view>
+
+      <view class='program-details-multirow'>
+
+        <view class='program-ages'>
+          <text class="fas fa-ruler-vertical"></text>
+          {{ item.min_age }}-{{ item.max_age }}岁
+        </view>
+
+        <block wx:if="{{item.accompanied}}">
+          <view class='program-type'>        
+            <text class="fas fa-user-friends"></text>
+            亲子
+          </view>
+        </block>
+        <block wx:else>
+          <view class='program-type'>        
+            <text class="fas fa-child"></text>
+            单飞
+          </view>
+        </block>
+
+        <view class='program-period'>          
+          <text class="far fa-calendar-alt"></text>          
+          {{ item.type.name }}
+        </view>
+      
+      </view>
+
+    </view>
+
+  </view>
+
+</view>
+

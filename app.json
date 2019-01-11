@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/map/map",
-    "pages/program/program"
+    "pages/program/program",
+    "pages/national/national"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,13 +22,13 @@
         "pagePath": "pages/index/index",
         "iconPath": "img/icon_component.png",
         "selectedIconPath": "img/icon_component_HL.png",
-        "text": "首页"
+        "text": "国际"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/national/national",
         "iconPath": "img/icon_API.png",
         "selectedIconPath": "img/icon_API_HL.png",
-        "text": "Logs"
+        "text": "国内"
       },
       {
         "pagePath": "pages/map/map",
