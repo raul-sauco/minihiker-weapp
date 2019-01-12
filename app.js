@@ -5,9 +5,11 @@ const ProgramProvider = require('./helpers/programProvider.js');
 App({
   onLaunch: function () {
     // 展示本地存储能力
+    /*
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    */
 
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();

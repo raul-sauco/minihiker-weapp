@@ -1,4 +1,23 @@
 <!--pages/me/me.wxml-->
 <view class='container'>
-  <text>我可以在这里看到我的细节</text>
+
+  <view class="avatar">
+    <open-data class="avatar-img" type="userAvatarUrl" lang="zh_CN"></open-data>
+  </view>
+
+  <view class="weui-input">
+    <open-data type="userNickName" lang="zh_CN"></open-data>
+  </view>  
+  
+  <view class="weui-input">
+    <open-data type="userGender" lang="zh_CN"></open-data>
+  </view>
+  
+  
+  <view class="weui-input">
+    <open-data class="country" type="userCountry" lang="zh_CN"></open-data>
+    <open-data class="province" type="userProvince" lang="zh_CN"></open-data>
+    <open-data class="city" type="userCity" lang="zh_CN"></open-data>
+  </view>
+
 </view>

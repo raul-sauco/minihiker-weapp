@@ -1,1 +1,10 @@
 /* pages/me/me.wxss */
+.container {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0rpx 20rpx;
+  box-sizing: border-box;
+} 
