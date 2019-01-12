@@ -1,0 +1,4 @@
+<!--pages/me/me.wxml-->
+<view class='container'>
+  <text>我可以在这里看到我的细节</text>
+</view>

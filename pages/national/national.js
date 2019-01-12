@@ -40,8 +40,7 @@ Page({
         // If the request is successful we should get programGroups back   
         this.setData({
           resUrl: app.globalData.resUrl,
-          programGroups: res.data,
-          isRegistrationOpen: this.isRegistrationOpen
+          programGroups: res.data
         });
 
         wx.hideLoading();
