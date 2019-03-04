@@ -33,7 +33,7 @@
   <scroll-view scroll-x="true" id='programs-container'>
 
     <view wx:for='{{ programGroup.programs }}' wx:key='program-group-programs' 
-      class='program-container'>
+      class='program-container' data-program-id='{{ item.id }}' ontap='showProgram'>
 
       <view class='program-inner'>
 

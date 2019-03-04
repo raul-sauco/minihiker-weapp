@@ -3,7 +3,7 @@
 
   <view wx:for="{{ programGroups}}" wx:key='programGroups' 
     class='program-wrapper' ontap='showProgram' 
-    data-programid='{{item.id}}'>
+    data-program-group-id='{{item.id}}'>
 
     <view class='image-container'>
 

@@ -44,9 +44,31 @@ Page({
         console.warn('Request failed. ' + app.globalData.url + endpoint);
       },
       complete: (res) => {
-        console.trace('Request completed. ' + app.globalData.url + endpoint);
+        console.log('Request completed. ' + app.globalData.url + endpoint);
       }
     });
 
-  }
+  },
+
+  /**
+   * Navigate to one Program's page
+   */
+  showProgram: function (event) {
+
+    var targetProgramId = event.currentTarget.dataset.programId;
+
+    console.log('Navigating to program ' + targetProgramId);
+
+/*
+    var pg = this.data.programGroups.find(item => {
+      return item.id === parseInt(targetProgramId, 10);
+    });
+
+    // Set the ProgramGroup on the provider
+    app.globalData.programProvider[pg.id] = pg;
+*/
+    wx.navigateTo({
+      url: '../program/program?id=' + targetProgramId,
+    });
+  },
 })

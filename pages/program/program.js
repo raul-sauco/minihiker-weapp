@@ -9,7 +9,7 @@ Page({
   data: {
     resUrl: app.globalData.resUrl,
     programProvider: app.globalData.programProvider,
-    programGroup: null,
+    program: null,
     images: null
   },
 
@@ -17,6 +17,15 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+
+    this.setData({
+      program: options.id
+    });
+
+    wx.setNavigationBarTitle({
+      // title: this.data.programGroup.weapp_display_name
+      title: 'Just testing...'
+    });
 
   },
 

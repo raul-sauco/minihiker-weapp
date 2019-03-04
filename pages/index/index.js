@@ -61,17 +61,17 @@ Page({
    */
   showProgram: function (event) {
 
-    var targetProgramId = event.currentTarget.dataset.programid;
+    var targetProgramGroupId = event.currentTarget.dataset.programGroupId;
 
     var pg = this.data.programGroups.find(item => {
-      return item.id === parseInt(targetProgramId, 10);
+      return item.id === parseInt(targetProgramGroupId, 10);
     });
 
     // Set the ProgramGroup on the provider
     app.globalData.programProvider[pg.id] = pg;
 
     wx.navigateTo({
-      url: '../program-group/program-group?id=' + targetProgramId,
+      url: '../program-group/program-group?id=' + targetProgramGroupId,
     });
   },
 })
