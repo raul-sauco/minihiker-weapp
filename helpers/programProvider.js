@@ -41,6 +41,29 @@ class ProgramProvider {
     }
   }
 
+  /**
+   * Reorder the programs of a ProgramGroup based on their 
+   * start date.
+   */
+  reorderPrograms(pg) {
+
+    console.log("Reordering programs for ProgramGroup " + pg.id);
+
+    pg.programs.sort((p1, p2) => {
+      let date1 = new Date(p1.start_date);
+      let date2 = new Date(p2.start_date);
+
+      if (date1 < date2) {
+        return -1;
+      } else if (date2 < date1) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    console.log(pg.programs);
+  }
+
 }
 
 module.exports = ProgramProvider;

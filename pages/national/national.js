@@ -28,7 +28,7 @@ Page({
     });
 
     // We are fetching international programs
-    var endpoint = 'program-groups?weapp_visible=true&int=false&expand=location,programs,type,programs.registrations.programs.period';
+    var endpoint = 'program-groups?weapp_visible=true&int=false&expand=location,programs,type,programs.registrations,programs.period';
 
     wx.request({
       url: app.globalData.url + endpoint,

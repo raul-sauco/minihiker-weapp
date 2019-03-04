@@ -29,7 +29,7 @@ Page({
     });
     
     // We are fetching international programs
-    var endpoint = 'program-groups?weapp_visible=true&int=true&expand=location,programs,type,programs.registrations.programs.period';
+    var endpoint = 'program-groups?weapp_visible=true&int=true&expand=location,programs,type,programs.registrations,programs.period';
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -43,6 +43,13 @@ Page({
           resUrl: app.globalData.resUrl,
           programGroups: res.data
         });
+
+        this.data.programGroups.forEach(
+          (pg) => {
+            console.log(pg.programs);
+            app.globalData.programProvider.reorderPrograms(pg);
+          }
+        );
 
         wx.hideLoading();
       },
