@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/program/program",
     "pages/national/national",
+    "pages/program/program",
+    "pages/program-group/program-group",
     "pages/me/me"
   ],
   "window": {

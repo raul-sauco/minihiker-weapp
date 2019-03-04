@@ -71,7 +71,7 @@ Page({
     app.globalData.programProvider[pg.id] = pg;
 
     wx.navigateTo({
-      url: '../program/program?id=' + targetProgramId,
+      url: '../program-group/program-group?id=' + targetProgramId,
     });
   },
 })

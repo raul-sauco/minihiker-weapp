@@ -1,0 +1,88 @@
+<!--pages/program-group/program-group.wxml-->
+<view class="container" wx:if="{{ programGroup }}">
+
+  <image 
+    src="{{ resUrl + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"
+    class='program-group-cover-image'>
+  </image>
+
+  <view class='program-group-details-container'>
+
+    <view class='program-group-details-entry'>
+      <text class='fas fa-thumbtack'></text>
+      主题: {{ programGroup.theme }}</view>
+
+    <view class='program-group-details-entry'>
+      <text class='fas fa-map-marker-alt'></text>
+      地区: {{ programGroup.location_id }}</view>
+
+    <view class='program-group-details-entry'>
+      <text class='fas fa-list'></text>
+      期数: {{ programGroup.programs.length }}</view>
+
+    <view class='program-group-details-entry'>
+      <text class='fas fa-ruler-vertical'></text>
+      年龄: {{ programGroup.min_age }} ~ {{ programGroup.max_age }}岁</view>
+
+    <view class='program-group-details-entry'>
+      <text class="fas {{ programGroup.accompanied ? 'fa-user-friends' : 'fa-child'}}"></text>
+      家长: {{ programGroup.accompanied ? '需要陪' : '单飞'}}</view>
+
+  </view>
+
+  <scroll-view scroll-x="true" id='programs-container'>
+
+    <view wx:for='{{ programGroup.programs }}' wx:key='program-group-programs' 
+      class='program-container'>
+
+      <view class='program-inner'>
+
+        <view class='program-period program-inner-entry'>
+          {{ item.period.name }}
+        </view>
+
+        <view class='program-start program-inner-entry'>
+          <text class='attr-name'>
+            <text class='far fa-clock'></text> 出发时间: </text>
+          <text class='attr-value'>{{ item.start_date }}</text>
+        </view>
+
+        <view class='program-end program-inner-entry'>
+          <text class='attr-name'>
+            <text class='fas fa-clock'></text> 返回时间: </text>
+          <text class='attr-value'>{{ item.end_date }}</text>
+        </view>
+
+        <view class='program-price program-inner-entry'>
+          <text class='attr-name'>
+            <text class='fas fa-yen-sign'></text> 价格: </text>
+          <text class='attr-value'>¥ {{ item.price }}</text>
+        </view>
+
+        <view class='program-vacancies program-inner-entry'>
+          <text class='attr-name'>
+            <text class='far fa-hourglass'></text> 名额: </text>
+          <text class='attr-value'>仅剩{{ (item.client_limit - item.registrations) }}人</text>
+        </view>
+      
+      </view>
+
+    </view>
+  
+  </scroll-view>
+
+  <view class='program-group-description'>
+    <rich-text nodes="{{ programGroup.weapp_description }}"></rich-text>
+  </view>
+
+  <view class='program-group-images'>
+    <image wx:for='{{ images }}'  
+      wx:key='program-group-images' 
+      data-imageId='{{ item.id }}'
+      src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/th/{{ item.name }}' 
+      class='program-group-image-small' 
+      ontap='clickImage'>
+    </image>
+  </view>
+
+</view>
