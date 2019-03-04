@@ -33,12 +33,17 @@
   <scroll-view scroll-x="true" id='programs-container'>
 
     <view wx:for='{{ programGroup.programs }}' wx:key='program-group-programs' 
-      class='program-container' data-program-id='{{ item.id }}' ontap='showProgram'>
+      class='program-container {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
+      data-program-id='{{ item.id }}' ontap='selectProgram'>
 
       <view class='program-inner'>
 
         <view class='program-period program-inner-entry'>
-          {{ item.period.name }}
+          <text class='attr-name'>{{ item.period.name }}</text>
+          <text class='attr-value selected-program-confirmation' 
+            wx:if='{{ item.id === selectedProgram.id }}'>
+            <text class='fas fa-check-circle'></text>已选
+          </text>
         </view>
 
         <view class='program-start program-inner-entry'>

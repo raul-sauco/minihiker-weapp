@@ -46,7 +46,6 @@ Page({
 
         this.data.programGroups.forEach(
           (pg) => {
-            console.log(pg.programs);
             app.globalData.programProvider.reorderPrograms(pg);
           }
         );

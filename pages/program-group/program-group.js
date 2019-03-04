@@ -10,6 +10,7 @@ Page({
     resUrl: app.globalData.resUrl,
     programProvider: app.globalData.programProvider,
     programGroup: null,
+    selectedProgram: null,
     images: null
   },
 
@@ -19,7 +20,8 @@ Page({
   onLoad: function (options) {
 
     this.setData({
-      programGroup: app.globalData.programProvider[options.id]
+      programGroup: app.globalData.programProvider[options.id],
+      selectedProgram: app.globalData.programProvider[options.id].programs[0]
     });
 
     wx.setNavigationBarTitle({
@@ -59,16 +61,21 @@ Page({
 
     console.log('Navigating to program ' + targetProgramId);
 
-/*
-    var pg = this.data.programGroups.find(item => {
-      return item.id === parseInt(targetProgramId, 10);
-    });
-
-    // Set the ProgramGroup on the provider
-    app.globalData.programProvider[pg.id] = pg;
-*/
     wx.navigateTo({
       url: '../program/program?id=' + targetProgramId,
     });
   },
+
+  /** 
+   * Change the selected program and refresh the UI
+   */
+  selectProgram: function (event) {
+
+    this.setData({
+      selectedProgram: this.data.programGroup.programs.find(
+        p => p.id === event.currentTarget.dataset.programId
+      )
+    });
+
+  }
 })

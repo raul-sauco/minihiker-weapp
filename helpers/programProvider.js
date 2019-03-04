@@ -46,9 +46,6 @@ class ProgramProvider {
    * start date.
    */
   reorderPrograms(pg) {
-
-    console.log("Reordering programs for ProgramGroup " + pg.id);
-
     pg.programs.sort((p1, p2) => {
       let date1 = new Date(p1.start_date);
       let date2 = new Date(p2.start_date);
@@ -61,7 +58,6 @@ class ProgramProvider {
         return 0;
       }
     });
-    console.log(pg.programs);
   }
 
 }

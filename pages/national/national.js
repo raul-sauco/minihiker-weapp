@@ -43,6 +43,12 @@ Page({
           programGroups: res.data
         });
 
+        this.data.programGroups.forEach(
+          (pg) => {
+            app.globalData.programProvider.reorderPrograms(pg);
+          }
+        );
+
         wx.hideLoading();
       },
       fail: (res) => {

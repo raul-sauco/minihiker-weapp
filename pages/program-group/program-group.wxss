@@ -46,6 +46,14 @@
   padding: 2%;
 }
 
+.selected-program > .program-inner {
+  border: 1px solid #0ba360;
+}
+
+.selected-program-confirmation {
+  color: #0ba360;
+}
+
 .program-inner { 
   color: #555;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
