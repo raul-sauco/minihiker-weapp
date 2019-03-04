@@ -77,5 +77,33 @@ Page({
       )
     });
 
+  },
+
+  /**
+   * Display the Q/A section related to this ProgramGroup.
+   */
+  showQA: function (event) {
+    console.log('Show QA for program ' + this.data.selectedProgram.id);
+  },
+
+  /**
+   * Contact customer service with the ProgramGroup information.
+   */
+  contactCS: function (event) {
+    console.log('Contact customer service for program ' + this.data.selectedProgram.id);
+  },
+
+  /**
+   * Share this ProgramGroup page.
+   */
+  share: function (event) {
+    console.log('Share program ' + this.data.selectedProgram.id);
+  },
+
+  /**
+   * Register for the currently selected program of this ProgramGroup.
+   */
+  register: function (event) {
+    console.log('Register for program ' + this.data.selectedProgram.id);
   }
 })

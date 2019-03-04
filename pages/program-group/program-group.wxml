@@ -90,4 +90,24 @@
     </image>
   </view>
 
+  <view class='program-group-action-bar'>
+
+    <text bindtap='showQA'>
+      <text class='fas fa-question'></text>
+      问答
+    </text>
+
+    <text bindtap='contactCS'>
+      <text class='fas fa-headset'></text>
+      客服
+    </text>
+
+    <text bindtap='share'>
+      <text class='fas fa-share-alt'></text>
+      分享
+    </text>
+
+    <text bindtap='register'>现在报名</text>
+  </view>
+
 </view>

@@ -1,6 +1,6 @@
 /* pages/program-group/program-group.wxss */
 .container {
-  padding: 0;
+  padding: 0 0 50px 0;
 }
 
 .program-group-cover-image {
@@ -104,4 +104,40 @@
   width: 50px;
   height: 50px;
   margin-bottom: 2rpx;
+}
+
+.program-group-action-bar {
+  position: fixed;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+
+  background-color: #fcfcfc;
+  border-top: 0.5px solid #ddd;
+}
+
+.program-group-action-bar > text {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #777;
+
+  /* Use flex-box to ceter vertically the content */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+
+  border-right: 0.2px solid #ddd;
+}
+
+/* Remove the border from the last item */
+.program-group-action-bar > text:last-child {
+  border-right: none;
+  flex-grow: 1.5;
+  color: white;
+  text-shadow: 1px 1px 2px #444, 0 0 0.2em #ddd;
+  
+  background-image: radial-gradient(at 10% 10%, #0ba360 0%, #3cba92 100%);
 }
