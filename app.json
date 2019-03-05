@@ -4,7 +4,8 @@
     "pages/national/national",
     "pages/program/program",
     "pages/program-group/program-group",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/program-group-qa/program-group-qa"
   ],
   "window": {
     "backgroundTextStyle": "light",

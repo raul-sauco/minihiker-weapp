@@ -83,7 +83,9 @@ Page({
    * Display the Q/A section related to this ProgramGroup.
    */
   showQA: function (event) {
-    console.log('Show QA for program ' + this.data.selectedProgram.id);
+    wx.navigateTo({
+      url: '../program-group-qa/program-group-qa?id=' + this.data.programGroup.id,
+    });
   },
 
   /**

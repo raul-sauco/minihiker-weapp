@@ -82,7 +82,7 @@
 
   <view class='program-group-images'>
     <image wx:for='{{ images }}'  
-      wx:key='program-group-images' 
+      wx:key='id' 
       data-imageId='{{ item.id }}'
       src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/th/{{ item.name }}' 
       class='program-group-image-small' 

@@ -1,0 +1,16 @@
+<!--pages/program-group-qa/program-group-qa.wxml-->
+<view class='container'>
+
+  <view class='program-group-qa-container' wx:for='{{qas}}' 
+    wx:for-item='qa' wx:key='id'>
+    <view class='qa-avatar'>
+      <image src='{{ qa.user_avatar_url }}'></image>
+    </view>
+    <view class='qa-user-nickname'>{{ qa.user_nickname }}</view>
+    <view class='qa-asked'>{{ qa.asked }}</view>
+    <view class='qa-question'>{{ qa.question }}</view>
+    <view class='qa-answer'>{{ qa.answer }}</view>
+  </view>
+
+</view>
+<view>{{ programGroup.qaFetchTimestamp }}</view>
