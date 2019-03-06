@@ -12,5 +12,8 @@
     <view class='qa-answer'>{{ qa.answer }}</view>
   </view>
 
+  <view class='program-group-qa-action-bar'>
+    <button bindtap='askQuestion'>请留下您的问题</button>
+  </view>
+
 </view>
-<view>{{ programGroup.qaFetchTimestamp }}</view>

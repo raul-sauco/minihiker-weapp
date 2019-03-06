@@ -1,4 +1,9 @@
 /* pages/program-group-qa/program-group-qa.wxss */
+
+.container {
+  padding-bottom: 50px;
+  color: #777;
+}
 .program-group-qa-container {
   display: grid;
   grid-template-columns: 55px 1fr 1fr;
@@ -14,9 +19,8 @@
   padding-bottom: 2px;
 
   font-size: 0.7rem;
-  color: #777;
 
-  border-bottom: 0.5px solid #777;
+  border-bottom: 0.5px solid #ccc
 }
 
 .program-group-qa-container:first-child {
@@ -49,9 +53,23 @@
 
 .qa-question {
   grid-area: 2 / 2 / 3 / 4;
-  color: #888;
+  color: #666;
 }
 
 .qa-answer {
   grid-area: 3 / 2 / 4 / 4;
+}
+
+.program-group-qa-action-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  background-color: #fcfcfc;
+  border-top: 0.5px solid #ddd;
+}
+
+.program-group-qa-action-bar > button {
+  font-size: 0.7rem;
+  margin: 1%;
 }

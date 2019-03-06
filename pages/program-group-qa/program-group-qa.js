@@ -32,6 +32,9 @@ Page({
       this.fetchProgramGroupQa();
     } else {
       console.log('qaFetchTimestamp is not undefined');
+      this.setData({
+        qas: this.data.programGroup.qas
+      });
     }
   },
 
@@ -81,7 +84,14 @@ Page({
         console.log('Request completed. ' + app.globalData.url + endpoint);
       }
     })
-  }, 
+  },
+
+  /**
+   * Allow the user to send a QA related to this ProgramGroup
+   */
+  askQuestion: function () {
+    console.log('TODO create new question for ProgramGroup ' + this.data.programGroup.id);
+  },
   
   /**
    * See 
@@ -140,14 +150,14 @@ Page({
    * Page event handler function--Called when user drop down
    */
   onPullDownRefresh: function () {
-
+    console.log('TODO reload questions');
   },
 
   /**
    * Called when page reach bottom
    */
   onReachBottom: function () {
-
+    console.log('TODO load more QAs when the user reaches the bottom');
   },
 
   /**
