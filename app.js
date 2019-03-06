@@ -43,6 +43,8 @@ App({
   },
   globalData: {
     userInfo: null,
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,
     url: 'https://minihiker.com/api/',
     resUrl: 'https://minihiker.com/webapp/',

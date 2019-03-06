@@ -3,12 +3,7 @@ const app = getApp()
 
 Page({
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    programGroups: [],
-    programProvider: app.globalData.programProvider,
-    resUrl: null
+    programGroups: []
   },
 
   /**
@@ -49,7 +44,6 @@ Page({
         );
           
         this.setData({
-          resUrl: app.globalData.resUrl,
           programGroups: res.data
         });
 

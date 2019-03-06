@@ -3,8 +3,7 @@ const app = getApp()
 
 Page({
   data: {
-    programGroups: [],
-    resUrl: null
+    programGroups: []
   },
 
   /**
@@ -27,7 +26,7 @@ Page({
       title: '获取数据',
     });
 
-    // We are fetching international programs
+    // We are fetching national programs
     var endpoint = 'program-groups?weapp_visible=true&int=false&expand=location,programs,type,programs.registrations,programs.period';
 
     wx.request({
@@ -37,17 +36,18 @@ Page({
         'Authorization': app.globalData.authToken
       },
       success: (res) => {
-        // If the request is successful we should get programGroups back   
-        this.setData({
-          resUrl: app.globalData.resUrl,
-          programGroups: res.data
-        });
 
-        this.data.programGroups.forEach(
+        // If the request is successful we should get programGroups back 
+        res.data.forEach(
           (pg) => {
+            app.globalData.programProvider[pg.id] = pg;
             app.globalData.programProvider.reorderPrograms(pg);
           }
         );
+
+        this.setData({
+          programGroups: res.data
+        });
 
         wx.hideLoading();
       },
@@ -59,24 +59,6 @@ Page({
       }
     });
 
-  },
+  }
 
-  /**
-   * Navigate to one ProgramGroup's page
-   */
-  showProgram: function (event) {
-
-    var targetProgramGroupId = event.currentTarget.dataset.programGroupId;
-
-    var pg = this.data.programGroups.find(item => {
-      return item.id === parseInt(targetProgramGroupId, 10);
-    });
-
-    // Set the ProgramGroup on the provider
-    app.globalData.programProvider[pg.id] = pg;
-
-    wx.navigateTo({
-      url: '../program-group/program-group?id=' + targetProgramGroupId,
-    });
-  },
 })

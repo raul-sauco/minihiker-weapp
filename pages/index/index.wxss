@@ -1,1 +1,4 @@
 /**index.wxss**/
+.container {
+  align-items: stretch;
+}
