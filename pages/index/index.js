@@ -7,6 +7,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programGroups: [],
+    programProvider: app.globalData.programProvider,
     resUrl: null
   },
 
@@ -38,17 +39,19 @@ Page({
         'Authorization': app.globalData.authToken
       },
       success: (res) => {
-        // If the request is successful we should get programGroups back   
+
+        // If the request is successful we should get ProgramGroups back 
+        res.data.forEach(
+          (pg) => {
+            app.globalData.programProvider[pg.id] = pg;
+            app.globalData.programProvider.reorderPrograms(pg);
+          }
+        );
+          
         this.setData({
           resUrl: app.globalData.resUrl,
           programGroups: res.data
         });
-
-        this.data.programGroups.forEach(
-          (pg) => {
-            app.globalData.programProvider.reorderPrograms(pg);
-          }
-        );
 
         wx.hideLoading();
       },
@@ -60,24 +63,5 @@ Page({
       }
     });
 
-  },
-
-  /**
-   * Navigate to one ProgramGroup's page
-   */
-  showProgram: function (event) {
-
-    var targetProgramGroupId = event.currentTarget.dataset.programGroupId;
-
-    var pg = this.data.programGroups.find(item => {
-      return item.id === parseInt(targetProgramGroupId, 10);
-    });
-
-    // Set the ProgramGroup on the provider
-    app.globalData.programProvider[pg.id] = pg;
-
-    wx.navigateTo({
-      url: '../program-group/program-group?id=' + targetProgramGroupId,
-    });
-  },
+  }
 })

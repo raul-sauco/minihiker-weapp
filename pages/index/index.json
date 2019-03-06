@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "program-group": "../components/program-group/program-group"
+  }
+}

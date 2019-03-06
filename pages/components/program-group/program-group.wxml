@@ -1,0 +1,80 @@
+<!--pages/components/program-group/program-group.wxml-->
+<view class='program-group-wrapper' bindtap='showProgram'
+    data-program-group-id='{{ programGroup.id }}' wx:if='{{ programGroup }}'>
+
+  <view class='image-container'>
+
+    <image src="{{ resUrl  + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"></image>
+
+    <wxs module="mreg">
+
+    var checkRegistration = function(pg) {
+
+      var registration_open = false;
+
+      pg.programs.forEach(function(p) {
+        
+        if (p.registration_open) {
+          registration_open = true;
+        }
+
+      });
+
+      return registration_open;
+    };
+
+    module.exports.checkRegistration = checkRegistration;
+
+    </wxs>
+
+    <block wx:if="{{ mreg.checkRegistration(programGroup) }}">
+      <view class='registration-status registration-open'>
+        报名中
+      </view>
+    </block>
+    <block wx:else>
+      <view class='registration-status registration-closed'>
+        名额已满
+      </view>
+    </block>
+    
+  </view>
+
+  <view class='program-details-container'>
+
+    <view class='program-details-name'>{{ programGroup.weapp_display_name }}</view>
+
+    <view class='program-details-description'>
+      <rich-text nodes="{{ programGroup.weapp_description }}"></rich-text>
+    </view>
+
+    <view class='program-details-multirow'>
+
+      <view class='program-ages'>
+        <text class="fas fa-ruler-vertical"></text>
+        {{ programGroup.min_age }}-{{ programGroup.max_age }}岁
+      </view>
+
+      <block wx:if="{{ programGroup.accompanied }}">
+        <view class='program-type'>        
+          <text class="fas fa-user-friends"></text>
+          亲子
+        </view>
+      </block>
+      <block wx:else>
+        <view class='program-type'>        
+          <text class="fas fa-child"></text>
+          单飞
+        </view>
+      </block>
+
+      <view class='program-period'>          
+        <text class="far fa-calendar-alt"></text>          
+        {{ programGroup.type.name }}
+      </view>
+    
+    </view>
+
+  </view>
+
+</view>
