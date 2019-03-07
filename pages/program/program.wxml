@@ -1,2 +1,0 @@
-<!--pages/program/program.wxml-->
-<text>I am the program page for program {{ program }}</text>

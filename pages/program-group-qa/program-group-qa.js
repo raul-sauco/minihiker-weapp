@@ -7,7 +7,6 @@ Page({
    * Page initial data
    */
   data: {
-    programProvider: app.globalData.programProvider,
     programGroup: null,
     qas: null
   },
@@ -18,11 +17,11 @@ Page({
   onLoad: function (options) {
 
     this.setData({
-      programGroup: app.globalData.programProvider[options.id]
+      programGroup: app.globalData.programProvider.get(options.id)
     });
 
     wx.setNavigationBarTitle({
-      title: this.data.programGroup.weapp_display_name + '问答'
+      title: '问答 ' + this.data.programGroup.weapp_display_name
     });
 
     // TODO get rid of the next block of logs
@@ -46,7 +45,7 @@ Page({
 
     // Fetching server data, display a loader
     wx.showLoading({
-      title: '获取数据',
+      title: '下载中',
     });
 
     let endpoint = 'qas?program_group=' + this.data.programGroup.id;
@@ -58,19 +57,25 @@ Page({
       },
       success: (res) => {
 
+        // If the request is successful we should get ProgramGroup Qas
+
+        // Get the ProgramGroup from the provider
+        let pg = app.globalData.programProvider.get(this.data.programGroup.id);
+
         // Store the Qas on the Program Group and save the fetch time
-        this.data.programGroup.qas = res.data;
-        this.data.programGroup.qaFetchTimestamp = new Date();
+        pg.qas = res.data;
+        pg.qaFetchTs = Math.round(new Date().getTime()/1000);
 
         // Create a human-readable time-ago string from the timestamp
-        this.data.programGroup.qas.forEach(qa => {
+        pg.qas.forEach(qa => {
           qa.asked = this.ago(qa.created_at);
         });
 
-        // If the request is successful we should get ProgramGroup Qas
         this.setData({
-          qas: this.data.programGroup.qas
+          qas: pg.qas
         });
+
+        console.log(app.globalData.programProvider.get(pg.id));
 
       },
       fail: (res) => {

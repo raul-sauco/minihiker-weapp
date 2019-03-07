@@ -7,10 +7,9 @@ Page({
    * Page initial data
    */
   data: {
-    resUrl: app.globalData.resUrl,
-    programProvider: app.globalData.programProvider,
     programGroup: null,
     selectedProgram: null,
+    resUrl: app.globalData.resUrl,
     images: null
   },
 
@@ -20,15 +19,25 @@ Page({
   onLoad: function (options) {
 
     this.setData({
-      programGroup: app.globalData.programProvider[options.id],
-      selectedProgram: app.globalData.programProvider[options.id].programs[0]
+      programGroup: app.globalData.programProvider.get(options.id),
+      selectedProgram: app.globalData.programProvider.get(options.id).programs[0]
     });
 
     wx.setNavigationBarTitle({
       title: this.data.programGroup.weapp_display_name
     });
 
-    var endpoint = 'images?program_group_id=' + this.data.programGroup.id;
+    // Get the images from the server TODO check cache
+    this.fetchImages();
+
+  },
+
+  /**
+   * Fetch this ProgramGroup's images from the server.
+   */
+  fetchImages: function () {
+
+    let endpoint = 'images?program_group_id=' + this.data.programGroup.id;
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -37,9 +46,18 @@ Page({
         'Authorization': app.globalData.authToken
       },
       success: (res) => {
+
         // If the request is successful we should get programgroup images back
+
+        // Get the ProgramGroup from the provider
+        let pg = app.globalData.programProvider.get(this.data.programGroup.id);
+
+        // Store the Qas on the Program Group and save the fetch time
+        pg.images = res.data;
+        pg.imgFetchTs = Math.round(new Date().getTime() / 1000);
+
         this.setData({
-          images: res.data
+          images: pg.images
         });
       },
       fail: (res) => {
@@ -50,20 +68,6 @@ Page({
       }
     });
 
-  },
-
-  /**
-   * Navigate to one Program's page
-   */
-  showProgram: function (event) {
-
-    var targetProgramId = event.currentTarget.dataset.programId;
-
-    console.log('Navigating to program ' + targetProgramId);
-
-    wx.navigateTo({
-      url: '../program/program?id=' + targetProgramId,
-    });
   },
 
   /** 

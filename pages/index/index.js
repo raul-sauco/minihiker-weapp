@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+    programProvider: app.globalData.programProvider,
     programGroups: []
   },
 
@@ -35,14 +36,11 @@ Page({
       },
       success: (res) => {
 
-        // If the request is successful we should get ProgramGroups back 
-        res.data.forEach(
-          (pg) => {
-            app.globalData.programProvider[pg.id] = pg;
-            app.globalData.programProvider.reorderPrograms(pg);
-          }
-        );
-          
+        // If the request is successful we should get a ProgramGroups array back
+        // Add the ProgramGroups to the provider
+        app.globalData.programProvider.addFromArray(res.data);
+        
+        // And add them to the data set, will refresh the UI
         this.setData({
           programGroups: res.data
         });

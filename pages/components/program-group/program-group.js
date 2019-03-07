@@ -25,7 +25,7 @@ Component({
    */
   attached: function () {
     this.setData({
-      programGroup: app.globalData.programProvider[this.properties.programGroupId]
+      programGroup: app.globalData.programProvider.get(this.properties.programGroupId)
     });
   },
 
