@@ -132,8 +132,31 @@
   border-right: 0.2px solid #ddd;
 }
 
+.program-group-action-bar > button {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #777;
+
+  /* Use flex-box to ceter vertically the content */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+
+  border-right: 0.2px solid #ddd;
+
+  /* Override default button styles */
+  background-color: inherit;
+  border-radius: 0;
+  line-height: 1.5;
+  padding: 0;
+  margin: -1px;
+  box-shadow: none;
+  border: none;
+}
+
 /* Remove the border from the last item */
-.program-group-action-bar > text:last-child {
+.program-group-action-bar > button:last-child {
   border-right: none;
   flex-grow: 1.5;
   color: white;

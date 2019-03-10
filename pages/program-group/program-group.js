@@ -100,10 +100,13 @@ Page({
   },
 
   /**
-   * Share this ProgramGroup page.
+   * Generate the share information for the page.
    */
-  share: function (event) {
-    console.log('Share program ' + this.data.selectedProgram.id);
+  onShareAppMessage: function (e) {
+    return {
+      title: '童行者.' + this.data.programGroup.weapp_display_name,
+      path: '/pages/program-group/program-group?id=' + this.data.programGroup.id
+    };
   },
 
   /**

@@ -123,10 +123,13 @@ Page({
   },
 
   /**
-   * Lifecycle function--Called when page is initially rendered
+   * Generate the share information for the page.
    */
-  onReady: function () {
-
+  onShareAppMessage: function (e) {
+    return {
+      title: '童行者.' + this.data.programGroup.weapp_display_name + '.问答.',
+      path: '/pages/program-group-qa/program-group-qa?id=' + this.data.programGroup.id
+    };
   },
 
   /**
@@ -135,23 +138,11 @@ Page({
   onShow: function () {
 
     // Refresh the UI with all the qa
-    this.setData({
-      qas: app.globalData.programProvider.get(this.data.programGroup.id).qas
-    });
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
+    if (this.data.qas) {
+      this.setData({
+        qas: app.globalData.programProvider.get(this.data.programGroup.id).qas
+      });
+    }
 
   },
 
@@ -167,12 +158,5 @@ Page({
    */
   onReachBottom: function () {
     console.log('TODO load more QAs when the user reaches the bottom');
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
   }
 })

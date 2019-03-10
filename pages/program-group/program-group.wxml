@@ -92,22 +92,22 @@
 
   <view class='program-group-action-bar'>
 
-    <text bindtap='showQA'>
+    <button bindtap='showQA'>
       <text class='fas fa-question'></text>
       问答
-    </text>
+    </button>
 
-    <text bindtap='contactCS'>
+    <button bindtap='contactCS'>
       <text class='fas fa-headset'></text>
       客服
-    </text>
+    </button>
 
-    <text bindtap='share'>
+    <button open-type='share'>
       <text class='fas fa-share-alt'></text>
       分享
-    </text>
+    </button>
 
-    <text bindtap='register'>现在报名</text>
+    <button bindtap='register' type='primary'>现在报名</button>
   </view>
 
 </view>

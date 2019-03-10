@@ -56,6 +56,16 @@ Page({
       }
     });
 
+  },
+
+  /**
+   * Generate the share information for the page.
+   */
+  onShareAppMessage: function (e) {
+    return {
+      title: '童行者.国内项目.',
+      path: '/pages/national/national'
+    };
   }
 
 })
