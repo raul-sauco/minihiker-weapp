@@ -72,4 +72,5 @@
 .program-group-qa-action-bar > button {
   font-size: 0.7rem;
   margin: 1%;
+  color: #aaa;
 }

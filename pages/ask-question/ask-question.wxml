@@ -5,8 +5,10 @@
 
     <textarea placeholder='输入问题' 
       name='textarea' 
-      id='qa-textarea' 
+      id='qa-textarea'
+      maxlength='200'
       bindinput='bindInput'>
+      <text id='qa-textarea-counter'>{{ characterCount }}</text>
     </textarea>
 
     <button type='primary' 

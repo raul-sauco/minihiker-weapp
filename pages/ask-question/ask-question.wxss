@@ -14,5 +14,13 @@
   width: 100%;
   margin: 2% 0;
   padding: 1%;
-  font-size: 0.7rem;
+  box-sizing: border-box;
+}
+
+#qa-textarea-counter {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+
+  font-size: 0.6rem;
 }

@@ -11,7 +11,8 @@ Page({
     hasUserInfo: false,
     userInfo: null,
     programGroup: null,
-    loading: false
+    loading: false,
+    characterCount: '0/200'
   },
 
   /**
@@ -57,6 +58,13 @@ Page({
    */
   bindInput: function (e) {
     console.log(e.detail);
+
+    let count = e.detail.value.length + '/200';
+
+    this.setData({
+      characterCount: count
+    });
+    
   },
 
   /**
