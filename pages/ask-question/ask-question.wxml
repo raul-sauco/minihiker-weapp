@@ -1,0 +1,38 @@
+<!--pages/ask-question/ask-question.wxml-->
+<view class='container' wx:if='{{ hasUserInfo }}'>
+
+  <form bindsubmit='sendQa' id='qa-form'>
+
+    <textarea placeholder='输入问题' 
+      name='textarea' 
+      id='qa-textarea' 
+      bindinput='bindInput'>
+    </textarea>
+
+    <button type='primary' 
+      form-type='submit' 
+      loading='{{ loading }}'> {{ loading ? '上传中' : '提问' }} 
+    </button>
+
+  </form>
+
+</view>
+
+<view class='container' wx:else>
+
+  <view wx:if='canIuse'>
+
+    <text class='authorize-text'>
+      We need to get some information to process your question, 
+      please use the button below to authorize access to your
+      profile photo and nickname.
+    </text>
+
+    <button wx:if='canIuse' open-type='getUserInfo' 
+      bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+
+  </view>
+  
+  <view wx:else>Please upgrade WeChat version</view>
+
+</view>

@@ -74,9 +74,6 @@ Page({
         this.setData({
           qas: pg.qas
         });
-
-        console.log(app.globalData.programProvider.get(pg.id));
-
       },
       fail: (res) => {
         console.warn('Request failed. ' + app.globalData.url + endpoint);
@@ -95,7 +92,9 @@ Page({
    * Allow the user to send a QA related to this ProgramGroup
    */
   askQuestion: function () {
-    console.log('TODO create new question for ProgramGroup ' + this.data.programGroup.id);
+    wx.navigateTo({
+      url: '../ask-question/ask-question?id=' + this.data.programGroup.id,
+    });
   },
   
   /**
@@ -134,6 +133,11 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
+
+    // Refresh the UI with all the qa
+    this.setData({
+      qas: app.globalData.programProvider.get(this.data.programGroup.id).qas
+    });
 
   },
 

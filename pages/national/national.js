@@ -23,7 +23,7 @@ Page({
     // TODO allow for pagination
 
     wx.showLoading({
-      title: '获取数据',
+      title: '下载中',
     });
 
     // We are fetching national programs

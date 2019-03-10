@@ -4,7 +4,8 @@
     "pages/national/national",
     "pages/program-group/program-group",
     "pages/me/me",
-    "pages/program-group-qa/program-group-qa"
+    "pages/program-group-qa/program-group-qa",
+    "pages/ask-question/ask-question"
   ],
   "window": {
     "backgroundTextStyle": "light",
