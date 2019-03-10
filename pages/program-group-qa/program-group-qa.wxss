@@ -74,3 +74,9 @@
   margin: 1%;
   color: #aaa;
 }
+
+
+
+#qa-no-qas-found {
+  padding: 3rem 0;
+}
