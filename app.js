@@ -93,7 +93,6 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,
     url: 'https://minihiker.com/api/',
-    resUrl: 'https://minihiker.com/webapp/',
-    authToken: 'Bearer Bt6w40-Z9l7biq8PiNNpYdSKFR5nirbv'
+    resUrl: 'https://minihiker.com/webapp/'
   }
 })

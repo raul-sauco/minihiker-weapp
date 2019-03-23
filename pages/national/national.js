@@ -32,8 +32,7 @@ Page({
     wx.request({
       url: app.globalData.url + endpoint,
       header: {
-        'Content-Type': 'application/json',
-        'Authorization': app.globalData.authToken
+        'Content-Type': 'application/json'
       },
       success: (res) => {
 
