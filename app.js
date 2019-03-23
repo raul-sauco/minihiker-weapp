@@ -11,6 +11,21 @@ App({
     wx.setStorageSync('logs', logs)
     */
 
+    let user = wx.getStorageSync('user');
+
+    if (user) {
+
+      // We have user info in storage
+      this.globalData.userInfo = user;
+      this.globalData.hasUserInfo = true;
+      
+    } else {
+
+      // Get user info if the user has authorized it previously
+      this.obtainUserInfo();
+
+    }
+
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
 
@@ -21,9 +36,6 @@ App({
         console.log('wx.login returned code: ' + res.code);
       }
     });
-
-    // Get user info if the user has authorized it previously
-    this.obtainUserInfo();
   },
 
   /**
@@ -46,6 +58,14 @@ App({
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
               this.globalData.hasUserInfo = true;
+
+              // Try to create the object
+              wx.setStorage({
+                key: 'user',
+                data: res.userInfo,
+                success: () => {console.log('Saved user information to storage.')},
+                fail: () => {console.log('Failed to save user information to storage.')}
+              });
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
