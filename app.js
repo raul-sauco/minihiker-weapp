@@ -34,6 +34,9 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log('wx.login returned code: ' + res.code);
+
+        // Authenticate the user on the backend
+        this.loginUser(res.code);
       }
     });
   },
@@ -85,6 +88,29 @@ App({
   userInfoReadyCallback: function (res) {
     console.log('app: userInfoReadyCallback has been invoked');
     console.log(res);
+  },
+
+  /**
+   * Send login information to the backend to authenticate user.
+   */
+  loginUser: function (code) {
+
+    let endpoint = 'wx-auth';
+
+    // Send the code to the backend to login
+    wx.request({
+      url: this.globalData.url + endpoint,
+      method: 'POST',
+      data: {jsCode:code},
+      success: res => {
+
+        // Check that we get the expected response
+        console.log('User logged in on backend');
+        console.log(res);
+
+      }
+    });
+
   },
 
   globalData: {
