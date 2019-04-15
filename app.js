@@ -97,11 +97,15 @@ App({
 
     let endpoint = 'wx-auth';
 
-    // Send the code to the backend to login
+    // Send the code to the backend to login, add user data to customize
     wx.request({
       url: this.globalData.url + endpoint,
       method: 'POST',
-      data: {jsCode:code},
+      data: {
+        jsCode:code,
+        userInfo:this.globalData.userInfo
+      },
+      header: {'Content-Type':'application/json'},
       success: res => {
 
         // Check that we get the expected response
