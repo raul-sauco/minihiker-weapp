@@ -97,7 +97,7 @@ App({
 
     let endpoint = 'wx-auth';
 
-    // Send the code to the backend to login, add user data to customize
+    // Send the code to the backend to login, add user data
     wx.request({
       url: this.globalData.url + endpoint,
       method: 'POST',
@@ -109,8 +109,19 @@ App({
       success: res => {
 
         // Check that we get the expected response
-        console.log('User logged in on backend');
+        console.log('Success loggin in user' + res.data.username + ' on backend');
         console.log(res);
+
+        // Save the access_token
+        this.globalData.accessToken = res.data.access_token;
+
+        // Try to create the object
+        wx.setStorage({
+          key: 'accessToken',
+          data: res.data.access_token,
+          success: () => { console.log('Saved user access token to storage.') },
+          fail: () => { console.log('Failed to save user access token to storage.') }
+        });
 
       }
     });
@@ -120,6 +131,7 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
+    accessToken: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,
     url: 'https://minihiker.com/api/',
