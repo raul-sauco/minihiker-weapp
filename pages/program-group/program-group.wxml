@@ -97,7 +97,7 @@
       问答
     </button>
 
-    <button bindtap='contactCS'>
+    <button open-type='contact'>
       <text class='fas fa-headset'></text>
       客服
     </button>
