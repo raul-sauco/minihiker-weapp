@@ -10,25 +10,7 @@ Page({
     programGroup: null,
     selectedProgram: null,
     resUrl: app.globalData.resUrl,
-    images: null,
-    contacts: [
-      {
-        name: '工作日9:00-18:00',
-        number: '01057271804'
-      },
-      {
-        name: '童行小精灵',
-        number: '13121874868'
-      },
-      {
-        name: '小精灵Amy',
-        number: '18514784894'
-      },
-      {
-        name: '小精灵Anna',
-        number: '17600979374'
-      }
-    ]
+    images: null
   },
 
   /**
@@ -106,29 +88,6 @@ Page({
   showQA: function (event) {
     wx.navigateTo({
       url: '../program-group-qa/program-group-qa?id=' + this.data.programGroup.id,
-    });
-  },
-
-  /**
-   * Display a list of contact phone-numbers.
-   */
-  contactCS: function (event) {
-
-    wx.showActionSheet({
-      itemList: [
-        this.data.contacts[0].name + ' ' + this.data.contacts[0].number,
-        this.data.contacts[1].name + ' ' + this.data.contacts[1].number,
-        this.data.contacts[2].name + ' ' + this.data.contacts[2].number
-      ],
-      success: res => {
-        console.log('Tapped ' + res.tapIndex);
-        wx.makePhoneCall({
-          phoneNumber: this.data.contacts[res.tapIndex].number
-        });
-      },
-      fail: res => {
-        console.log(res.errMsg);
-      }
     });
   },
 
