@@ -52,4 +52,14 @@ Page({
     });
 
   },
+
+  /**
+   * Navigate to the personal information page.
+   */
+  navigateToPersonalInfoPage: function (e) {
+
+    wx.navigateTo({
+      url: '/pages/personal-information/personal-information',
+    });
+  }
 })
