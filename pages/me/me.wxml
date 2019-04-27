@@ -1,6 +1,26 @@
 <!--pages/me/me.wxml-->
 <view class='container'>
 
+  <block wx:if="{{ !hasUserInfo && wx.canIUse('button.open-type.getUserInfo') }}">  
+
+    <text class='authorize-text'>
+      We need to get some information to create an account for you, 
+      please use the button below to authorize access to your
+      profile photo and nickname.
+    </text>
+
+    <button wx:if='canIuse' open-type='getUserInfo' 
+      bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+
+  </block>
+  <block wx:else>
+  
+    <!-- We have user info, present the interface -->
+    <view>We have all your info, we can process your requests.</view>
+
+  </block>
+
+
   <view class="avatar">
     <open-data class="avatar-img" type="userAvatarUrl" lang="zh_CN"></open-data>
   </view>

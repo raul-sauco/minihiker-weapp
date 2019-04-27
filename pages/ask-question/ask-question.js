@@ -44,6 +44,9 @@ Page({
     app.globalData.userInfo = userInfo;
     app.globalData.hasUserInfo = true;
 
+    // Call the application userInfoReadyCallback
+    app.userInfoReadyCallback(e.detail.userInfo);
+
     // Set the info on the page, will refresh the view
     this.setData({
       hasUserInfo: true,

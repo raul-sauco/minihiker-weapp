@@ -62,14 +62,6 @@ App({
               this.globalData.userInfo = res.userInfo;
               this.globalData.hasUserInfo = true;
 
-              // Try to create the object
-              wx.setStorage({
-                key: 'user',
-                data: res.userInfo,
-                success: () => {console.log('Saved user information to storage.')},
-                fail: () => {console.log('Failed to save user information to storage.')}
-              });
-
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -88,6 +80,16 @@ App({
   userInfoReadyCallback: function (res) {
     console.log('app: userInfoReadyCallback has been invoked');
     console.log(res);
+
+    // Try to create the object
+    wx.setStorage({
+      key: 'user',
+      data: this.globalData.userInfo,
+      success: () => { console.log('Saved user information to storage.') },
+      fail: () => { console.log('Failed to save user information to storage.') }
+    });
+
+    // TODO send the information to the server to update username
   },
 
   /**
