@@ -7,6 +7,7 @@ Page({
    * Page initial data
    */
   data: {
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hasUserInfo: false,
     userInfo: null
   },
@@ -20,9 +21,6 @@ Page({
       hasUserInfo: app.globalData.hasUserInfo,
       userInfo: app.globalData.userInfo
     });
-
-    console.log('this.hasUserInfo is set to ' + this.data.hasUserInfo);
-    
 
     wx.setNavigationBarTitle({
       title: '我的'
@@ -59,7 +57,7 @@ Page({
   navigateToPersonalInfoPage: function (e) {
 
     wx.navigateTo({
-      url: '/pages/personal-information/personal-information',
+      url: '/pages/account-details/account-details',
     });
   }
 })

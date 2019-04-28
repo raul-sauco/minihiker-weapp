@@ -1,42 +1,37 @@
 <!--pages/me/me.wxml-->
 <view class='container'>
 
-  <view class="avatar">
+  <view class='user-details-header'>
+
     <open-data class="avatar-img" type="userAvatarUrl" lang="zh_CN"></open-data>
-  </view>
-
-  <view class="weui-input">
+    
     <open-data type="userNickName" lang="zh_CN"></open-data>
-  </view>  
   
-  <view class="weui-input">
-    <open-data type="userGender" lang="zh_CN"></open-data>
-  </view>
-  
-  
-  <view class="weui-input">
-    <open-data class="country" type="userCountry" lang="zh_CN"></open-data>
-    <open-data class="province" type="userProvince" lang="zh_CN"></open-data>
-    <open-data class="city" type="userCity" lang="zh_CN"></open-data>
   </view>
 
-  <block wx:if="{{ !hasUserInfo && wx.canIUse('button.open-type.getUserInfo') }}">  
-
-    <text class='authorize-text'>
-      We need to get some information to create an account for you, 
-      please use the button below to authorize access to your
-      profile photo and nickname.
-    </text>
-
-    <button wx:if='canIuse' open-type='getUserInfo' 
-      bindgetuserinfo='bindGetUserInfo'>授权登录</button>
-
-  </block>
-  <block wx:else>
+  <block wx:if="{{ hasUserInfo  }}">
   
     <!-- We have user info, present the interface -->
     <view>We are missing some of your personal information, please click the button to fill it up</view>
     <button bindtap='navigateToPersonalInfoPage' navi>Fill personal info</button>
+
+  </block>
+  <block wx:else>
+
+    <block wx:if='{{ canIUse }}'>
+
+      <text class='authorize-text'>
+        We need to get some information to create an account for you, 
+        please use the button below to authorize access to your
+        profile photo and nickname.
+      </text>
+
+      <button open-type='getUserInfo' 
+        bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+    
+    </block>
+
+    <view wx:else>Please update your Wechat version.</view>
 
   </block>
 

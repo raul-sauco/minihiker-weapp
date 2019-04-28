@@ -6,7 +6,8 @@
     "pages/me/me",
     "pages/program-group-qa/program-group-qa",
     "pages/ask-question/ask-question",
-    "pages/personal-information/personal-information"
+    "pages/personal-information/personal-information",
+    "pages/account-information/account-details"
   ],
   "window": {
     "backgroundTextStyle": "light",
