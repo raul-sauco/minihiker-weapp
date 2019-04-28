@@ -1,13 +1,14 @@
 <!--pages/me/me.wxml-->
+<view class='user-details-header'>
+
+
+  <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+  <view class='user-nickname'>{{ userInfo.nickName }}</view>
+
+</view>
+
 <view class='container'>
-
-  <view class='user-details-header'>
-
-    <open-data class="avatar-img" type="userAvatarUrl" lang="zh_CN"></open-data>
-    
-    <open-data type="userNickName" lang="zh_CN"></open-data>
-  
-  </view>
 
   <block wx:if="{{ hasUserInfo  }}">
   
