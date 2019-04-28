@@ -49,15 +49,5 @@ Page({
       userInfo: userInfo,
     });
 
-  },
-
-  /**
-   * Navigate to the personal information page.
-   */
-  navigateToPersonalInfoPage: function (e) {
-
-    wx.navigateTo({
-      url: '/pages/account-details/account-details',
-    });
   }
 })

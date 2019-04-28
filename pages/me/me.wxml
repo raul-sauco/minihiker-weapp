@@ -1,39 +1,59 @@
 <!--pages/me/me.wxml-->
-<view class='user-details-header'>
+<block wx:if="{{ hasUserInfo  }}">
 
+  <!-- We have user info, present the user account details -->
 
-  <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+  <view class='user-details-header'>
 
-  <view class='user-nickname'>{{ userInfo.nickName }}</view>
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
 
-</view>
+    <view class='user-nickname'>{{ userInfo.nickName }}</view>
 
-<view class='container'>
+  </view>
 
-  <block wx:if="{{ hasUserInfo  }}">
-  
-    <!-- We have user info, present the interface -->
-    <view>We are missing some of your personal information, please click the button to fill it up</view>
-    <button bindtap='navigateToPersonalInfoPage' navi>Fill personal info</button>
+  <view class='container'>
 
-  </block>
-  <block wx:else>
+    <view class='account-payment-info'>
+      支付信息的占位符。
+    </view>
 
-    <block wx:if='{{ canIUse }}'>
+    <view class='navigator-box navigator-box-show'>
 
-      <text class='authorize-text'>
-        We need to get some information to create an account for you, 
-        please use the button below to authorize access to your
-        profile photo and nickname.
-      </text>
+      <navigator class='navigator' url='/pages/account-details/account-details'>
+        <view class='navigator-text'>帐户信息</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
 
-      <button open-type='getUserInfo' 
-        bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+      <navigator class='navigator' url='/pages/personal-information/personal-information'>
+        <view class='navigator-text'>个人信息</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+
+      <navigator class='navigator' url='/pages/my-programs/my-programs'>
+        <view class='navigator-text'>我的活动</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
     
-    </block>
+    </view>
 
-    <view wx:else>Please update your Wechat version.</view>
+  </view>
 
+</block>
+<block wx:else>
+
+  <block wx:if='{{ canIUse }}'>
+
+    <text class='authorize-text'>
+      We need to get some information to create an account for you, 
+      please use the button below to authorize access to your
+      profile photo and nickname.
+    </text>
+
+    <button open-type='getUserInfo' 
+      bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+  
   </block>
 
-</view>
+  <view wx:else>Please update your Wechat version.</view>
+
+</block>

@@ -1,4 +1,4 @@
-// pages/account-information/account-details.js
+// pages/my-programs/my-programs.js
 Page({
 
   /**
