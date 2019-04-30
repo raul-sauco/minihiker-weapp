@@ -125,6 +125,18 @@ App({
           fail: () => { console.log('Failed to save user access token to storage.') }
         });
 
+        this.globalData.accountInfo.clients[0] = {
+          "id": res.data.client_id
+        };
+        this.globalData.accountInfo.id = res.data.family_id;
+
+        wx.setStorage({
+          key: 'accountInfo',
+          data: this.globalData.accountInfo,
+          success: () => { console.log('Saved account info to storage.') },
+          fail: () => { console.log('Failed to save account info to storage.')}
+        });
+
       }
     });
 
@@ -133,6 +145,10 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
+    accountInfo: {
+      "id": null,
+      "clients": []
+    },
     accessToken: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,

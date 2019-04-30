@@ -1,48 +1,32 @@
 <!--pages/account-information/account-details.wxml-->
+<block wx:if='{{ accountInfo }}'>
 
-<view class='container'>
-
-  <view>我们遗漏了您的一些个人信息. 
-    请填写以下输入.
+  <view class='account-info-header'>
+  
+    <view>帐号: {{ accountInfo.serial_number }}</view>
+    <view>用户名: {{ accountInfo.name }}</view>
+    <view>帐户类型: {{ accountInfo.category }}</view>
+    <view>会员日期: {{ accountInfo.membership_date }}</view>
+  
   </view>
-  <form bindsubmit='piFormSubmit'>
-    
-    <view class="section section_gap">
-      <view class="section__title">switch</view>
-      <switch name="switch"/>
+
+  <view class='client-info-header'>
+  
+    总营员: {{ accountInfo.clients.length }} <button bindtap='addClient'>添加</button>
+  
+  </view>
+
+  <view class='clients-container'>
+  
+    <view wx:for='{{ accountInfo.clients }}' wx:key='account-clients' 
+      class='client-container' 
+      data-client-id='{{ item.id }}' ontap='selectClient'>
+      
+      <view>{{ item.nickname }}</view>
     </view>
+  
+  </view>
 
-    <view class="section section_gap">
-      <view class="section__title">slider</view>
-      <slider name="slider" show-value ></slider>
-    </view>
-
-    <view class="section">
-      <view class="section__title">input</view>
-      <input name="input" placeholder="please input here" />
-    </view>
-
-    <view class="section section_gap">
-      <view class="section__title">radio</view>
-      <radio-group name="radio-group">
-        <label><radio value="radio1"/>radio1</label>
-        <label><radio value="radio2"/>radio2</label>
-      </radio-group>
-    </view>
-
-    <view class="section section_gap">
-      <view class="section__title">checkbox</view>
-      <checkbox-group name="checkbox">
-        <label><checkbox value="checkbox1"/>checkbox1</label>
-        <label><checkbox value="checkbox2"/>checkbox2</label>
-      </checkbox-group>
-    </view>
-
-    <view class="btn-area">
-      <button formType="submit">Submit</button>
-    </view>
-
-  </form>
-
-</view>
+</block>
+<view wx:else>No account info yet.</view>
 
