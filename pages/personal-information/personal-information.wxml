@@ -1,2 +1,30 @@
 <!--pages/personal-information/personal-information.wxml-->
-<text>pages/personal-information/personal-information</text>
+<view id='personal-information-container'>
+
+  <form bindsubmit='submitPI'>
+
+    <view class='input-group'>
+      <view class='input-label'>营员名称</view>
+      <input name='name_zh' 
+        focus='{{ focusNameInput }}' bindblur='updatePI' 
+        value='{{ client.name_zh }}' data-attr='name_zh'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>昵称</view>
+      <input name='nickname' bindblur='updatePI' 
+        value='{{ client.nickname }}' data-attr='nickname'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>英文名</view>
+      <input name='name_en' bindblur='updatePI' 
+        value='{{ client.name_en }}' data-attr='name_en'>
+      </input>
+    </view>
+  
+  </form>
+
+</view>

@@ -11,19 +11,12 @@ Page({
   },
 
   /**
-   * User has submitted the personal information form.
-   */
-  piFormSubmit: function (e) {
-    console.log('form has encountered a submit event. The carried value is: ', e.detail.value)
-  },
-
-  /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
 
     wx.setNavigationBarTitle({
-      title: '帐户信息',
+      title: '会员信息',
     });
 
     this.fetchAccountInfo();
@@ -57,6 +50,9 @@ Page({
       fail: res => {
         console.warn('Error fetching family ' + app.globalData.accountInfo.id);
         console.info(res);
+
+        // If the request fails, try again after 5 seconds
+        setTimeout(this.fetchAccountInfo, 5000);
       },
       complete: res => {
         wx.hideLoading();
@@ -90,7 +86,9 @@ Page({
    * Navigate to the add client page.
    */
   addClient: function () {
-    console.log('Add client tap');
+    wx.navigateTo({
+      url: '/pages/personal-information/personal-information',
+    });
   },
 
   /**
