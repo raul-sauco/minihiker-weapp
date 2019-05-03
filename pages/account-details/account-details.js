@@ -66,16 +66,16 @@ Page({
    */
   saveAccountInfoToStorage: function (accountInfo) {
 
-    accountInfo.updated_ts = Date.now();
+    app.globalData.accountInfoProvider.saveFromServerResponse(accountInfo);
 
     // Set data to update the user interface.
     this.setData({
-      accountInfo: accountInfo
+      accountInfo: app.globalData.accountInfoProvider
     });
 
     wx.setStorage({
       key: 'accountInfo',
-      data: accountInfo,
+      data: app.globalData.accountInfoProvider,
       success: () => { console.log('Saved account info to storage.') },
       fail: () => { console.log('Failed to save account info to storage.') }
     });
@@ -83,7 +83,7 @@ Page({
   },
 
   /**
-   * Navigate to the add client page.
+   * Navigate to the personal-info page to add a new client PI.
    */
   addClient: function () {
     wx.navigateTo({
@@ -91,16 +91,13 @@ Page({
     });
   },
 
+  /**
+   * Navigate to the personal-info page to perform a client PI update
+   */
   updateClient: function (e) {
 
-    console.log(e);
-
-    let clientId = e.currentTarget.dataset.clientId;
-
-    console.log('Updating Client information for client ' + clientId);
-
     wx.navigateTo({
-      url: '/pages/personal-information/personal-information?id=' + clientId
+      url: '/pages/personal-information/personal-information?id=' + e.currentTarget.dataset.clientId
     })
   },
 

@@ -7,9 +7,7 @@ Page({
    * Page initial data
    */
   data: {
-    client: {},
-    focusNameInput: true,
-    accountInfo: null
+    client: {}
   },
 
   /**
@@ -17,17 +15,27 @@ Page({
    */
   onLoad: function (options) {
 
-    // TODO use the client id to check if it is an update or create situation
+    let title = '创建新营员';
+    let client = {};
+
+    if (options.id) {
+
+      // The page was called with a Client Id as a parameter, is an update
+      client = app.globalData.accountInfoProvider.getClient(options.id);
+
+      if (client.nickname) {
+        title = '更新 ' + client.nickname;
+      } else if (client.name_zh) {
+        title = '更新 ' + client.name_zh;
+      } else {
+        title = '更新 ' + client.id;
+      }
+      
+    }
 
     this.setData({
-      focusNameInput: true,
-      client: {
-        id: options.id
-      },
-      accountInfo: app.globalData.accountInfo
+      client: client
     });
-
-    let title = this.data.client.id ? '更新 ' + this.data.client.id : " 创建新客户端";
 
     wx.setNavigationBarTitle({
       title: title,

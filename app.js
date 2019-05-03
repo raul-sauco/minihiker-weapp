@@ -1,6 +1,7 @@
 //app.js
 
 const ProgramProvider = require('./helpers/programProvider.js');
+const AccountInfoProvider = require('./helpers/accountInfoProvider.js');
 
 App({
   onLaunch: function () {
@@ -28,6 +29,9 @@ App({
 
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
+
+    // Get an instance of AccountInfoProvider
+    this.globalData.accountInfoProvider = new AccountInfoProvider();
 
     // 登录
     wx.login({
@@ -152,6 +156,7 @@ App({
     accessToken: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,
+    accountInfoProvider: null,
     url: 'https://minihiker.com/api/',
     resUrl: 'https://minihiker.com/webapp/'
   }

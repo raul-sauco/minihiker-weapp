@@ -6,7 +6,7 @@
     <view class='input-group'>
       <view class='input-label'>营员名称</view>
       <input name='name_zh' 
-        focus='{{ focusNameInput }}' bindblur='updatePI' 
+        focus bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
       </input>
     </view>
