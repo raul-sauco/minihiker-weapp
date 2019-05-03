@@ -22,10 +22,15 @@ Page({
     this.setData({
       focusNameInput: true,
       client: {
-        name_zh: 'Client name_zh',
-        nickname: 'Client nickname'
+        id: options.id
       },
       accountInfo: app.globalData.accountInfo
+    });
+
+    let title = this.data.client.id ? '更新 ' + this.data.client.id : " 创建新客户端";
+
+    wx.setNavigationBarTitle({
+      title: title,
     });
 
   },

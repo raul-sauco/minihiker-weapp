@@ -91,6 +91,19 @@ Page({
     });
   },
 
+  updateClient: function (e) {
+
+    console.log(e);
+
+    let clientId = e.currentTarget.dataset.clientId;
+
+    console.log('Updating Client information for client ' + clientId);
+
+    wx.navigateTo({
+      url: '/pages/personal-information/personal-information?id=' + clientId
+    })
+  },
+
   /**
    * Lifecycle function--Called when page is initially rendered
    */

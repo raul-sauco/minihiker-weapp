@@ -12,7 +12,9 @@
 
   <view class='client-info-header'>
   
-    总营员: {{ accountInfo.clients.length }} <button bindtap='addClient'>添加</button>
+    总营员: {{ accountInfo.clients.length }} 
+    
+    <button bindtap='addClient' size='mini' type='primary'>添加</button>
   
   </view>
 
@@ -20,9 +22,12 @@
   
     <view wx:for='{{ accountInfo.clients }}' wx:key='account-clients' 
       class='client-container' 
-      data-client-id='{{ item.id }}' ontap='selectClient'>
+      data-client-id='{{ item.id }}'>
       
       <view>{{ item.nickname }}</view>
+
+      <button bindtap='updateClient' data-client-id='{{ item.id }}'
+        size='mini' type='primary'>编辑</button>
     </view>
   
   </view>
