@@ -12,9 +12,13 @@
 
   <view class='client-info-header'>
   
-    总营员: {{ accountInfo.clients.length }} 
-    
-    <button bindtap='addClient' size='mini' type='primary'>添加</button>
+    总营员: {{ accountInfo.clients.length }}
+
+    <view class='button-container'>
+      <button bindtap='addClient'>
+        <text class='fas fa-user-plus'></text>
+      </button>    
+    </view>
   
   </view>
 
@@ -26,8 +30,12 @@
       
       <view>{{ item.nickname }}</view>
 
-      <button bindtap='updateClient' data-client-id='{{ item.id }}'
-        size='mini' type='primary'>编辑</button>
+      <view class='button-container'>
+        <button bindtap='updateClient' data-client-id='{{ item.id }}'>
+          <text class='fas fa-user-edit'></text>
+        </button>
+      </view>
+
     </view>
   
   </view>

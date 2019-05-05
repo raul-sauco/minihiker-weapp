@@ -24,6 +24,116 @@
         value='{{ client.name_en }}' data-attr='name_en'>
       </input>
     </view>
+
+    <view class='input-group'>
+      <view class='input-label'>出生日期</view>
+      <picker name='birthdate' mode='date' bindchange='updatePI'
+        data-attr='birthdate' value='{{ client.birthdate }}'>
+        <input name='birthdate' value='{{ client.birthdate }}'></input> 
+      </picker>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>英文出生地名</view>
+      <input name='place_of_birth' bindblur='updatePI' 
+        value='{{ client.place_of_birth }}' data-attr='place_of_birth'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>性别</view>
+      <radio-group bindchange='updatePI' data-attr='is_male'>
+        <radio value='0' checked='{{ client.is_male === false || client.is_male === "0" }}'>女</radio>
+        <radio value='1' checked='{{ client.is_male === true || client.is_male === "1" }}'>男</radio>
+      </radio-group>      
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>家庭角色</view>
+      <radio-group bindchange='updatePI' data-attr='is_kid'>
+        <radio value='0' checked='{{ client.is_kid === false || client.is_kid === "0" }}'>成人</radio>
+        <radio value='1' checked='{{ client.is_kid === true || client.is_kid === "1" }}'>宝贝</radio>
+      </radio-group>    
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>家庭角色细节</view>
+      <input name='family_role_other' bindblur='updatePI' 
+        value='{{ client.family_role_other }}' data-attr='family_role_other'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>备注</view>
+      <textarea name='remarks' bindblur='updatePI'
+        value='{{ client.remarks }}' data-attr='remarks'>
+      </textarea>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>电话号码</view>
+      <input name='phone_number' bindblur='updatePI' 
+        value='{{ client.phone_number }}' data-attr='phone_number'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>电子邮件</view>
+      <input name='email' bindblur='updatePI' 
+        value='{{ client.email }}' data-attr='email'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>微信帐号</view>
+      <input name='wechat_id' bindblur='updatePI' 
+        value='{{ client.wechat_id }}' data-attr='wechat_id'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>身份证号码</view>
+      <input name='id_card_number' bindblur='updatePI' 
+        value='{{ client.id_card_number }}' data-attr='id_card_number'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>护照号</view>
+      <input name='passport_number' bindblur='updatePI' 
+        value='{{ client.passport_number }}' data-attr='passport_number'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>护照签发日期</view>
+      <picker name='passport_issue_date' mode='date' bindchange='updatePI'
+        data-attr='passport_issue_date' value='{{ client.passport_issue_date }}'>
+        <input name='passport_issue_date' value='{{ client.passport_issue_date }}'></input> 
+      </picker>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>护照到期日</view>
+      <picker name='passport_expire_date' mode='date' bindchange='updatePI'
+        data-attr='passport_expire_date' value='{{ client.passport_expire_date }}'>
+        <input name='passport_expire_date' value='{{ client.passport_expire_date }}'></input> 
+      </picker>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>签发护照的地方</view>
+      <input name='passport_place_of_issue' bindblur='updatePI' 
+        value='{{ client.passport_place_of_issue }}' data-attr='passport_place_of_issue'>
+      </input>
+    </view>
+
+    <view class='input-group'>
+      <view class='input-label'>签发的护照</view>
+      <input name='passport_issuing_authority' bindblur='updatePI' 
+        value='{{ client.passport_issuing_authority }}' data-attr='passport_issuing_authority'>
+      </input>
+    </view>
   
   </form>
 

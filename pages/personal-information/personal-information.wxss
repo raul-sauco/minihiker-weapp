@@ -14,12 +14,12 @@
   margin: 6rpx 0 6rpx 24rpx;
 }
 
-.input-group input {
+.input-group input, .input-group textarea {
   box-sizing: border-box;
   padding: 12rpx 24rpx;
+  width: 100%;
   font-size: 28rpx;
   line-height: 1.42857143;
-  height: fit-content;
   color: #555555;
   background-color: #fff;
   background-image: none;
@@ -32,9 +32,19 @@
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.input-group input {
+  height: fit-content;
+}
+
 .input-group input:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.input-group radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }

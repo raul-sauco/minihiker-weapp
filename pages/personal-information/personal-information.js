@@ -59,12 +59,13 @@ Page({
     console.log('Updated value is ' + updatedValue);
     console.log('Old value is ' + oldValue);
     
+    // TODO improve the check on updated attributes
     if (!oldValue || oldValue !== updatedValue) {
 
       console.log('The user has updated ' + attr + ' value from ' + this.data.client[attr] + ' to ' + updatedValue);
       this.data.client[attr] = updatedValue;
 
-      this.saveUpdatedClientInfo();
+      this.saveUpdatedClientInfo(attr, updatedValue);
 
     } else {
 
@@ -76,9 +77,74 @@ Page({
   /**
    * Save the updated client information on all relevant places.
    */
-  saveUpdatedClientInfo: function () {
+  saveUpdatedClientInfo: function (attr, updatedValue) {
 
-    console.log('Saving client information');
+    // Semantically should be a PATCH but wx.request does not allow it
+    let method = 'PUT';
+    let endpoint = 'clients';
+
+    if (!this.data.client.id) {
+
+      console.log('New client entry, POST');
+      console.log(this.data.client);
+      method = 'POST';
+
+    } else {
+
+      console.log('Existing client with ID ' + this.data.client.id + ' PUT ');
+      console.log(this.data.client);
+
+      // Update endpoint to include the client ID ie 'clients/45'
+      endpoint += '/' + this.data.client.id;
+      
+    }
+
+    wx.request({
+      url: app.globalData.url + endpoint, 
+      method: method,
+      data: {
+        [attr]: updatedValue
+      },
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      },
+      success: res => {
+
+        if (res.statusCode == 200) {
+
+          this.setData({
+            client: res.data
+          });
+
+          wx.showToast({
+            title: '保存所有更改',
+            icon: "success",
+          });
+
+        } else {
+
+          console.warn('PI::saveUser Server returned a ' + res.statusCode + ' code.');
+          
+          wx.showToast({
+            title: '有些不对劲',
+            icon: "none"
+          });
+        }
+
+        console.log(res);
+      },
+      fail: res => {
+
+        wx.showToast({
+          title: '有些不对劲',
+          icon: "none"
+        });
+
+        console.log('PI::saveUser request failed');
+      },
+      complete: res => {}
+    });
 
   },
 
