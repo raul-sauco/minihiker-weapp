@@ -111,7 +111,7 @@ Page({
       },
       success: res => {
 
-        if (res.statusCode == 200) {
+        if (res.statusCode == 200 || res.statusCode == 201) {
 
           this.setData({
             client: res.data
@@ -121,6 +121,13 @@ Page({
             title: '保存所有更改',
             icon: "success",
           });
+
+          if (res.statusCode == 201) {
+
+            app.globalData.accountInfo.clients.push(res.data);
+            // TODO update saved data
+            
+          }
 
         } else {
 

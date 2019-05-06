@@ -5,7 +5,7 @@
 
     <view class='input-group'>
       <view class='input-label'>营员名称</view>
-      <input name='name_zh' 
+      <input name='name_zh' maxlength='12'
         focus bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
       </input>
@@ -13,14 +13,14 @@
 
     <view class='input-group'>
       <view class='input-label'>昵称</view>
-      <input name='nickname' bindblur='updatePI' 
+      <input name='nickname' bindblur='updatePI' maxlength='128'
         value='{{ client.nickname }}' data-attr='nickname'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>英文名</view>
-      <input name='name_en' bindblur='updatePI' 
+      <input name='name_en' bindblur='updatePI' maxlength='128'
         value='{{ client.name_en }}' data-attr='name_en'>
       </input>
     </view>
@@ -34,8 +34,8 @@
     </view>
 
     <view class='input-group'>
-      <view class='input-label'>英文出生地名</view>
-      <input name='place_of_birth' bindblur='updatePI' 
+      <view class='input-label'>出生地名</view>
+      <input name='place_of_birth' bindblur='updatePI' maxlength='60'
         value='{{ client.place_of_birth }}' data-attr='place_of_birth'>
       </input>
     </view>
@@ -58,7 +58,7 @@
 
     <view class='input-group'>
       <view class='input-label'>家庭角色细节</view>
-      <input name='family_role_other' bindblur='updatePI' 
+      <input name='family_role_other' bindblur='updatePI' maxlength='128'
         value='{{ client.family_role_other }}' data-attr='family_role_other'>
       </input>
     </view>
@@ -72,35 +72,35 @@
 
     <view class='input-group'>
       <view class='input-label'>电话号码</view>
-      <input name='phone_number' bindblur='updatePI' 
+      <input name='phone_number' bindblur='updatePI' maxlength='18'
         value='{{ client.phone_number }}' data-attr='phone_number'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>电子邮件</view>
-      <input name='email' bindblur='updatePI' 
+      <input name='email' bindblur='updatePI' maxlength='64'
         value='{{ client.email }}' data-attr='email'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>微信帐号</view>
-      <input name='wechat_id' bindblur='updatePI' 
+      <input name='wechat_id' bindblur='updatePI' maxlength='64'
         value='{{ client.wechat_id }}' data-attr='wechat_id'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>身份证号码</view>
-      <input name='id_card_number' bindblur='updatePI' 
+      <input name='id_card_number' bindblur='updatePI' maxlength='20'
         value='{{ client.id_card_number }}' data-attr='id_card_number'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>护照号</view>
-      <input name='passport_number' bindblur='updatePI' 
+      <input name='passport_number' bindblur='updatePI' maxlength='20'
         value='{{ client.passport_number }}' data-attr='passport_number'>
       </input>
     </view>
@@ -123,14 +123,14 @@
 
     <view class='input-group'>
       <view class='input-label'>签发护照的地方</view>
-      <input name='passport_place_of_issue' bindblur='updatePI' 
+      <input name='passport_place_of_issue' bindblur='updatePI' maxlength='60'
         value='{{ client.passport_place_of_issue }}' data-attr='passport_place_of_issue'>
       </input>
     </view>
 
     <view class='input-group'>
       <view class='input-label'>签发的护照</view>
-      <input name='passport_issuing_authority' bindblur='updatePI' 
+      <input name='passport_issuing_authority' bindblur='updatePI' maxlength='120'
         value='{{ client.passport_issuing_authority }}' data-attr='passport_issuing_authority'>
       </input>
     </view>

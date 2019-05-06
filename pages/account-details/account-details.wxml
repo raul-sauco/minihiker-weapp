@@ -3,7 +3,6 @@
 
   <view class='account-info-header'>
   
-    <view>帐号: {{ accountInfo.serial_number }}</view>
     <view>用户名: {{ accountInfo.name }}</view>
     <view>帐户类型: {{ accountInfo.category }}</view>
     <view>会员日期: {{ accountInfo.membership_date }}</view>
