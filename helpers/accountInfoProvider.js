@@ -118,6 +118,32 @@ class AccountInfoProvider {
   }
 
   /**
+   * Update the client array with a new client or new 
+   * data for an existing client. It will save the 
+   * provider data to storage.
+   */
+  updateClientInfo(clientData) {
+
+    let id = parseInt(clientData.id, 10);
+
+    let key = this.clients.findIndex( e => e.id == id);
+
+    if (key < 0) {
+
+      // There are no clients with the given id
+      this.addClient(clientData);
+
+    } else {
+
+      this.clients[key] = clientData;
+
+    }
+
+    this.saveToStorage();
+
+  } 
+
+  /**
    * Save the current values of the accountInfoProvider to storage
    */
   saveToStorage () {

@@ -122,12 +122,8 @@ Page({
             icon: "success",
           });
 
-          if (res.statusCode == 201) {
-
-            app.globalData.accountInfo.clients.push(res.data);
-            // TODO update saved data
-            
-          }
+          // Update the global provider information with client data and persist it
+          app.globalData.accountInfoProvider.updateClientInfo(res.data);
 
         } else {
 
