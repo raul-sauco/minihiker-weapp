@@ -4,12 +4,51 @@
  */
 class AccountInfoProvider {
 
-  clients = Map;
+  id = null;
+  name = '';
+  serial_number = '';
+  category = '';
+  membership_date = null;
+  address = '';
+  place_of_residence = '';
+  remarks = '';
+  mother_id = null;
+  father_id = null;
+  updated_ts = null;
+  clients = [];  
 
   /**
    * Initialize the AccountInfoProvider
    */
   constructor() {
+    
+    wx.getStorage({
+      key: 'accountInfo',
+      success: (res) => {
+        this.assignDataFromJSON(res.data);
+      },
+    });
+
+  }
+
+  /**
+   * Fill an instance value based on a JSON object
+   */
+  assignDataFromJSON(data) {
+
+    this.id = data.id;
+    this.name = data.name;
+    this.serial_number = data.serial_number;
+    this.category = data.category;
+    this.membership_date = data.membership_date;
+    this.address = data.address;
+    this.place_of_residence = data.place_of_residence;
+    this.remarks = data.remarks;
+    this.mother_id = data.mother_id;
+    this.father_id = data.father_id;
+    this.updated_ts = data.updated_ts;
+    this.clients = data.clients;
+
   }
 
   /**
@@ -20,19 +59,22 @@ class AccountInfoProvider {
     console.log('Updating application AccountInfoProvider with JSON data from server');
     console.log(serverJson);
 
-    this.id                 =   serverJson.id;
-    this.name               =   serverJson.name;
-    this.serial_number      =   serverJson.serial_number;
-    this.category           =   serverJson.category;
-    this.membership_date    =   serverJson.membership_date;
-    this.address            =   serverJson.address;
-    this.place_of_residence = serverJson.place_of_residence;
-    this.remarks            = serverJson.remarks;
-    this.mother_id          = serverJson.mother_id;
-    this.father_id          = serverJson.father_id;
-    this.updated_ts         = Date.now();
-    this.clients            = serverJson.clients;
+    this.assignDataFromJSON(serverJson);
 
+    this.saveToStorage();
+
+  }
+
+  /**
+   * Check if the id value needs to be refreshed with the new value.
+   */
+  setAccountId(id) {
+
+    if (!this.id || parseInt(id) !== parseInt(this.id)) {
+      this.id = id;
+      this.saveToStorage();
+    }
+    
   }
 
   /**
@@ -47,7 +89,7 @@ class AccountInfoProvider {
 
   /**
    * Get a Client by id. 
-   * It will log a warning if the Client is not in the Map.
+   * It will return null if the client is not found.
    */
   getClient(id) {
 
@@ -55,6 +97,17 @@ class AccountInfoProvider {
     id = parseInt(id, 10);
 
     return this.clients.find(client => client.id === id);
+  }
+
+  /**
+   * Save the current values of the accountInfoProvider to storage
+   */
+  saveToStorage () {
+    wx.setStorage({
+      key: 'accountInfo',
+      data: this,
+      success: () => {console.log('Saved account information to storage')}
+    });
   }
 
 }

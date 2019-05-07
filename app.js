@@ -5,35 +5,77 @@ const AccountInfoProvider = require('./helpers/accountInfoProvider.js');
 
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    /*
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    */
 
-    let user = wx.getStorageSync('user');
-
-    if (user) {
-
-      // We have user info in storage
-      this.globalData.userInfo = user;
-      this.globalData.hasUserInfo = true;
-      
-    } else {
-
-      // Get user info if the user has authorized it previously
-      this.obtainUserInfo();
-
-    }
-
-    // Get an instance of ProgramProvider
-    this.globalData.programProvider = new ProgramProvider();
+    this.globalData.accessToken = wx.getStorageSync('accessToken');
 
     // Get an instance of AccountInfoProvider
     this.globalData.accountInfoProvider = new AccountInfoProvider();
 
-    // 登录
+    // Get an instance of ProgramProvider
+    this.globalData.programProvider = new ProgramProvider();
+
+    // Get user information if we have it on storage
+    this.fetchUserData();
+
+    // Check if the user session is still valid
+    wx.checkSession({
+      success: res => {
+
+        // Check if the accountInfoProvider needs to fetch an auth_token
+        if (!this.globalData.accessToken) {
+          
+          console.log('User session is valid but no accessToken stored, requesting wx.login()');
+          this.requestLogin();
+
+        }
+      },
+      fail: res => {
+
+        // WX user session has expired, we need to renew the session_key
+        console.log('User session has expired, calling wx.login()');
+        this.requestLogin();
+      }
+    });
+
+  },
+
+  /**
+   * Recover the user information from storage if present there
+   */
+  fetchUserData: function () {
+
+    wx.getStorage({
+      key: 'user',
+      success: (res) => {
+
+        if (res.data) {
+
+          // We have user info in storage
+          this.globalData.userInfo = res.data;
+          this.globalData.hasUserInfo = true;
+
+        } else {
+
+          // Get user info if the user has authorized it previously
+          this.obtainUserInfo();
+
+        }
+
+      },
+      fail: (res) => {
+        this.obtainUserInfo();
+      }
+    });
+
+  },
+
+  /**
+   * Request user login against the wx backend. We will obtain a 
+   * temporary JS code that can be sent to the minihiker.com backend
+   * to obtain permanent user openid and temporary session_key.
+   */
+  requestLogin: function () {
+
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -43,6 +85,7 @@ App({
         this.loginUser(res.code);
       }
     });
+
   },
 
   /**
@@ -129,18 +172,13 @@ App({
           fail: () => { console.log('Failed to save user access token to storage.') }
         });
 
+        // Let the accountInfoProvider check if the data needs to be refrehed
+        this.globalData.accountInfoProvider.setAccountId(res.data.family_id);
+
         this.globalData.accountInfo.clients[0] = {
           "id": res.data.client_id
         };
         this.globalData.accountInfo.id = res.data.family_id;
-
-        wx.setStorage({
-          key: 'accountInfo',
-          data: this.globalData.accountInfo,
-          success: () => { console.log('Saved account info to storage.') },
-          fail: () => { console.log('Failed to save account info to storage.')}
-        });
-
       }
     });
 
@@ -149,10 +187,6 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo: false,
-    accountInfo: {
-      "id": null,
-      "clients": []
-    },
     accessToken: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,

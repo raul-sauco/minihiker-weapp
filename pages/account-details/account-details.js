@@ -28,7 +28,7 @@ Page({
    */
   fetchAccountInfo: function () {
 
-    let endpoint = 'families/' + app.globalData.accountInfo.id + '?expand=clients';
+    let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients';
     let url = app.globalData.url + endpoint;
 
     let header = {
@@ -71,13 +71,6 @@ Page({
     // Set data to update the user interface.
     this.setData({
       accountInfo: app.globalData.accountInfoProvider
-    });
-
-    wx.setStorage({
-      key: 'accountInfo',
-      data: app.globalData.accountInfoProvider,
-      success: () => { console.log('Saved account info to storage.') },
-      fail: () => { console.log('Failed to save account info to storage.') }
     });
 
   },
