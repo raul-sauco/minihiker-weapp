@@ -19,6 +19,35 @@ Page({
       title: '会员信息',
     });
 
+  },
+
+  /**
+   * Lifecycle function--Called when page show
+   */
+  onShow: function () {
+
+    if (app.globalData.accountInfoProvider.infoIsOutdated()) {
+
+      console.log('AccountInfoProvider info is stale, require refresh');
+      this.fetchAccountInfo();
+
+    } else {
+
+      // If the current account info is valid, use it directly
+      this.setData({
+        accountInfo: app.globalData.accountInfoProvider
+      });
+
+    }
+
+  },
+
+  /**
+   * Page event handler function--Called when user drop down
+   */
+  onPullDownRefresh: function () {
+
+    // Force an accountInfo refresh
     this.fetchAccountInfo();
 
   },
@@ -28,50 +57,65 @@ Page({
    */
   fetchAccountInfo: function () {
 
-    let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients';
-    let url = app.globalData.url + endpoint;
-
-    let header = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + app.globalData.accessToken
-    };
-
     wx.showLoading({
       title: '下载中',
     });
 
-    wx.request({
-      url: app.globalData.url + endpoint,
-      header: header,
-      method: 'GET',
-      success: res => {        
-        this.saveAccountInfoToStorage(res.data);
-      },
-      fail: res => {
-        console.warn('Error fetching family ' + app.globalData.accountInfo.id);
-        console.info(res);
+    if (!app.globalData.accountInfoProvider.id) {
 
-        // If the request fails, try again after 5 seconds
-        setTimeout(this.fetchAccountInfo, 5000);
-      },
-      complete: res => {
-        wx.hideLoading();
-      }
-    });
+      // We have to wait until we have an accountId
+      app.requestLogin();
+      setTimeout(this.fetchAccountInfo, 1000);
 
-  },
+    } else {
 
-  /**
-   * Save the account information to storage.
-   */
-  saveAccountInfoToStorage: function (accountInfo) {
+      let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients';
+      let url = app.globalData.url + endpoint;
 
-    app.globalData.accountInfoProvider.saveFromServerResponse(accountInfo);
+      let header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      };
 
-    // Set data to update the user interface.
-    this.setData({
-      accountInfo: app.globalData.accountInfoProvider
-    });
+      wx.request({
+        url: app.globalData.url + endpoint,
+        header: header,
+        method: 'GET',
+        success: res => {
+
+          if (res.statusCode == 200) {
+
+            // Save the refreshed data 
+            res.data.updated_ts = Date.now();
+            app.globalData.accountInfoProvider.saveFromServerResponse(res.data);
+            this.setData({
+              accountInfo: app.globalData.accountInfoProvider
+            });
+
+          } else {
+
+            // There was a problem with the request
+            console.warn('Error fetching family ' + app.globalData.accountInfo.id);
+            console.info(res);
+
+            // If the request fails, try again after 5 seconds
+            setTimeout(this.fetchAccountInfo, 5000);
+
+          }
+        },
+        fail: res => {
+          console.warn('Error fetching family ' + app.globalData.accountInfo.id);
+          console.info(res);
+
+          // If the request fails, try again after 5 seconds
+          setTimeout(this.fetchAccountInfo, 5000);
+        },
+        complete: res => {
+          wx.hideLoading();
+        }
+      });
+
+    }
 
   },
 
@@ -102,13 +146,6 @@ Page({
   },
 
   /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
    * Lifecycle function--Called when page hide
    */
   onHide: function () {
@@ -119,13 +156,6 @@ Page({
    * Lifecycle function--Called when page unload
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
 
   },
 

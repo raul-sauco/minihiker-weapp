@@ -4,6 +4,8 @@
  */
 class AccountInfoProvider {
 
+  maxCache = 1000 * 60 * 60 * 2; // Two hours
+
   id = null;
   name = '';
   serial_number = '';
@@ -29,6 +31,22 @@ class AccountInfoProvider {
       },
     });
 
+  }
+
+  /**
+   * Check whether the info on the provider needs to be updated with server info.
+   */
+  infoIsOutdated() {
+
+    if (!this.id || !this.updated_ts || ((Date.now() - this.updated_ts) > this.maxCache)) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
   }
 
   /**
@@ -74,7 +92,7 @@ class AccountInfoProvider {
       this.id = id;
       this.saveToStorage();
     }
-    
+
   }
 
   /**
