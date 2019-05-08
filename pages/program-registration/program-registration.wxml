@@ -1,0 +1,26 @@
+<view class='program-dates'>{{ program.start_date }} - {{ program.end_date }}</view>
+
+<view class='registration-container'>
+
+  <view wx:for='{{ accountInfo.clients }}' class='client-container'
+    wx:key='client' wx:for-index="idx" wx:for-item="client">
+
+    <view class='client-name'>{{ client.nickname }}</view>
+
+    <view class='client-select-container'>
+      <switch data-client-id='{{ client.id }}' bindchange='switchClientSelected'></switch>
+    </view>
+
+  </view>
+
+  <view class='payment-details'>
+  
+    <view>要支付: {{ ammountDue }} </view>
+
+    <view class='proceed-payment-button-container'>
+      <button bindtap='processPayment' type='primary'>支付</button>
+    </view>
+  
+  </view>
+
+</view>

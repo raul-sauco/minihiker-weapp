@@ -105,6 +105,9 @@ Page({
    * Register for the currently selected program of this ProgramGroup.
    */
   register: function (event) {
-    console.log('Register for program ' + this.data.selectedProgram.id);
+    wx.navigateTo({
+      url: '/pages/program-registration/program-registration?pg=' + this.data.programGroup.id + 
+        '&p=' + this.data.selectedProgram.id,
+    });
   }
 })

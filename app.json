@@ -8,7 +8,8 @@
     "pages/ask-question/ask-question",
     "pages/personal-information/personal-information",
     "pages/account-details/account-details",
-    "pages/my-programs/my-programs"
+    "pages/my-programs/my-programs",
+    "pages/program-registration/program-registration"
   ],
   "window": {
     "backgroundTextStyle": "light",

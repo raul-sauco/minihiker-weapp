@@ -174,11 +174,7 @@ App({
 
         // Let the accountInfoProvider check if the data needs to be refrehed
         this.globalData.accountInfoProvider.setAccountId(res.data.family_id);
-
-        this.globalData.accountInfo.clients[0] = {
-          "id": res.data.client_id
-        };
-        this.globalData.accountInfo.id = res.data.family_id;
+        
       }
     });
 
