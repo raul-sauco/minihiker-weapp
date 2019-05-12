@@ -1,3 +1,20 @@
+.program-details {
+
+  background: #0ba360;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  padding: 0 20rpx 20rpx 20rpx;
+
+}
+
+.program-dates {
+  font-size: 0.8rem;
+}
+
 .registration-container {
   padding: 0 20rpx;
   box-sizing: border-box;
@@ -16,8 +33,13 @@
 }
 
 .payment-details {
+  background: linear-gradient(to bottom, #606c88 0%,#3f4c6b 100%);
+  color: #fff;
+
   padding: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }

@@ -1,4 +1,12 @@
-<view class='program-dates'>{{ program.start_date }} - {{ program.end_date }}</view>
+<view class='program-details'>
+
+  <view class='program-name'>{{ programGroup.weapp_display_name }}</view>
+
+  <view class='program-dates'>
+    {{ program.period.name }} {{ program.formattedStartDate }}-{{ program.formattedEndDate }}
+  </view>
+  
+</view>
 
 <view class='registration-container'>
 
