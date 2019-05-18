@@ -55,12 +55,20 @@ Page({
     let updatedValue = e.detail.value;
     let oldValue = this.data.client[attr];
 
+    // Prepare variables 
+    if (typeof oldValue === 'string' && typeof updatedValue === 'string') {
+
+      oldValue = oldValue.trim();
+      updatedValue = updatedValue.trim();
+
+    }
+
     console.log('Attribute is ' + attr);
     console.log('Updated value is ' + updatedValue);
     console.log('Old value is ' + oldValue);
     
     // TODO improve the check on updated attributes
-    if (!oldValue || oldValue !== updatedValue) {
+    if (this.isValueUpdated(oldValue, updatedValue)) {
 
       console.log('The user has updated ' + attr + ' value from ' + this.data.client[attr] + ' to ' + updatedValue);
       this.data.client[attr] = updatedValue;
@@ -71,6 +79,37 @@ Page({
 
       console.log('User information was not updated');
 
+    }
+  },
+
+  /**
+   * Determine whether there has been an update of the user information on the UI
+   * return true | false
+   */
+  isValueUpdated: function (oldValue, newValue) {
+
+    if (!oldValue) {
+
+      if (!newValue) {
+
+        // Both values are empty no change
+        return false;
+
+      }
+
+      // Old value is empty and new value has a value, update
+      return true;
+
+    } else if (oldValue === newValue) {
+
+      // The old value and new value are the same do not update
+      return false;
+
+    } else {
+
+      // Changed value, update
+      return true;
+      
     }
   },
 
