@@ -193,4 +193,11 @@
   
   </form>
 
+  <view id='pi-notification-container' wx:if='{{ notification.notify }}'>
+    <view id='pi-notification' class='{{ notification.class }}'>
+      <icon type='{{ notification.icon }}' size='20' />
+      {{ notification.content }}
+    </view>
+  </view>
+
 </view>

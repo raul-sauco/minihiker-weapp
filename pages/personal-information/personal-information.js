@@ -8,7 +8,13 @@ Page({
    */
   data: {
     client: {},
-    errors: {}
+    errors: {},
+    notification: {
+      notify: false,
+      cssClass: '',
+      content: '',
+      icon: 'info'
+    }
   },
 
   /**
@@ -148,9 +154,9 @@ Page({
             errors: {}
           });
 
-          wx.showToast({
-            title: '保存所有更改',
-            icon: "success",
+          this.showToast({
+            icon: 'success',
+            content: '保存所有更改'
           });
 
           // Update the global provider information with client data and persist it
@@ -167,10 +173,10 @@ Page({
         } else {
 
           console.warn('PI::saveUser Server returned a ' + res.statusCode + ' code.');
-          
-          wx.showToast({
-            title: '有些不对劲',
-            icon: "none"
+
+          this.showToast({
+            icon: 'error',
+            content: '有些不对劲'
           });
         }
 
@@ -178,9 +184,9 @@ Page({
       },
       fail: res => {
 
-        wx.showToast({
-          title: '有些不对劲',
-          icon: "none"
+        this.showToast({
+          icon: 'error',
+          content: '有些不对劲'
         });
 
         console.log('PI::saveUser request failed');
@@ -257,6 +263,37 @@ Page({
       setTimeout(wx.navigateBack, 1500);
 
     }
+  },
+
+  /** 
+   * Show a custom, lightweight version of the toast that wechat provides
+   */
+  showToast: function (data) {
+
+    let notification = {
+      notify: true
+    };
+
+    notification.cssClass = data.cssClass ? data.cssClass : '';
+
+    notification.icon = data.icon ? data.icon : 'info';
+
+    notification.content = data.content ? data.content : '';
+
+    this.setData({
+      notification: notification 
+    });
+
+    // Remove the notification from the UI
+    setTimeout(() => {
+      let notification = {
+        notify: false,
+        cssClass: '',
+        icon: 'info',
+        content: ''
+      };
+      this.setData({notification: notification});
+    }, 1500);
   },
 
   /**
