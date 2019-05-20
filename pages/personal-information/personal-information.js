@@ -7,7 +7,8 @@ Page({
    * Page initial data
    */
   data: {
-    client: {}
+    client: {},
+    errors: {}
   },
 
   /**
@@ -47,9 +48,6 @@ Page({
    * Handler for the blur event on the Client's name input field
    */
   updatePI: function (e) {
-    console.log(e);
-    console.log(this.data.client);
-    console.log(this.data.accountInfo);
 
     let attr = e.target.dataset.attr;
     let updatedValue = e.detail.value;
@@ -62,17 +60,11 @@ Page({
       updatedValue = updatedValue.trim();
 
     }
-
-    console.log('Attribute is ' + attr);
-    console.log('Updated value is ' + updatedValue);
-    console.log('Old value is ' + oldValue);
     
     // TODO improve the check on updated attributes
     if (this.isValueUpdated(oldValue, updatedValue)) {
 
       console.log('The user has updated ' + attr + ' value from ' + this.data.client[attr] + ' to ' + updatedValue);
-      this.data.client[attr] = updatedValue;
-
       this.saveUpdatedClientInfo(attr, updatedValue);
 
     } else {
@@ -131,7 +123,6 @@ Page({
     } else {
 
       console.log('Existing client with ID ' + this.data.client.id + ' PUT ');
-      console.log(this.data.client);
 
       // Update endpoint to include the client ID ie 'clients/45'
       endpoint += '/' + this.data.client.id;
@@ -153,7 +144,8 @@ Page({
         if (res.statusCode == 200 || res.statusCode == 201) {
 
           this.setData({
-            client: res.data
+            client: res.data,
+            errors: {}
           });
 
           wx.showToast({
@@ -163,6 +155,14 @@ Page({
 
           // Update the global provider information with client data and persist it
           app.globalData.accountInfoProvider.updateClientInfo(res.data);
+
+        } else if (res.statusCode == 422) {
+
+          // The request was correct but there were some validation errors
+          console.log('PI::saveUser server encountered validation errors 422 code returned');
+          console.log(res.data);
+
+          this.updateModelErrors(res.data);
 
         } else {
 
@@ -188,6 +188,75 @@ Page({
       complete: res => {}
     });
 
+  },
+
+  /**
+   * Add validation errors to the page and update the interface to show them.
+   * 
+   * The errors will be received in an array of the form:
+    [
+        {
+            "field": "is_kid",
+            "message": "Is Kid must be either \"1\" or \"0\"."
+        },
+        {
+            "field": "name_zh",
+            "message": "Name Zh should contain at most 12 characters."
+        }
+    ]
+
+   * And will be converted to an object that will use field name as property key and message as property 
+   * value.
+   */
+  updateModelErrors: function (errors) {
+
+    let errorObject = {};
+
+    errors.forEach(error => {
+      errorObject[error.field] = error.message;
+    });
+
+    this.setData({
+      errors: errorObject
+    });
+
+    console.log('Updated this.data.errors');
+    console.log(this.data.errors);
+
+  },
+
+  /**
+   * Give users a more obvious way to conclude the personal data update.
+   */
+  concludeUpdate: function () {
+
+    if (Object.keys(this.data.errors).length > 0) {
+
+      // There are some errors, report and don't exit
+      wx.showModal({
+        title: '错误！',
+        content: '无法保存数据，请检查错误消息，然后重试。',
+        cancelText: '放弃更改',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('Hiding modal')
+          } else if (res.cancel) {
+            wx.navigateBack();
+          }
+        }
+      })
+
+    } else {
+
+
+      wx.showToast({
+        title: '成功！ 保存所有更改',
+        icon: 'success'
+      });
+
+      setTimeout(wx.navigateBack, 1500);
+
+    }
   },
 
   /**

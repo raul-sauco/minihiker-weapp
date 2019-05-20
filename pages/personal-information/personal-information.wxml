@@ -3,137 +3,193 @@
 
   <form bindsubmit='submitPI'>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.name_zh ? "has-error" : "" }}'>
       <view class='input-label'>营员名称</view>
-      <input name='name_zh' maxlength='12'
+      <input name='name_zh' maxlength='120'
         focus bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.name_zh }}'>
+        {{ errors.name_zh }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.nickname ? "has-error" : "" }}'>
       <view class='input-label'>昵称</view>
-      <input name='nickname' bindblur='updatePI' maxlength='128'
+      <input name='nickname' bindblur='updatePI' maxlength='1280'
         value='{{ client.nickname }}' data-attr='nickname'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.nickname }}'>
+        {{ errors.nickname }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.name_en ? "has-error" : "" }}'>
       <view class='input-label'>英文名</view>
       <input name='name_en' bindblur='updatePI' maxlength='128'
         value='{{ client.name_en }}' data-attr='name_en'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.name_en }}'>
+        {{ errors.name_en }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.birthdate ? "has-error" : "" }}'>
       <view class='input-label'>出生日期</view>
       <picker name='birthdate' mode='date' bindchange='updatePI'
         data-attr='birthdate' value='{{ client.birthdate }}'>
-        <input name='birthdate' value='{{ client.birthdate }}'></input> 
+        <view class='picker-box'>{{ client.birthdate }}</view>
       </picker>
+      <view class='error-message-container' wx:if='{{ errors.birthdate }}'>
+        {{ errors.birthdate }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.place_of_birth ? "has-error" : "" }}'>
       <view class='input-label'>出生地名</view>
       <input name='place_of_birth' bindblur='updatePI' maxlength='60'
         value='{{ client.place_of_birth }}' data-attr='place_of_birth'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.place_of_birth }}'>
+        {{ errors.place_of_birth }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.is_male ? "has-error" : "" }}'>
       <view class='input-label'>性别</view>
       <radio-group bindchange='updatePI' data-attr='is_male'>
         <radio value='0' checked='{{ client.is_male === false || client.is_male === "0" }}'>女</radio>
         <radio value='1' checked='{{ client.is_male === true || client.is_male === "1" }}'>男</radio>
-      </radio-group>      
+      </radio-group>
+      <view class='error-message-container' wx:if='{{ errors.is_male }}'>
+        {{ errors.is_male }}
+      </view>    
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.is_kid ? "has-error" : "" }}'>
       <view class='input-label'>家庭角色</view>
       <radio-group bindchange='updatePI' data-attr='is_kid'>
         <radio value='0' checked='{{ client.is_kid === false || client.is_kid === "0" }}'>成人</radio>
         <radio value='1' checked='{{ client.is_kid === true || client.is_kid === "1" }}'>宝贝</radio>
-      </radio-group>    
+      </radio-group>
+      <view class='error-message-container' wx:if='{{ errors.is_kid }}'>
+        {{ errors.is_kid }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.family_role_other ? "has-error" : "" }}'>
       <view class='input-label'>家庭角色细节</view>
       <input name='family_role_other' bindblur='updatePI' maxlength='128'
         value='{{ client.family_role_other }}' data-attr='family_role_other'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.family_role_other }}'>
+        {{ errors.family_role_other }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.remarks ? "has-error" : "" }}'>
       <view class='input-label'>备注</view>
       <textarea name='remarks' bindblur='updatePI'
         value='{{ client.remarks }}' data-attr='remarks'>
       </textarea>
+      <view class='error-message-container' wx:if='{{ errors.remarks }}'>
+        {{ errors.remarks }}
+      </view>
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.phone_number ? "has-error" : "" }}'>
       <view class='input-label'>电话号码</view>
       <input name='phone_number' bindblur='updatePI' maxlength='18'
         value='{{ client.phone_number }}' data-attr='phone_number'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.phone_number }}'>
+        {{ errors.phone_number }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.email ? "has-error" : "" }}'>
       <view class='input-label'>电子邮件</view>
       <input name='email' bindblur='updatePI' maxlength='64'
         value='{{ client.email }}' data-attr='email'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.email }}'>
+        {{ errors.email }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.wechat_id ? "has-error" : "" }}'>
       <view class='input-label'>微信帐号</view>
       <input name='wechat_id' bindblur='updatePI' maxlength='64'
         value='{{ client.wechat_id }}' data-attr='wechat_id'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.wechat_id }}'>
+        {{ errors.wechat_id }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.id_card_number ? "has-error" : "" }}'>
       <view class='input-label'>身份证号码</view>
       <input name='id_card_number' bindblur='updatePI' maxlength='20'
         value='{{ client.id_card_number }}' data-attr='id_card_number'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.id_card_number }}'>
+        {{ errors.id_card_number }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.passport_number ? "has-error" : "" }}'>
       <view class='input-label'>护照号</view>
       <input name='passport_number' bindblur='updatePI' maxlength='20'
         value='{{ client.passport_number }}' data-attr='passport_number'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.passport_number }}'>
+        {{ errors.passport_number }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.passport_issue_date ? "has-error" : "" }}'>
       <view class='input-label'>护照签发日期</view>
       <picker name='passport_issue_date' mode='date' bindchange='updatePI'
         data-attr='passport_issue_date' value='{{ client.passport_issue_date }}'>
-        <input name='passport_issue_date' value='{{ client.passport_issue_date }}'></input> 
+        <view class='picker-box'>{{ client.passport_issue_date }}</view>
       </picker>
+      <view class='error-message-container' wx:if='{{ errors.passport_issue_date }}'>
+        {{ errors.passport_issue_date }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.passport_expire_date ? "has-error" : "" }}'>
       <view class='input-label'>护照到期日</view>
       <picker name='passport_expire_date' mode='date' bindchange='updatePI'
         data-attr='passport_expire_date' value='{{ client.passport_expire_date }}'>
-        <input name='passport_expire_date' value='{{ client.passport_expire_date }}'></input> 
+        <view class='picker-box'>{{ client.passport_expire_date }}</view>
       </picker>
+      <view class='error-message-container' wx:if='{{ errors.passport_expire_date }}'>
+        {{ errors.passport_expire_date }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.passport_place_of_issue ? "has-error" : "" }}'>
       <view class='input-label'>签发护照的地方</view>
       <input name='passport_place_of_issue' bindblur='updatePI' maxlength='60'
         value='{{ client.passport_place_of_issue }}' data-attr='passport_place_of_issue'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.passport_place_of_issue }}'>
+        {{ errors.passport_place_of_issue }}
+      </view> 
     </view>
 
-    <view class='input-group'>
+    <view class='input-group {{ errors.passport_issuing_authority ? "has-error" : "" }}'>
       <view class='input-label'>签发的护照</view>
       <input name='passport_issuing_authority' bindblur='updatePI' maxlength='120'
         value='{{ client.passport_issuing_authority }}' data-attr='passport_issuing_authority'>
       </input>
+      <view class='error-message-container' wx:if='{{ errors.passport_issuing_authority }}'>
+        {{ errors.passport_issuing_authority }}
+      </view> 
     </view>
+
+    <button id='pi-confirm-update-button' bindtap='concludeUpdate' type='primary'>更新</button>
   
   </form>
 
