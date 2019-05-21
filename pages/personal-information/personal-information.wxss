@@ -4,7 +4,8 @@
   top: 10px;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 95%;
+  box-sizing: border-box;
 }
 
 #pi-notification {
@@ -17,6 +18,7 @@
   border-radius: 5px;
   width: fit-content;
   display: flex;
+  align-items: center;
 }
 
 #pi-notification icon {
@@ -36,6 +38,12 @@
   color: #aaa;
   font-size: 0.7rem;
   margin: 6rpx 0 6rpx 24rpx;
+}
+
+picker .picker-box {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .input-group input, .input-group textarea, picker .picker-box {

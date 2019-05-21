@@ -38,7 +38,7 @@
       <view class='input-label'>出生日期</view>
       <picker name='birthdate' mode='date' bindchange='updatePI'
         data-attr='birthdate' value='{{ client.birthdate }}'>
-        <view class='picker-box'>{{ client.birthdate }}</view>
+        <view class='picker-box'>{{ client.birthdate || '' }}</view>
       </picker>
       <view class='error-message-container' wx:if='{{ errors.birthdate }}'>
         {{ errors.birthdate }}
@@ -151,7 +151,9 @@
       <view class='input-label'>护照签发日期</view>
       <picker name='passport_issue_date' mode='date' bindchange='updatePI'
         data-attr='passport_issue_date' value='{{ client.passport_issue_date }}'>
-        <view class='picker-box'>{{ client.passport_issue_date }}</view>
+        <view class='picker-box'>
+          {{ client.passport_issue_date || '' }}
+        </view>
       </picker>
       <view class='error-message-container' wx:if='{{ errors.passport_issue_date }}'>
         {{ errors.passport_issue_date }}
@@ -162,7 +164,9 @@
       <view class='input-label'>护照到期日</view>
       <picker name='passport_expire_date' mode='date' bindchange='updatePI'
         data-attr='passport_expire_date' value='{{ client.passport_expire_date }}'>
-        <view class='picker-box'>{{ client.passport_expire_date }}</view>
+        <view class='picker-box'>
+          {{ client.passport_expire_date || '' }}
+        </view>
       </picker>
       <view class='error-message-container' wx:if='{{ errors.passport_expire_date }}'>
         {{ errors.passport_expire_date }}
