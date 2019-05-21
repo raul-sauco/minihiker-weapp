@@ -24,13 +24,13 @@
   <view class='clients-container'>
   
     <view wx:for='{{ accountInfo.clients }}' wx:key='account-clients' 
-      class='client-container' 
-      data-client-id='{{ item.id }}'>
+      class='client-container' wx:for-item='client'
+      data-client-id='{{ client.id }}'>
       
-      <view>{{ item.nickname }}</view>
+      <view>{{ client.nickname || client.name_zh || client.name_en || client.id }}</view>
 
       <view class='button-container'>
-        <button bindtap='updateClient' data-client-id='{{ item.id }}'>
+        <button bindtap='updateClient' data-client-id='{{ client.id }}'>
           <text class='fas fa-user-edit'></text>
         </button>
       </view>
