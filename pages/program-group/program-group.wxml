@@ -1,7 +1,7 @@
 <!--pages/program-group/program-group.wxml-->
 <view class="container" wx:if="{{ programGroup }}">
 
-  <image 
+  <image mode='widthFix'
     src="{{ resUrl + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"
     class='program-group-cover-image'>
   </image>
@@ -81,13 +81,17 @@
   </view>
 
   <view class='program-group-images'>
-    <image wx:for='{{ images }}'  
-      wx:key='id' 
-      data-imageId='{{ item.id }}'
-      src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/th/{{ item.name }}' 
-      class='program-group-image-small' 
-      ontap='clickImage'>
-    </image>
+
+    <view class='program-group-image-container' wx:for='{{ images }}' 
+      wx:key='id' wx:for-item='image' data-image-id='{{ image.id }}'>
+
+      <image mode='widthFix'
+        src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/{{ image.name }}' 
+        class='program-group-image'>
+      </image>
+
+    </view>
+
   </view>
 
   <view class='program-group-action-bar'>
