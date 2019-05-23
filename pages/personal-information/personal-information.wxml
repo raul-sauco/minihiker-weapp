@@ -5,7 +5,7 @@
 
     <view class='input-group {{ errors.name_zh ? "has-error" : "" }}'>
       <view class='input-label'>营员名称</view>
-      <input name='name_zh' maxlength='120'
+      <input name='name_zh' maxlength='12'
         focus bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
       </input>
@@ -16,7 +16,7 @@
 
     <view class='input-group {{ errors.nickname ? "has-error" : "" }}'>
       <view class='input-label'>昵称</view>
-      <input name='nickname' bindblur='updatePI' maxlength='1280'
+      <input name='nickname' bindblur='updatePI' maxlength='128'
         value='{{ client.nickname }}' data-attr='nickname'>
       </input>
       <view class='error-message-container' wx:if='{{ errors.nickname }}'>
