@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+    pageReady: false,
     programGroups: [],
     filters: [
       {
@@ -128,6 +129,10 @@ Page({
 
     // TODO allow for pagination
 
+    this.setData({
+      pageReady: false
+    });
+
     wx.showLoading({
       title: '下载中',
     });
@@ -150,7 +155,8 @@ Page({
 
         // And add them to the data set, will refresh the UI
         this.setData({
-          programGroups: res.data
+          programGroups: res.data,
+          pageReady: true
         });
 
         wx.hideLoading();

@@ -30,7 +30,7 @@
   <view wx:else class='no-programs-message-container'>
     <icon type='info' size='60' />
     <view class='no-programs-header'>我们很抱歉!</view>
-    <view class='no-programs-body'>目前，我们没有在选定时间内运行任何国际计划。</view>
+    <view class='no-programs-body'>您所选时间目前暂无活动</view>
     <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
   </view>
 
