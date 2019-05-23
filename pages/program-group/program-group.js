@@ -37,7 +37,7 @@ Page({
    */
   fetchImages: function () {
 
-    let endpoint = 'images?program_group_id=' + this.data.programGroup.id;
+    let endpoint = 'images?program-group-id=' + this.data.programGroup.id;
 
     wx.request({
       url: app.globalData.url + endpoint,
