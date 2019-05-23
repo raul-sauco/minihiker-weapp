@@ -2,3 +2,29 @@
 .container {
   align-items: stretch;
 }
+
+.filters-container {
+  width: 100%;
+  display: flex;
+  font: 0.8rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+}
+
+.filter-container {
+  width: fit-content;
+  padding: 0.3rem;
+  display: inline-block;
+}
+
+.filter-container button {
+  font-size: 0.8rem;
+  line-height: 2;
+}
+
+.filter-container button.active {
+  border: 1px solid #0ba360;
+  color: #0ba360;
+}

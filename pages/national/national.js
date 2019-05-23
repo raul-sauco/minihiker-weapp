@@ -76,7 +76,7 @@ Page({
           parameter: 'type',
           value: '国庆'
         }
-      },// start
+      },
       {
         title: '圣诞',
         active: false,
