@@ -1,4 +1,20 @@
-<!--pages/national/national.wxml-->
+<!--pages/national/national.wxml-->  
+<view class='filters-container'>
+
+  <scroll-view scroll-x='true'>
+
+    <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
+      class='filter-container'>
+      <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
+        class='{{ filter.active ? "active" : "" }}'>
+        {{ filter.title }}
+      </button>
+    </view>
+  
+  </scroll-view>
+
+</view>
+
 <view class="container">
 
   <block wx:for="{{ programGroups }}" wx:key='id'>
