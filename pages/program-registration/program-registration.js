@@ -92,9 +92,7 @@ Page({
         icon: "success"
       });
       setTimeout(() => {
-        wx.navigateTo({
-          url: '/pages/program-group/program-group?id=' + this.data.programGroup.id,
-        });
+        wx.navigateBack();
       }, 1500);
     }, 2000);
 
