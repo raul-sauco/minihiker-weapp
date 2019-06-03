@@ -20,12 +20,7 @@
     <view class='navigator-box navigator-box-show'>
 
       <navigator class='navigator' url='/pages/account-details/account-details'>
-        <view class='navigator-text'>会员信息</view>
-        <view class='navigator-arrow'></view>
-      </navigator>
-
-      <navigator class='navigator' url='/pages/personal-information/personal-information'>
-        <view class='navigator-text'>个人信息</view>
+        <view class='navigator-text'>家庭信息</view>
         <view class='navigator-arrow'></view>
       </navigator>
 

@@ -140,7 +140,8 @@
     <view class='input-group {{ errors.passport_number ? "has-error" : "" }}'>
       <view class='input-label'>护照号</view>
       <input name='passport_number' bindblur='updatePI' maxlength='20'
-        value='{{ client.passport_number }}' data-attr='passport_number'>
+        value='{{ client.passport_number }}' data-attr='passport_number' 
+        placeholder='您只需为国际项目提供护照信息'>
       </input>
       <view class='error-message-container' wx:if='{{ errors.passport_number }}'>
         {{ errors.passport_number }}

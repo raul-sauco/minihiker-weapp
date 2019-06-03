@@ -11,7 +11,7 @@
 
   <view class='client-info-header'>
   
-    总营员: {{ accountInfo.clients.length }}
+    家庭信息: {{ accountInfo.clients.length }}
 
     <view class='button-container'>
       <button bindtap='addClient'>
@@ -26,8 +26,14 @@
     <view wx:for='{{ accountInfo.clients }}' wx:key='account-clients' 
       class='client-container' wx:for-item='client'
       data-client-id='{{ client.id }}'>
+
+      <view>
+
+        <view class='client-index'>家庭成员 {{ index + 1 }}</view>
       
-      <view>{{ client.nickname || client.name_zh || client.name_en || client.id }}</view>
+        {{ client.nickname || client.name_zh || client.name_en || client.id }}
+        
+      </view>
 
       <view class='button-container'>
         <button bindtap='updateClient' data-client-id='{{ client.id }}'>
