@@ -23,14 +23,14 @@
 
   </view>
 
-  <view class='payment-details'>
-  
-    <view>要支付: {{ ammountDue }} </view>
+</view>
 
-    <view class='proceed-payment-button-container'>
-      <button bindtap='processPayment' type='primary' disabled='{{ !ammountDue }}'>支付</button>
-    </view>
-  
+<view class='payment-details'>
+
+  <view>要支付: {{ ammountDue }} </view>
+
+  <view class='proceed-payment-button-container'>
+    <button bindtap='processPayment' type='primary' disabled='{{ !ammountDue }}'>支付</button>
   </view>
 
 </view>

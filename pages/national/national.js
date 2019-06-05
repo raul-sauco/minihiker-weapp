@@ -138,7 +138,7 @@ Page({
     });
 
     // We are fetching national programs
-    let endpoint = 'program-groups?weapp_visible=true&int=false&expand=location,programs,type,programs.registrations,programs.period';
+    let endpoint = 'program-groups?weapp_visible=true&int=false&expand=location,programs,type,programs.registrations,programs.period,programs.prices';
 
     endpoint = this.addFiltersToEndpoint(endpoint);
 

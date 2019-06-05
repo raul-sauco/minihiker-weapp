@@ -58,12 +58,6 @@
           <text class='attr-value'>{{ item.end_date }}</text>
         </view>
 
-        <view class='program-price program-inner-entry'>
-          <text class='attr-name'>
-            <text class='fas fa-yen-sign'></text> 价格: </text>
-          <text class='attr-value'>¥ {{ item.price }}</text>
-        </view>
-
         <view class='program-vacancies program-inner-entry'>
           <text class='attr-name'>
             <text class='far fa-hourglass'></text> 名额: </text>
