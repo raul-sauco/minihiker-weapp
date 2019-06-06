@@ -1,33 +1,46 @@
+<image mode='widthFix' wx:if='{{ programGroup }}'
+  src="{{ resUrl + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"
+  class='program-group-cover-image'>
+</image>
+
 <view class='program-details'>
 
-  <view class='program-name'>{{ programGroup.weapp_display_name }}</view>
+  <view class='program-details-name-date'>
 
-  <view class='program-dates'>
-    {{ program.period.name }} {{ program.formattedStartDate }}-{{ program.formattedEndDate }}
-  </view>
+    <view class='program-name'>{{ programGroup.weapp_display_name }}</view>
+
+    <view class='program-dates'>
+      {{ program.formattedStartDate }}-{{ program.formattedEndDate }}
+    </view>
   
-</view>
+  </view>
 
-<view class='registration-container'>
-
-  <view wx:for='{{ accountInfo.clients }}' class='client-container'
-    wx:key='client' wx:for-index="idx" wx:for-item="client">
-
-    <view class='client-name'>
-      {{ client.nickname || client.name_zh || client.name_en || client.id }}
-    </view>
-
-    <view class='client-select-container'>
-      <switch data-client-id='{{ client.id }}' bindchange='switchClientSelected'></switch>
+  <view>
+  
+    <view class='program-details-price'>    
+      {{ selectedPrice ? selectedPrice.price : program.minPrice  + '-' + program.maxPrice }}元
     </view>
 
   </view>
 
 </view>
+
+<view class='program-prices'>
+
+  <view wx:for='{{ program.prices }}' wx:key='id' wx:for-item='price' 
+    class='program-price-container {{ selectedPrice && selectedPrice.id === price.id ? "selected-price" : ""}}' 
+    bindtap='selectPrice' data-id='{{ price.id }}'>
+  
+      {{ price.adults ? price.adults + '大' : '' }}{{ price.kids }}小
+
+  </view>
+
+</view>
+
 
 <view class='payment-details'>
 
-  <view>要支付: {{ ammountDue }} </view>
+  <view>要支付: {{ ammountDue }}元 </view>
 
   <view class='proceed-payment-button-container'>
     <button bindtap='processPayment' type='primary' disabled='{{ !ammountDue }}'>支付</button>

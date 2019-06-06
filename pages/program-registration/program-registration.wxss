@@ -1,35 +1,41 @@
+.program-group-cover-image {
+  width: 100%;
+}
+
 .program-details {
-
-  background: #0ba360;
-  color: #fff;
-
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 
   padding: 0 20rpx 20rpx 20rpx;
-
 }
 
 .program-dates {
   font-size: 0.8rem;
+  color: #aaa;
 }
 
-.registration-container {
-  padding: 0 20rpx 100rpx 20rpx;
-  box-sizing: border-box;
-}
-
-.client-container {
-  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0,0,0, 0.24);
-  margin: 10rpx 0;
-  padding: 20rpx;
+.program-prices {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #fff;
+  flex-wrap: wrap;
+  padding: 0 20rpx;
+}
+
+.program-prices .program-price-container{
+  font-size: 0.7rem;
+  color:#aaa;
+  margin: 0 0.5rem 0.3rem 0;
+  padding: 0.2rem;
+  box-sizing: border-box;
+  border: 1px solid #888;
+  border-radius: 5px;
+}
+
+.program-prices .selected-price {
+  border: 2px solid #3cba92;
+  color: #444;
 }
 
 .payment-details {

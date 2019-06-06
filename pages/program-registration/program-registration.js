@@ -10,8 +10,9 @@ Page({
     programGroup: null,
     program: null,
     accountInfo: null,
-    selectedClients: [],
-    ammountDue: 0
+    selectedPrice: null,
+    ammountDue: 0,
+    resUrl: app.globalData.resUrl,
   },
 
   /**
@@ -29,6 +30,10 @@ Page({
       return program.id == options.p;
     });
 
+    p.prices = this.getPricesInCategory(p, app.globalData.accountInfoProvider.category);
+    p.minPrice = this.getMinPrice(p.prices);
+    p.maxPrice = this.getMaxPrice(p.prices);
+
     p.formattedStartDate = this.formatDate(p.start_date);
     p.formattedEndDate = this.formatDate(p.end_date);
 
@@ -40,34 +45,87 @@ Page({
   },
 
   /**
-   * Update the selected status of a client.
+   * Eliminate the prices that don't belong to the user category 
+   * from the prices that are displayed.
    */
-  switchClientSelected: function (e) {
+  getPricesInCategory: function (program, cat) {
 
-    let clientId = e.currentTarget.dataset.clientId;
-    let selected = e.detail.value; // Boolean
+    let prices = [];
 
-    if (selected && !this.data.selectedClients.includes(clientId)) {
+    program.prices.forEach(price => {
 
-      // Add the client id to the array if selected an not previously there
-      this.data.selectedClients.push(clientId);
+      console.log('Checking if price ' + price.id + ' belongs in category ' + cat);
+
+      if (cat === '会员' && price.membership_type == 1) {
+        prices.push(price);
+      } else if (cat === '非会员' && price.membership_type == 0) {
+        prices.push(price);
+      }
+
+    });
+
+    return prices;
+  },
+
+  /**
+   * Get the minimum price out of a set of prices.
+   */
+  getMinPrice: function (prices) {
+    
+    let min = 0;
+
+    prices.forEach(price => {
+      if ((price.price && min === 0) || price.price < min) {
+        min = price.price;
+      } 
+    });
+
+    return min;
+  },
+
+  /**
+   * Get the maximum price out of a set of prices.
+   */
+  getMaxPrice: function (prices) {
+
+    let max = 0;
+
+    prices.forEach(price => {
+      if (price.price > max) {
+        max = price.price;
+      }
+    });
+
+    return max;
+  },
+
+  /**
+   * Handle tap on one of the prices.
+   */
+  selectPrice: function (e) {
+
+    let id = e.currentTarget.dataset.id;
+
+    // Toggle selected price status if active
+    if (this.data.selectedPrice && this.data.selectedPrice.id === id) {
+
+      this.setData({
+        selectedPrice: null,
+        ammountDue: 0
+      });
 
     } else {
 
-      if (this.data.selectedClients.includes(clientId)) {
+      let selectedPrice = this.data.program.prices.find(price => {
+        return price.id === id;
+      });
 
-        let key = this.data.selectedClients.findIndex( e => e == clientId);
-
-        this.data.selectedClients.splice(key, 1);
-
-      }
+      this.setData({
+        selectedPrice: selectedPrice,
+        ammountDue: selectedPrice.price
+      });
 
     }
-
-    this.setData({
-      ammountDue: this.data.program.price * this.data.selectedClients.length
-    });
-
   },
 
   /**
