@@ -1,4 +1,4 @@
-//index.js
+//national.js
 const app = getApp()
 
 Page({
@@ -117,8 +117,54 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-
+    this.fetchActiveFilters();
     this.fetchProgramGroups();
+  },
+
+  /**
+     * Fetch all the active program-types for the international programs.
+     */
+  fetchActiveFilters: function () {
+
+    let endpoint = 'program-types?weapp-visible=true&int=false';
+
+    wx.request({
+      url: app.globalData.url + endpoint,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+
+        console.log(res);
+
+        let filters = [];
+
+        // If the request is successful we should get a ProgramTypes array back
+        // Create an filter array using active program-types
+        res.data.forEach(pt => {
+          filters.push({
+            title: pt.name,
+            active: false,
+            query: {
+              parameter: 'type',
+              value: pt.name
+            }
+          });
+        });
+
+        // And add them to the data set, will refresh the UI
+        this.setData({
+          filters: filters
+        });
+
+      },
+      fail: (res) => {
+        console.warn('Request failed. ' + app.globalData.url + endpoint);
+      },
+      complete: (res) => {
+        console.log('Request completed. ' + app.globalData.url + endpoint);
+      }
+    });
 
   },
 
