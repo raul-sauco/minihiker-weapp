@@ -37,6 +37,15 @@
 
 </view>
 
+<view class='program-price-description-container'>
+  <view class='price-description-header'>价格说明</view>
+  <rich-text id='program-price-description' nodes='{{ programGroup.price_description }}'></rich-text>
+</view>
+
+<view class='program-refund-description-container'>
+  <view class='refund-description-header'>退款说明</view>
+  <rich-text nodes='{{ programGroup.refund_description }}'></rich-text>
+</view>
 
 <view class='payment-details'>
 

@@ -133,7 +133,6 @@ Page({
    */
   processPayment: function () {
 
-    let selectedClients = this.data.selectedClients;
     let programId = this.data.program.id;
     let timestamp = Math.floor(Date.now() / 1000);
     let nonceStr = this.generateRandomString(12);

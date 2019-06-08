@@ -38,6 +38,14 @@
   color: #444;
 }
 
+.price-description-header, .refund-description-header {
+  font-weight: bold;
+}
+
+.program-price-description-container, .program-refund-description-container {
+  padding: 0 20rpx 50px 20rpx;
+}
+
 .payment-details {
   background: linear-gradient(to bottom, #606c88 0%,#3f4c6b 100%);
   color: #fff;
