@@ -11,7 +11,7 @@ Page({
     program: null,
     accountInfo: null,
     selectedPrice: null,
-    ammountDue: 0,
+    amountDue: 0,
     resUrl: app.globalData.resUrl,
   },
 
@@ -111,7 +111,7 @@ Page({
 
       this.setData({
         selectedPrice: null,
-        ammountDue: 0
+        amountDue: 0
       });
 
     } else {
@@ -122,7 +122,7 @@ Page({
 
       this.setData({
         selectedPrice: selectedPrice,
-        ammountDue: selectedPrice.price
+        amountDue: selectedPrice.price
       });
 
     }
@@ -133,45 +133,107 @@ Page({
    */
   processPayment: function () {
 
-    let programId = this.data.program.id;
-    let timestamp = Math.floor(Date.now() / 1000);
-    let nonceStr = this.generateRandomString(12);
+    let selectedPrice = this.data.selectedPrice;
+    let amount = this.data.amountDue;
 
-    wx.showLoading({
-      title: '处理付款',
-    });
+    if (selectedPrice && amount) {
 
-    // TODO change this for real wx.requestPayment call
-    setTimeout(() => {
-      wx.hideLoading();
-      wx.showToast({
-        title: '正在开发中',
-        icon: "success"
+      let data = {
+        price: selectedPrice.id,
+        amount: amount
+      };
+
+      let endpoint = 'wx-payment';
+
+      let header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      }
+
+      wx.showLoading({
+        title: '处理付款',
       });
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1500);
-    }, 2000);
 
-    /**
+      // TODO change this for real wx.requestPayment call
+      wx.request({
+        url: app.globalData.url + endpoint,
+        data: data,
+        method: 'POST',
+        header: header,
+        success: res => {
+          
+          // Check if the request was successfull
+          if (res.statusCode == 200 || res.statusCode == 201) {
+
+            // Success creating the prepay order, show confirmation dialog
+            this.requestPaymentConfirmation(res);
+
+          } else {
+
+            // Server error, either MH or Wx
+            wx.hideLoading();
+            wx.showToast({
+              title: '服务器或网络错误, 请稍后再试。',
+              icon: 'none'
+            });
+
+          }
+        },
+        fail: res => {
+          console.warn('Request failed. ' + app.globalData.url + endpoint);
+          wx.showToast({
+            title: '服务器或网络错误, 请稍后再试。',
+            icon: 'none'
+          });
+        },
+        complete: res => {
+          console.log('Request completed. ' + app.globalData.url + endpoint);
+        }
+      });
+    }
+  },
+
+  /**
+   * Request payment confirmation from the user.
+   * 
+   * The method will receive an object with the prepay order data
+   * {
+   *   appId: ***,
+   *   timeStamp: ***,
+   *   nonceStr: ***,
+   *   package: 'prepay_id=NA898977AOEHUD***',
+   *   signType: MD5,
+   *   paySign: ***
+   * }
+   */
+  requestPaymentConfirmation: function (order) {
+
     wx.requestPayment({
-      'timeStamp': timestamp,
-      'nonceStr': nonceStr,
-      'package': '',
-      'signType': 'MD5',
-      'paySign': '',
+      'timeStamp': order.timestamp,
+      'nonceStr': order.nonceStr,
+      'package': order.package,
+      'signType': order.signType,
+      'paySign': order.paySign,
       'success': function (res) {
 
         console.log(res);
+        wx.showModal(
+          '您的付款成功了'
+        );
+
+        // Go back to the program page
+        wx.navigateBack();
 
       },
       'fail': function (res) {
 
         console.log(res);
+        wx.showModal(
+          '付款失败'
+        );
 
       }
     });
-    */
 
   },
 

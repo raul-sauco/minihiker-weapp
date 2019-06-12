@@ -49,10 +49,10 @@
 
 <view class='payment-details'>
 
-  <view>要支付: {{ ammountDue }}元 </view>
+  <view>要支付: {{ amountDue }}元 </view>
 
   <view class='proceed-payment-button-container'>
-    <button bindtap='processPayment' type='primary' disabled='{{ !ammountDue }}'>支付</button>
+    <button bindtap='processPayment' type='primary' disabled='{{ !amountDue }}'>支付</button>
   </view>
 
 </view>
