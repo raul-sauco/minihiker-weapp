@@ -174,10 +174,62 @@ App({
 
         // Let the accountInfoProvider check if the data needs to be refrehed
         this.globalData.accountInfoProvider.setAccountId(res.data.family_id);
+        this.checkAccountData();
         
       }
     });
 
+  },
+
+  /**
+   * Check if the account information stored in the accountInfoProvider is 
+   * up to date and complete.
+   */
+  checkAccountData: function () {
+    if (this.globalData.accountInfoProvider.infoIsOutdated()) {
+
+      let endpoint = 'families/' + this.globalData.accountInfoProvider.id + '?expand=clients';
+      let url = this.globalData.url + endpoint;
+
+      let header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.globalData.accessToken
+      };
+
+      wx.request({
+        url: url,
+        header: header,
+        method: 'GET',
+        success: res => {
+
+          if (res.statusCode == 200) {
+
+            // Save account info data
+            res.data.updated_ts = Date.now();
+            this.globalData.accountInfoProvider.saveFromServerResponse(res.data);
+            
+          } else {
+
+            console.warn('Error fetching account information ' + this.globalData.accountInfoProvider.id);
+            console.warn(res);
+
+            // Retry after a delay
+            setTimeout(this.checkAccountData, 3000);
+          }
+        },
+        fail: res => {
+
+          console.warn('Error fetching account info for ' + this.globalData.accountInfoProvider.id);
+          console.info(res);
+
+          // Retry after a delay
+          setTimeout(this.checkAccountData, 3000);
+
+        },
+        complete: res => {}
+      });
+
+    }
   },
 
   globalData: {
