@@ -1,0 +1,31 @@
+/* pages/confirm-payment/confirm-payment.wxss */
+page {
+  height: 100%;
+}
+
+.container {
+  justify-content: center;
+}
+
+.confirm-success {
+  font-size: 2rem;
+  padding-top: 5%;
+}
+
+.confirm-success-details {
+  font-size: 1.2rem;
+  padding: 5% 0;
+  text-align: center;
+}
+
+.congrat-message {
+  font-size: 1.5rem;
+}
+
+.price-details, .program-details {
+  font-weight: bold;
+}
+
+.navigate-button {
+  margin-top: 2%;
+}

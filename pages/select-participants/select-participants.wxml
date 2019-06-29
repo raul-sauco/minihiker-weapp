@@ -1,0 +1,11 @@
+<!--pages/select-participants/select-participants.wxml-->
+<view class="container">
+
+  <!-- Placeholders, to be removed -->
+  <view>{{ programGroup.weapp_display_name }}</view>
+  <view>{{ program.id }}</view>
+  <view>{{ price.id }}</view>
+  <view>{{ accountInfo.name }}</view>
+
+</view>
+

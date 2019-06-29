@@ -9,7 +9,9 @@
     "pages/personal-information/personal-information",
     "pages/account-details/account-details",
     "pages/my-programs/my-programs",
-    "pages/program-registration/program-registration"
+    "pages/program-registration/program-registration",
+    "pages/confirm-payment/confirm-payment",
+    "pages/select-participants/select-participants"
   ],
   "window": {
     "backgroundTextStyle": "light",

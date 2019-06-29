@@ -1,0 +1,25 @@
+<!--pages/confirm-payment/confirm-payment.wxml-->
+<view class="container">
+
+  <icon type="success" size="125"></icon>
+
+  <view class="confirm-success">付款成功</view>
+
+  <view wx:if='{{ accountInfo }}' class="confirm-success-details">
+
+    <view class="congrat-message">恭喜{{ accountInfo.name }}</view>
+
+    <view>
+      您已成功报名<text class="price-details">{{ price.adults}}大和{{ price.kids }}小</text>参加我们<text 
+        class="program-details">{{ programGroup.weapp_display_name }}</text>
+    </view>
+    
+  </view>
+
+  <button class="navigate-button" bindtap="selectParticipants" type="primary">选择项目参与者</button>
+
+  <button class="navigate-button" bindtap="navigateInt" type="primary">继续浏览国际项目</button>
+
+  <button class="navigate-button" bindtap="navigateNat" type="primary">继续浏览国内项目</button>
+
+</view>

@@ -54,8 +54,6 @@ Page({
 
     program.prices.forEach(price => {
 
-      console.log('Checking if price ' + price.id + ' belongs in category ' + cat);
-
       if (cat === '会员' && price.membership_type == 1) {
         prices.push(price);
       } else if (cat === '非会员' && price.membership_type == 0) {
@@ -154,7 +152,11 @@ Page({
         title: '处理付款',
       });
 
-      // TODO change this for real wx.requestPayment call
+      // Send data to the minihiker server. The server expects two parameters
+      // {
+      //   amount: 1 // number: the total amount the user will be charged for
+      //   price: 25 // number: the id of the Price model the user has selected 
+      // }
       wx.request({
         url: app.globalData.url + endpoint,
         data: data,
@@ -166,12 +168,12 @@ Page({
           if (res.statusCode == 200 || res.statusCode == 201) {
 
             // Success creating the prepay order, show confirmation dialog
-            this.requestPaymentConfirmation(res);
+            this.requestPaymentConfirmation(res.data);
 
           } else {
 
             // Server error, either MH or Wx
-            wx.hideLoading();
+            console.warn(res);
             wx.showToast({
               title: '服务器或网络错误, 请稍后再试。',
               icon: 'none'
@@ -181,6 +183,7 @@ Page({
         },
         fail: res => {
           console.warn('Request failed. ' + app.globalData.url + endpoint);
+          console.warn(res);
           wx.showToast({
             title: '服务器或网络错误, 请稍后再试。',
             icon: 'none'
@@ -188,6 +191,7 @@ Page({
         },
         complete: res => {
           console.log('Request completed. ' + app.globalData.url + endpoint);
+          wx.hideLoading();
         }
       });
     }
@@ -209,23 +213,21 @@ Page({
   requestPaymentConfirmation: function (order) {
 
     wx.requestPayment({
-      'timeStamp': order.timestamp,
+      'timeStamp': '' + order.timeStamp,
       'nonceStr': order.nonceStr,
       'package': order.package,
       'signType': order.signType,
       'paySign': order.paySign,
-      'success': function (res) {
+      'success': res => {
 
-        console.log(res);
-        wx.showModal(
-          '您的付款成功了'
-        );
-
-        // Go back to the program page
-        wx.navigateBack();
+        // Display payment confirmation
+        wx.navigateTo({
+          url: '/pages/confirm-payment/confirm-payment?pg=' + this.data.programGroup.id +
+            '&p=' + this.data.program.id + '&price=' + this.data.selectedPrice.id,
+        });
 
       },
-      'fail': function (res) {
+      'fail': res => {
 
         console.log(res);
         wx.showModal(
