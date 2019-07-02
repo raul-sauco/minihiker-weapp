@@ -28,6 +28,11 @@
         <view class='navigator-text'>我的活动</view>
         <view class='navigator-arrow'></view>
       </navigator>
+
+      <navigator class='navigator' url='/pages/my-payments/my-payments'>
+        <view class='navigator-text'>我的付款</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
     
     </view>
 

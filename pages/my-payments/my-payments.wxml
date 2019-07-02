@@ -1,0 +1,14 @@
+<!--pages/my-payments/my-payments.wxml-->
+<view class="container">
+
+  <view wx:for='{{ payments }}' wx:for-item='payment' data-payment-id='{{ payment.id }}'
+    wx:key='id' class="payment-container" bindtap="viewPayment">
+  
+    <view class="item-price">¥{{ payment.price.price }}</view>
+    <view class="item-date">{{ payment.created_at_fmt }}</view>
+    <view class="item-program-name">{{ payment.price.program_weapp_name }}</view>
+    <view class="item-participants">{{ payment.price.kids }}小{{ payment.price.adults }}大</view>
+  
+  </view>
+
+</view>

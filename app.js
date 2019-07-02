@@ -239,6 +239,7 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     programProvider: null,
     accountInfoProvider: null,
+    payments: null,
     url: 'https://api.minihiker.com/',
     resUrl: 'https://minihiker.com/webapp/'
   }

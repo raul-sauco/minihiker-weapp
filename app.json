@@ -11,7 +11,9 @@
     "pages/my-programs/my-programs",
     "pages/program-registration/program-registration",
     "pages/confirm-payment/confirm-payment",
-    "pages/select-participants/select-participants"
+    "pages/select-participants/select-participants",
+    "pages/my-payments/my-payments",
+    "pages/payment/payment"
   ],
   "window": {
     "backgroundTextStyle": "light",
