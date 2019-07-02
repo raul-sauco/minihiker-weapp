@@ -18,6 +18,8 @@ Page({
    */
   onLoad: function (options) {
 
+    console.debug('Select participants for ProgramGroup ' + options.pg + ' program ' + options.p + ' price ' + options.price);
+
     // Fetch the programGroup and program from the global programProvider
     let pg = app.globalData.programProvider.get(options.pg);
     let p = pg.programs.find(program => {
@@ -32,54 +34,6 @@ Page({
       accountInfo: app.globalData.accountInfoProvider
     });
 
-  },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
   }
+  
 })

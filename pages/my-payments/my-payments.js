@@ -47,7 +47,7 @@ Page({
       header:header,
       success: res => {
 
-        console.log(res);  // TODO implement pagination based on headers
+        console.log('TODO implement pagination');  // TODO implement pagination based on headers
 
         res.data.forEach(payment => {
           payment.created_at_fmt = util.formatTime(new Date(payment.created_at * 1000));
@@ -65,10 +65,10 @@ Page({
         console.warn("Request failed: " + url);
       },
       complete: res => {
-        console.log("Request completed: " + url);
+        console.debug("Request completed: " + url);
         wx.hideLoading();
       }
-    })
+    });
 
   },
   

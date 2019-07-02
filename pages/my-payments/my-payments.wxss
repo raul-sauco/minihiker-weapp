@@ -2,7 +2,7 @@
 .payment-container {
   width: 100%;
   padding: 2%;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #CCC;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -16,7 +16,7 @@
 
 .item-date {
   grid-area: 1 / 3 / 2 / last-line;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   color: #666;
   text-align: right;
   justify-self: right;

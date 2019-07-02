@@ -1,2 +1,44 @@
 <!--pages/payment/payment.wxml-->
-<text>pages/payment/payment.wxml</text>
+<view class="container" wx:if='{{ payment }}'>
+
+  <view class="attribute-container" id="payment-program-name">
+
+      <view class="header">
+        项目:
+      </view>
+
+      <view class="value">
+        {{ payment.price.program_weapp_name }}
+      </view>
+
+  </view>
+
+  <view class="attribute-container" id="payment-participants">
+
+      <view class="header">
+        参与者:
+      </view>
+
+      <view class="value">
+        {{ payment.price.kids }}小{{ payment.price.adults }}大
+      </view>
+
+  </view>
+
+  <view wx:for='{{ attributes }}' wx:for-item='attr' wx:key='index'
+    class="attribute-container" id="payment-{{ attr[0] }}" wx:if='{{ payment[attr[0]] }}'>
+
+      <view class="header">
+        {{ attr[1] }}:
+      </view>
+
+      <view class="value">
+        {{ payment[attr[0]] }}
+      </view>
+
+  </view>
+
+  <button bindtap="selectParticipants" type="primary"
+    loading='{{ loadingPg }}'>选择参与者</button>
+
+</view>

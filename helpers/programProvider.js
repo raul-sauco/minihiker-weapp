@@ -5,6 +5,8 @@
 class ProgramProvider {
 
   programGroups = Map;
+  accessToken;
+  url;
 
   /**
    * Initialize the ProgramProvider by creating an empty
@@ -14,6 +16,14 @@ class ProgramProvider {
    */
   constructor () {
     this.programGroups = new Map();
+  }
+
+  setApiUrl (url) {
+    this.url = url;
+  }
+
+  setAccessToken (token) {
+    this.accessToken = token;
   }
 
   /**
@@ -69,6 +79,70 @@ class ProgramProvider {
       } else {
         return 0;
       }
+    });
+  }
+
+  /**
+   * Find a program
+   */
+  getProgramGroupIdByProgramId (id) {
+
+    return new Promise ((resolve, reject) => {
+
+      let parent;
+
+      // Inside arrow functions this is the Provider
+      console.log('Looking in the existing programGroups');
+      this.programGroups.forEach(pg => {
+        console.log('  Checking ProgramGroup ' + pg.id);
+        pg.programs.forEach(p => {
+          console.log('    Checking if p ' + p.id + ' has id ' + id);
+          if (p.id == id) {
+            console.log('>>> Found program ' + id + ' in ProgramGroup ' + pg.id);
+            parent = pg;
+           }
+        });
+      });
+
+      if (parent) {
+        resolve(parent);
+      } else {
+        
+        // We don't have the program locally, find it on the server
+        let url = this.url + 'programs/' + id + 
+          '?expand=programGroup.location,programGroup.programs,programGroup.type,' + 
+          'programGroup.programs.registrations,programGroup.programs.period,programGroup.programs.prices';
+        wx.request({
+          url: url,
+          method: 'GET',
+            header: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + this.accessToken
+            },
+          success: res => {
+            
+            if (res.statusCode == 200) {
+
+              console.debug('Got program ' + id + ' from the server');
+              this.add(res.data.programGroup);
+              resolve(res.data.programGroup);
+
+            } else {
+
+              // The request didn't fail but we didn't get the resource
+              reject(res);
+            }
+
+          },
+          fail: res => {
+            console.warn("Request failed: " + url);
+          },
+          complete: res => {
+            console.debug("Request completed: " + url);
+          }
+        });
+      }
+
     });
   }
 

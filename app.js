@@ -13,6 +13,7 @@ App({
 
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
+    this.globalData.programProvider.setApiUrl(this.globalData.url);
 
     // Get user information if we have it on storage
     this.fetchUserData();
@@ -27,6 +28,10 @@ App({
           console.log('User session is valid but no accessToken stored, requesting wx.login()');
           this.requestLogin();
 
+        } else {
+
+          // We have an access token, set it on the provider
+          this.globalData.programProvider.setAccessToken(this.globalData.accessToken);
         }
       },
       fail: res => {
@@ -163,6 +168,7 @@ App({
 
         // Save the access_token
         this.globalData.accessToken = res.data.access_token;
+        this.globalData.programProvider.setAccessToken(this.globalData.accessToken);
 
         // Try to create the object
         wx.setStorage({

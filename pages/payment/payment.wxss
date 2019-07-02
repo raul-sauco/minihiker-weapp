@@ -1,1 +1,16 @@
 /* pages/payment/payment.wxss */
+.attribute-container {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  
+  padding: 2% 0;
+  border-bottom: 1px solid #CCC;
+}
+
+.attribute-container .header {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+
