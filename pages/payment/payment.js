@@ -29,9 +29,6 @@ Page({
       return item.id == options.id;
     });
 
-    payment.status_text = this.getStatusText(payment.status);
-    payment.total_fee = parseInt(payment.total_fee);
-
     this.setData({
       payment: payment
     });
@@ -68,20 +65,5 @@ Page({
       this.setData({ loadingPg: false });
     });
 
-  },
-
-  /**
-   * Get the textual meaning of the status.
-   */
-  getStatusText: function (status) {
-    let texts = [
-      '发起',
-      '服务器错误',
-      '正在等待用户确认',
-      '确认错误',
-      '付款已确认'
-    ];
-
-    return texts[status];
-  },
+  }
 })

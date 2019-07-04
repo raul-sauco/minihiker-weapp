@@ -106,6 +106,7 @@
     </button>
 
     <button bindtap='register' type='primary'>现在报名</button>
+    
   </view>
 
 </view>

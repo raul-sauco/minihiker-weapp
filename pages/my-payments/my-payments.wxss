@@ -31,3 +31,11 @@
   font-size: 0.8rem;
   color: #666;
 }
+
+.item-status {
+  grid-area: 3 / 2 / last-line / last-line;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: right;
+  justify-self: right;
+}

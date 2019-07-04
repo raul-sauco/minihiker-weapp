@@ -1,11 +1,34 @@
 <!--pages/select-participants/select-participants.wxml-->
 <view class="container">
 
-  <!-- Placeholders, to be removed -->
-  <view>{{ programGroup.weapp_display_name }}</view>
-  <view>{{ program.id }}</view>
-  <view>{{ price.id }}</view>
-  <view>{{ accountInfo.name }}</view>
+  <view class="header">{{ programGroup.weapp_display_name }} {{ program.period.name }}</view>
+  
+  <view wx:for='{{ clients }}' wx:key='id' wx:for-item='client'
+    class="client-container {{ ((client.is_kid && kidParticipants >= price.kids) || ((!client.is_kid) && adultParticipants >= price.adults)) ? 'disabled' : 'not-disabled' }}">
+
+    <view class="client-name">
+      {{ client.name }} ({{ client.is_kid ? '小' : '大'}})
+    </view>
+
+    <view class="select-switch">
+      <switch 
+        checked='{{ client.isParticipant }}'
+        disabled="{{ (client.is_kid && kidParticipants >= price.kids) || ((!client.is_kid) && adultParticipants >= price.adults) }}" 
+        bindchange="selectClient"
+        data-id="{{ client.id }}"></switch>
+    </view>
+    
+  </view>
+
+  <view class="summary">
+
+    <view class="kids">{{ kidSummary }}</view>
+    
+    <view class="adult">{{ adultSummary }}</view>
+
+    <view class="price-totals">一共{{ price.kids }}小和{{ price.aduls }}大'</view>
+
+  </view>
 
 </view>
 

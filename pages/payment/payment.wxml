@@ -39,6 +39,6 @@
   </view>
 
   <button bindtap="selectParticipants" type="primary"
-    loading='{{ loadingPg }}'>选择参与者</button>
+    loading='{{ loadingPg }}' wx:if='{{ payment.status == 4 }}'>选择参与者</button>
 
 </view>

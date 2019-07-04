@@ -14,6 +14,7 @@ App({
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
     this.globalData.programProvider.setApiUrl(this.globalData.url);
+    this.globalData.programProvider.setAccessToken(this.globalData.accessToken);
 
     // Get user information if we have it on storage
     this.fetchUserData();

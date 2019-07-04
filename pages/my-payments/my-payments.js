@@ -51,6 +51,8 @@ Page({
 
         res.data.forEach(payment => {
           payment.created_at_fmt = util.formatTime(new Date(payment.created_at * 1000));
+          payment.status_text = this.getStatusText(payment.status);
+          payment.total_fee = parseInt(payment.total_fee);
         });
 
         this.setData({
@@ -80,6 +82,21 @@ Page({
     wx.navigateTo({
       url: '/pages/payment/payment?id=' + event.currentTarget.dataset.paymentId,
     });
+  },
+
+  /**
+   * Get the textual meaning of the status.
+   */
+  getStatusText: function (status) {
+    let texts = [
+      '发起',
+      '服务器错误',
+      '正在等待用户确认',
+      '确认错误',
+      '付款已确认'
+    ];
+
+    return texts[status];
   },
 
   /**
