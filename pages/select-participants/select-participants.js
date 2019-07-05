@@ -148,7 +148,25 @@ Page({
       title: '上传更新',
     });
 
-    setTimeout(this.fetchParticipants, 2000);
+    let url = app.globalData.url + 'participants/' + clientId + '/' + programId;
+
+    wx.request({
+      url: url,
+      method: add ? 'POST' : 'DELETE',
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      },
+      success: res => {
+        this.fetchParticipants();
+      },
+      fail: res => {
+        console.warn("Request failed: " + url);
+      },
+      complete: res => {
+        console.debug("Request completed: " + url);
+      }
+    });
 
   },
 

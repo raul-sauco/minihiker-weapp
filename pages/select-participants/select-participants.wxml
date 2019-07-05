@@ -13,7 +13,7 @@
     <view class="select-switch">
       <switch 
         checked='{{ client.isParticipant }}'
-        disabled="{{ (client.is_kid && kidParticipants >= price.kids) || ((!client.is_kid) && adultParticipants >= price.adults) }}" 
+        disabled="{{ client.isParticipant ? false : ((client.is_kid && kidParticipants >= price.kids) || ((!client.is_kid) && adultParticipants >= price.adults)) }}" 
         bindchange="selectClient"
         data-id="{{ client.id }}"></switch>
     </view>
@@ -26,7 +26,7 @@
     
     <view class="adult">{{ adultSummary }}</view>
 
-    <view class="price-totals">一共{{ price.kids }}小和{{ price.aduls }}大'</view>
+    <view class="price-totals">一共{{ price.kids }}小和{{ price.adults }}大'</view>
 
   </view>
 
