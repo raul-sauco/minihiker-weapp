@@ -8,7 +8,9 @@
     <view class="item-date">{{ payment.created_at_fmt }}</view>
     <view class="item-program-name">{{ payment.price.program_weapp_name }}</view>
     <view class="item-participants">{{ payment.price.kids }}小{{ payment.price.adults }}大</view>
-    <view class="item-status">{{ payment.status_text }}</view>
+    <view class="item-status">
+      <icon type="{{ payment.status_icon }}" class="item-status-icon"/> {{ payment.status_text }}
+    </view>
   
   </view>
 

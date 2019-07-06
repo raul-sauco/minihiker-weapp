@@ -53,6 +53,7 @@ Page({
           payment.created_at_fmt = util.formatTime(new Date(payment.created_at * 1000));
           payment.status_text = this.getStatusText(payment.status);
           payment.total_fee = parseInt(payment.total_fee);
+          payment.status_icon = this.getStatusIcon(payment.status);
         });
 
         this.setData({
@@ -94,6 +95,21 @@ Page({
       '正在等待用户确认',
       '确认错误',
       '付款已确认'
+    ];
+
+    return texts[status];
+  },
+
+  /**
+   * Get the icon that corresponds the status.
+   */
+  getStatusIcon: function (status) {
+    let texts = [
+      'info',
+      'warn',
+      'waiting',
+      'cancel',
+      'success'
     ];
 
     return texts[status];
