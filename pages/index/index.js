@@ -169,7 +169,8 @@ Page({
     });
     
     // We are fetching international programs
-    let endpoint = 'program-groups?weapp_visible=true&int=true&expand=location,programs,type,programs.registrations,programs.period,programs.prices';
+    let endpoint = 'program-groups?weapp_visible=true&int=true&' + 
+      'expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad';
 
     endpoint = this.addFiltersToEndpoint(endpoint);
 

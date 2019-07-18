@@ -71,7 +71,7 @@
   </scroll-view>
 
   <view class='program-group-description'>
-    <rich-text nodes="{{ programGroup.weapp_description }}"></rich-text>
+    <rich-text nodes="{{ programGroup.arraywad }}"></rich-text>
   </view>
 
   <view class='program-group-images'>

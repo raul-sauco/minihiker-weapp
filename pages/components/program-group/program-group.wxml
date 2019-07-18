@@ -4,7 +4,9 @@
 
   <view class='image-container'>
 
-    <image src="{{ resUrl  + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"></image>
+    <image mode="widthFix"
+      src="{{ resUrl  + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}">
+    </image>
 
     <wxs module="mreg">
 
