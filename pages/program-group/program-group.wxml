@@ -74,20 +74,6 @@
     <rich-text nodes="{{ programGroup.arraywad }}"></rich-text>
   </view>
 
-  <view class='program-group-images'>
-
-    <view class='program-group-image-container' wx:for='{{ images }}' 
-      wx:key='id' wx:for-item='image' data-image-id='{{ image.id }}'>
-
-      <image mode='widthFix'
-        src='http://minihiker.com/webapp/img/pg/{{ programGroup.id }}/{{ image.name }}' 
-        class='program-group-image'>
-      </image>
-
-    </view>
-
-  </view>
-
   <view class='program-group-action-bar'>
 
     <button bindtap='showQA'>

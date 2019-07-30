@@ -3,6 +3,7 @@
 }
 
 .program-details {
+  font-size: 1rem;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -13,8 +14,8 @@
 }
 
 .program-dates {
-  font-size: 0.8rem;
-  color: #aaa;
+  font-size: 1rem;
+  color: #999;
 }
 
 .program-prices {
@@ -43,6 +44,7 @@
 }
 
 .program-price-description-container, .program-refund-description-container {
+  font-size: 1rem;
   padding: 0 20rpx 50px 20rpx;
 }
 

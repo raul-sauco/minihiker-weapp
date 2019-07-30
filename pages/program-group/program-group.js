@@ -27,46 +27,6 @@ Page({
       title: this.data.programGroup.weapp_display_name
     });
 
-    // Get the images from the server TODO check cache
-    this.fetchImages();
-
-  },
-
-  /**
-   * Fetch this ProgramGroup's images from the server.
-   */
-  fetchImages: function () {
-
-    let endpoint = 'images?program-group-id=' + this.data.programGroup.id;
-
-    wx.request({
-      url: app.globalData.url + endpoint,
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: (res) => {
-
-        // If the request is successful we should get programgroup images back
-
-        // Get the ProgramGroup from the provider
-        let pg = app.globalData.programProvider.get(this.data.programGroup.id);
-
-        // Store the Qas on the Program Group and save the fetch time
-        pg.images = res.data;
-        pg.imgFetchTs = Math.round(new Date().getTime() / 1000);
-
-        this.setData({
-          images: pg.images
-        });
-      },
-      fail: (res) => {
-        console.warn('Request failed. ' + app.globalData.url + endpoint);
-      },
-      complete: (res) => {
-        console.log('Request completed. ' + app.globalData.url + endpoint);
-      }
-    });
-
   },
 
   /** 

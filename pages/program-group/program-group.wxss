@@ -89,7 +89,7 @@
 .program-group-description {
   width: 95%;
   margin: 0.3rem 0;
-  font-size: 0.7rem;
+  font-size: 1rem;
   color: #777;
   overflow: hidden;
 }
