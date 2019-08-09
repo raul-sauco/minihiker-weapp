@@ -57,44 +57,24 @@
 
     <view class='input-group {{ errors.is_male ? "has-error" : "" }}'>
       <view class='input-label'>性别</view>
-      <radio-group bindchange='updatePI' data-attr='is_male'>
-        <radio value='0' checked='{{ client.is_male === false || client.is_male === "0" }}'>女</radio>
-        <radio value='1' checked='{{ client.is_male === true || client.is_male === "1" }}'>男</radio>
-      </radio-group>
+      <picker bindchange="updatePI" value='{{ client.is_male }}' 
+        range="{{ sexRange }}" data-attr='is_male'>
+        <view class="picker-box">{{ sexRange[client.is_male] }}</view>
+      </picker>
       <view class='error-message-container' wx:if='{{ errors.is_male }}'>
         {{ errors.is_male }}
-      </view>    
+      </view> 
     </view>
 
-    <view class='input-group {{ errors.is_kid ? "has-error" : "" }}'>
+    <view class='input-group {{ errors.family_role_id ? "has-error" : "" }}'>
       <view class='input-label'>家庭角色</view>
-      <radio-group bindchange='updatePI' data-attr='is_kid'>
-        <radio value='0' checked='{{ client.is_kid === false || client.is_kid === "0" }}'>成人</radio>
-        <radio value='1' checked='{{ client.is_kid === true || client.is_kid === "1" }}'>宝贝</radio>
-      </radio-group>
-      <view class='error-message-container' wx:if='{{ errors.is_kid }}'>
-        {{ errors.is_kid }}
+      <picker bindchange="updatePI" value='{{ client.family_role_id || "" }}' 
+        range="{{ familyRoles }}" data-attr='family_role_id'>
+        <view class="picker-box">{{ familyRoles[client.family_role_id] }}</view>
+      </picker>
+      <view class='error-message-container' wx:if='{{ errors.family_role_id }}'>
+        {{ errors.family_role_id }}
       </view> 
-    </view>
-
-    <view class='input-group {{ errors.family_role_other ? "has-error" : "" }}'>
-      <view class='input-label'>家庭角色细节</view>
-      <input name='family_role_other' bindblur='updatePI' maxlength='128'
-        value='{{ client.family_role_other }}' data-attr='family_role_other'>
-      </input>
-      <view class='error-message-container' wx:if='{{ errors.family_role_other }}'>
-        {{ errors.family_role_other }}
-      </view> 
-    </view>
-
-    <view class='input-group {{ errors.remarks ? "has-error" : "" }}'>
-      <view class='input-label'>备注</view>
-      <textarea name='remarks' bindblur='updatePI'
-        value='{{ client.remarks }}' data-attr='remarks'>
-      </textarea>
-      <view class='error-message-container' wx:if='{{ errors.remarks }}'>
-        {{ errors.remarks }}
-      </view>
     </view>
 
     <view class='input-group {{ errors.phone_number ? "has-error" : "" }}'>
@@ -192,6 +172,16 @@
       <view class='error-message-container' wx:if='{{ errors.passport_issuing_authority }}'>
         {{ errors.passport_issuing_authority }}
       </view> 
+    </view>
+
+    <view class='input-group {{ errors.remarks ? "has-error" : "" }}'>
+      <view class='input-label'>备注</view>
+      <textarea name='remarks' bindblur='updatePI'
+        value='{{ client.remarks }}' data-attr='remarks'>
+      </textarea>
+      <view class='error-message-container' wx:if='{{ errors.remarks }}'>
+        {{ errors.remarks }}
+      </view>
     </view>
 
     <button id='pi-confirm-update-button' bindtap='concludeUpdate' type='primary'>更新</button>

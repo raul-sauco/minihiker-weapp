@@ -9,6 +9,8 @@ Page({
   data: {
     client: {},
     errors: {},
+    familyRoles: ['','其他','孩子','母亲','父亲','爷爷','奶奶','姥姥','姥爷','保姆','阿姨','外婆','外婆'],
+    sexRange: ['女性', '男性'],
     notification: {
       notify: false,
       cssClass: '',
@@ -22,20 +24,21 @@ Page({
    */
   onLoad: function (options) {
 
-    let title = '创建新营员';
-    let client = {};
+    let title = '创建新营员',
+      client = {};
 
     if (options.id) {
 
       // The page was called with a Client Id as a parameter, is an update
       client = app.globalData.accountInfoProvider.getClient(options.id);
+      title = '更新 ';
 
       if (client.nickname) {
-        title = '更新 ' + client.nickname;
+        title += client.nickname;
       } else if (client.name_zh) {
-        title = '更新 ' + client.name_zh;
+        title += client.name_zh;
       } else {
-        title = '更新 ' + client.id;
+        title += client.id;
       }
       
     }
@@ -300,48 +303,6 @@ Page({
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
 
   }
 })
