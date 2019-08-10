@@ -14,6 +14,29 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+/**
+ * Return a formatted version of the date.
+ */
+const formatDate = dateString => {
+  const currentYear = new Date().getFullYear();
+
+  let dates = dateString.split("-");
+  let formattedDate = '';
+
+  if (currentYear !== parseInt(dates[0])) {
+
+    formattedDate += dates[0] + '年';
+
+  }
+
+  formattedDate += dates[1] + '月';
+  formattedDate += dates[2] + '日';
+
+  return formattedDate;
+
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  formatDate: formatDate
 }

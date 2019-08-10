@@ -1,1 +1,18 @@
 /* pages/my-programs/my-programs.wxss */
+.program-container {
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+  margin: 1% 0;
+  background-color: #fff;
+}
+
+.image-container > image {
+  width: 100%;
+}
+
+.program-name, .program-details, .participants-container {
+  margin: 0.3rem;
+  color: #555;
+}

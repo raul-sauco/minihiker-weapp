@@ -1,66 +1,61 @@
 // pages/my-programs/my-programs.js
+const app = getApp();
+const utils = require('../../utils/util.js');
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
-
+    resUrl: app.globalData.resUrl,
+    programs: null
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    this.fetchPrograms();
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
+  fetchPrograms: function () {
+    // TODO allow for pagination
 
-  },
+    wx.showLoading({
+      title: '下载中',
+    });
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
+    // We are fetching international programs
+    let endpoint = 'my-programs?expand=programGroup,participants&per-page=50';
 
-  },
+    wx.request({
+      url: app.globalData.url + endpoint,
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      },
+      success: (res) => {
 
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
+        // Format the program dates
+        res.data.forEach(p => {
+          p.start_date = utils.formatDate(p.start_date);
+          p.end_date = utils.formatDate(p.end_date);
+        });
 
-  },
+        // And add them to the data set, will refresh the UI
+        this.setData({
+          programs: res.data
+        });
 
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
+      },
+      fail: (res) => {
+        console.warn('Request failed. ' + app.globalData.url + endpoint);
+      },
+      complete: (res) => {
+        wx.hideLoading();
+        console.log('Request completed. ' + app.globalData.url + endpoint);
+      }
+    });
   }
 })
