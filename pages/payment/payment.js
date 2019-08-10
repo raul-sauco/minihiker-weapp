@@ -14,7 +14,7 @@ Page({
       ['attach', '附加数据'],
       ['body', '商品描述'],
       ['detail', '商品详情'],
-      ['created_at_fmt', '日期']
+      ['created_at_fmt', '订单时间']
     ],
     loadingPg: false
   },

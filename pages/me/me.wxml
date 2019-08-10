@@ -30,7 +30,7 @@
       </navigator>
 
       <navigator class='navigator' url='/pages/my-payments/my-payments'>
-        <view class='navigator-text'>我的应用内购买</view>
+        <view class='navigator-text'>我的订单</view>
         <view class='navigator-arrow'></view>
       </navigator>
     
