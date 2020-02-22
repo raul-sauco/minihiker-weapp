@@ -9,7 +9,7 @@ Page({
   data: {
     client: {},
     errors: {},
-    familyRoles: ['','其他','孩子','母亲','父亲','爷爷','奶奶','姥姥','姥爷','保姆','阿姨','外婆','外婆'],
+    familyRoles: ['','孩子','父亲','母亲','爷爷','奶奶','姥姥','姥爷','其他'],
     sexRange: ['女性', '男性'],
     notification: {
       notify: false,
