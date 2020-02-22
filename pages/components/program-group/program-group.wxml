@@ -46,8 +46,8 @@
 
     <view class='program-details-name'>{{ programGroup.weapp_display_name }}</view>
 
-    <view class='program-details-description'>
-      <rich-text nodes="{{ programGroup.weapp_description }}"></rich-text>
+    <view class='program-details-summary'>
+      <rich-text nodes="{{ programGroup.summary }}"></rich-text>
     </view>
 
     <view class='program-details-multirow'>

@@ -51,21 +51,8 @@
   color: #555;
 }
 
-.program-details-description {
-  overflow: hidden;
-  /* 
-   * Kirk to display ellipsis after three lines
-   * https://css-tricks.com/line-clampin/
-   */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-
-  /* Fallback for non-webkit */
-  line-height: 1rem;
-  max-height: 3rem;
+.program-details-summary {
   font-size: 0.7rem;
-
   color: #999;
 }
 
