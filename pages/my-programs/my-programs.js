@@ -16,7 +16,13 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+
+    wx.setNavigationBarTitle({
+      title: '我的活动'
+    });
+
     this.fetchPrograms();
+
   },
 
   fetchPrograms: function () {
@@ -57,5 +63,17 @@ Page({
         console.log('Request completed. ' + app.globalData.url + endpoint);
       }
     });
-  }
+  },
+
+    /**
+     * Navigate to one program's detail page
+     */
+    showProgramDetails: function (event) {
+
+      console.log('Show my-program-details for program ' + event.currentTarget.dataset.programId);
+
+      wx.navigateTo({
+        url: '../my-program-details/my-program-details?id=' + event.currentTarget.dataset.programId,
+      });
+    }
 })

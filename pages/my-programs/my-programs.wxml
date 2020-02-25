@@ -1,38 +1,69 @@
 <!--pages/my-programs/my-programs.wxml-->
 <view class="container">
 
-  <view wx:for='{{ programs }}' wx:key='id' 
+  <view wx:for='{{ programs }}' wx:key='id'
     class='program-container' wx:for-item='program'
     data-program-id='{{ program.id }}'>
 
-    <view class="image-container">
-
-      <image mode="widthFix"
-        src="{{ resUrl  + 'img/pg/' + program.program_group_id + '/' + program.programGroup.weapp_cover_image }}">
-      </image>
-
+    <view class="status-container">
+      <view>状态</view>
+      <view class="current-status">已完成</view>
     </view>
 
-    <view class="program-name">{{ program.programGroup.weapp_display_name }}</view>
+    <view class="details-container">
 
-    <view class="program-details">
+      <view class="image-container">
+
+        <image mode="aspectFill"
+          src="{{ resUrl  + 'img/pg/' + program.program_group_id + '/' + program.programGroup.weapp_cover_image }}">
+        </image>
+
+      </view>
     
-      {{ program.programGroup.location_id }}
-      {{ program.start_date }} - {{ program.end_date }}
-    
+      <view class="name-container">
+
+        <view class="program-name">
+          {{ program.programGroup.weapp_display_name }}
+          [{{ program.programGroup.location_id }}]
+        </view>
+
+        <view class="program-dates">
+          {{ program.start_date }} - {{ program.end_date }}
+        </view>
+      
+      </view>
+
     </view>
 
     <view class="participants-container">
+
+      <view class="participants-header">参加者</view>
+
+      <view wx:for='{{ program.participants }}' wx:key='id'
+-          class="participant-container" wx:for-item='participant'>
+
+        <view class="participant-name">
+          {{ participant.name_zh || participant.nickname || participant.name_en }}
+        </view>
+
+        <view class="participant-registration-status">
+          已报名
+        </view>
+        
+      </view>    
     
-    参与者
-
-    <view wx:for='{{ program.participants }}' wx:key='id'
-      class="participant-container" wx:for-item='participant'>
-
-      {{ participant.name_zh || participant.nickname || participant.name_en }}
-
     </view>
-    
+
+    <view class="actions">
+
+      <view>更多</view>
+
+      <view class="action-button">编辑参加者</view>
+
+      <view bindtap='showProgramDetails' data-program-id='{{ program.id }}' class="action-button">
+        细节
+      </view>
+
     </view>
 
   </view>

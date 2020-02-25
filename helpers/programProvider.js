@@ -84,6 +84,8 @@ class ProgramProvider {
 
   /**
    * Find a program
+   * 
+   * returns a ProgramGroup or fails if not found in server.
    */
   getProgramGroupIdByProgramId (id) {
 

@@ -32,7 +32,7 @@
 
   <scroll-view scroll-x="true" id='programs-container'>
 
-    <view wx:for='{{ programGroup.programs }}' wx:key='program-group-programs' 
+    <view wx:for='{{ programGroup.programs }}' wx:key='id' 
       class='program-container {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
       data-program-id='{{ item.id }}' ontap='selectProgram'>
 

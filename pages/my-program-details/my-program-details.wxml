@@ -1,0 +1,5 @@
+<view class='container' wx:if='{{ programGroup }}'>
+
+  <view>我的 {{ programGroup.weapp_display_name }} 页面</view>
+
+</view>

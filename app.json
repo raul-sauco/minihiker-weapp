@@ -13,7 +13,8 @@
     "pages/confirm-payment/confirm-payment",
     "pages/select-participants/select-participants",
     "pages/my-payments/my-payments",
-    "pages/payment/payment"
+    "pages/payment/payment",
+    "pages/my-program-details/my-program-details"
   ],
   "window": {
     "backgroundTextStyle": "light",

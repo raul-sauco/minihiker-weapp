@@ -8,11 +8,75 @@
   background-color: #fff;
 }
 
-.image-container > image {
-  width: 100%;
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
 }
 
-.program-name, .program-details, .participants-container {
-  margin: 0.3rem;
+.current-status {
+  color: rgb(214, 27, 52);
+}
+
+.details-container {
+  padding: 4% 2%;
+  display: flex;
+  background: #eee;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+}
+
+.image-container > image {
+  width: 40px;
+  height: 40px;
+}
+
+.name-container {
+  margin-left: 2%;
+}
+
+.program-name {
+  font-weight: bold;
+}
+
+.program-dates {
+  font-size: 0.8rem;
   color: #555;
+}
+
+.participants-container {
+  margin: 2%;
+}
+
+.participants-header {
+  font-weight: bold;
+}
+
+.participant-container, .participants-header {
+  margin: 0 2%;
+  padding: 2% 0;
+  border-bottom: 1px #ddd solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions {
+  padding: 2% 0;
+  margin: 2%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions > view {
+  width: 33.33333%;
+  text-align: center;
+  margin: 1%;
+  padding: 1%;
+}
+
+.actions > .action-button {
+  border: 1px solid #ddd;
 }
