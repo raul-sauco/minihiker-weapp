@@ -74,6 +74,10 @@
     <rich-text nodes="{{ programGroup.arraywad }}"></rich-text>
   </view>
 
+  <view class='program-group-description' id='program-group-refund-policy-details'>
+    <rich-text nodes="{{ programGroup.arraywar }}"></rich-text>
+  </view>
+
   <view class='program-group-action-bar'>
 
     <button bindtap='showQA'>

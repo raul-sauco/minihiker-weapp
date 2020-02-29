@@ -45,7 +45,11 @@
 
 .program-price-description-container, .program-refund-description-container {
   font-size: 1rem;
-  padding: 0 20rpx 50px 20rpx;
+  padding: 0 20rpx 20px 20rpx;
+}
+
+.program-refund-description-container {
+  padding-bottom: 50px;
 }
 
 .payment-details {

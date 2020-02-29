@@ -38,12 +38,10 @@
 </view>
 
 <view class='program-price-description-container'>
-  <view class='price-description-header'>价格说明</view>
-  <rich-text id='program-price-description' nodes='{{ programGroup.arraywap }}'></rich-text>
+  <rich-text id='program-price-description' nodes='{{ programGroup.arraywad }}'></rich-text>
 </view>
 
 <view class='program-refund-description-container'>
-  <view class='refund-description-header'>退款说明</view>
   <rich-text nodes='{{ programGroup.arraywar }}'></rich-text>
 </view>
 
