@@ -78,3 +78,7 @@ input {
   margin-top: -8rpx;
   right: 28rpx;
 }
+
+.centered-container {
+  justify-content: center;
+}

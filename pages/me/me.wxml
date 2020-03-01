@@ -13,27 +13,72 @@
 
   <view class='container'>
 
-    <view class='account-payment-info'>
-      支付信息的占位符。
-    </view>
-
     <view class='navigator-box navigator-box-show'>
 
-      <navigator class='navigator' url='/pages/account-details/account-details'>
-        <view class='navigator-text'>家庭信息</view>
-        <view class='navigator-arrow'></view>
-      </navigator>
+      <view class="navigator-section">
 
-      <navigator class='navigator' url='/pages/my-programs/my-programs'>
-        <view class='navigator-text'>我的活动</view>
-        <view class='navigator-arrow'></view>
-      </navigator>
+        <navigator class='navigator' url='/pages/my-payments/my-payments'>
+          <view class='navigator-text'>我的订单</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+      
+      </view>
 
-      <navigator class='navigator' url='/pages/my-payments/my-payments'>
-        <view class='navigator-text'>我的订单</view>
-        <view class='navigator-arrow'></view>
-      </navigator>
-    
+      <view class="navigator-section">
+
+        <navigator class='navigator' url='/pages/account-details/account-details'>
+          <view class='navigator-text'>家庭信息</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+      
+      </view>
+
+      <view class="navigator-section">
+
+        <navigator class='navigator' url='/pages/cs-phones/cs-phones'>
+          <view class='navigator-text'>客服电话</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+
+        <navigator class='navigator' url='/pages/cs-online/cs-online'>
+          <view class='navigator-text'>在线客服</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+      
+      </view>
+
+      <view class="navigator-section">
+
+        <navigator class='navigator' url='/pages/navigation-history/navigation-history'>
+          <view class='navigator-text'>浏览历史</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+
+        <navigator class='navigator' url='/pages/recommended/recommended'>
+          <view class='navigator-text'>意见建议</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+      
+      </view>
+
+      <view class="navigator-section">
+
+        <navigator class='navigator' url='/pages/about-minihiker/about-minihiker'>
+          <view class='navigator-text'>关于童行者</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+
+        <navigator class='navigator' url='/pages/official-account/official-account'>
+          <view class='navigator-text'>关于童行者微信公众号</view>
+          <view class='navigator-arrow'></view>
+        </navigator>
+      
+      </view>
+
+    </view>
+
+    <view class="mh-logo-container">
+      <view><image class="mh-logo" src="{{ resUrl + 'img/logo-sm.jpg'}}" /></view>
     </view>
 
   </view>

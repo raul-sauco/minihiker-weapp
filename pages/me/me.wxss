@@ -9,37 +9,50 @@
 }
 
 .user-details-header {
-  background: #0ba360;
-  color: #fff;
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%),
+    linear-gradient(to top, #c1dfc4 0%, #deecdd 100%), 
+    linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-
-  padding-bottom: 20rpx;
-}
-
-.user-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  margin: 0 20rpx;
-}
-
-.account-payment-info {
-  height: 100rpx;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 12em;
+}
 
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
-  background: linear-gradient(to bottom, #606c88 0%,#3f4c6b 100%);
-  color: #fff;
+.user-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
+.user-nickname {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .navigator-box {
   width: 100%;
+  background: #F8F8F8;
+}
+
+.navigator-section {
+  margin: 20rpx;
+  background: #fff;
+}
+
+.mh-logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mh-logo-container view {
+  width: 100%;
+  margin: 20rpx;
+  background: #fff;
+  text-align: center;
+  padding: 20rpx 0;
 }
