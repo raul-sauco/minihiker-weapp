@@ -98,10 +98,17 @@ class ProgramProvider {
         
         pg.programs.forEach(p => {
           
+          console.log("Checking p ID " + p.id + " against ID " + id);
+
           if (p.id === id) {
+
+            console.log("Found match, returning ProgramGroup " + pg.id);
             parent = pg;
+
            }
+
         });
+
       });
 
       if (parent) {
@@ -109,6 +116,8 @@ class ProgramProvider {
         resolve(parent);
 
       } else {
+
+        console.log("No ProgramGroup found for Program " + id + " fetching from server");
         
         // We don't have the program locally, find it on the server
         const url = this.url + 'programs/' + id + 
@@ -118,11 +127,13 @@ class ProgramProvider {
         wx.request({
           url: url,
           method: 'GET',
-            header: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + this.accessToken
-            },
+          header: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.accessToken
+          },
           success: res => {
+
+            console.log(res);
             
             if (res.statusCode == 200) {
 
@@ -132,8 +143,9 @@ class ProgramProvider {
 
             } else {
 
-              // The request didn't fail but we didn't get the resource
+              console.warn("Request successful but no programGroup");
               reject(res);
+
             }
 
           },
