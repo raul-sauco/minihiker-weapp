@@ -35,8 +35,11 @@
   border-radius: 50%;
 }
 
-/* Create the hidden pseudo-element */
-/* include the shadow for the end state */
+/* 
+ * Create the hidden pseudo-element
+ * include the shadow for the end state 
+ * https://tobiasahlin.com/blog/how-to-animate-box-shadow/
+ */
 .filter-icon::after {
   content: '';
   position: absolute;

@@ -120,8 +120,6 @@ Page({
       },
       success: (res) => {
 
-        console.log(res);
-
         let filters = [];
 
         // If the request is successful we should get a ProgramTypes array back

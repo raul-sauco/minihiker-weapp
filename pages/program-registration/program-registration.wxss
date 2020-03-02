@@ -3,14 +3,9 @@
 }
 
 .program-details {
-  font-size: 1rem;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-
-  padding: 0 20rpx 20rpx 20rpx;
+  margin: 20rpx;
 }
 
 .program-dates {
@@ -21,21 +16,22 @@
 .program-prices {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 20rpx;
+
+  margin: 20rpx;
 }
 
-.program-prices .program-price-container{
+.program-price-container{
   font-size: 0.7rem;
   color:#aaa;
   margin: 0 0.5rem 0.3rem 0;
   padding: 0.2rem;
   box-sizing: border-box;
-  border: 1px solid #888;
+  box-shadow: 0 0 1px 1px #888;
   border-radius: 5px;
 }
 
 .program-prices .selected-price {
-  border: 2px solid #3cba92;
+  box-shadow: 0 0 2px 1px #3cba92;
   color: #444;
 }
 
@@ -70,7 +66,7 @@
 .payment-details button {
   border-radius: 0;
   border-right: none;
-  padding: 0 2rem;
+  width: 10rem;
   color: white;
   text-shadow: 1px 1px 2px #444, 0 0 0.2em #ddd;
   

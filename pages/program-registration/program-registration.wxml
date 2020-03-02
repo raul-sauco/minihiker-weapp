@@ -50,7 +50,9 @@
   <view>要支付: {{ amountDue }}元 </view>
 
   <view class='proceed-payment-button-container'>
-    <button bindtap='processPayment' type='primary' disabled='{{ !amountDue }}'>支付</button>
+    <button bindtap='processPayment' type='primary' disabled='{{ !amountDue }}'>
+      {{ selectedPrice ? '支付' : '选择套餐' }}
+    </button>
   </view>
 
 </view>
