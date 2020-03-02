@@ -53,7 +53,7 @@ Page({
           payment.created_at_fmt = util.formatTime(new Date(payment.created_at * 1000));
           payment.status_text = this.getStatusText(payment.status);
           payment.total_fee = parseInt(payment.total_fee);
-          payment.status_icon = this.getStatusIcon(payment.status);
+          payment.status_icon = this.getStatusIconCss(payment.status);
         });
 
         this.setData({
@@ -103,13 +103,13 @@ Page({
   /**
    * Get the icon that corresponds the status.
    */
-  getStatusIcon: function (status) {
+  getStatusIconCss: function (status) {
     let texts = [
-      'info',
-      'warn',
-      'waiting',
-      'cancel',
-      'success'
+      'fas fa-info-circle text-info',
+      'fas fa-exclamation-triangle text-warning',
+      'far fa-clock text-primary',
+      'fas fa-ban text-danger',
+      'fas fa-check text-success'
     ];
 
     return texts[status];

@@ -17,8 +17,14 @@
   margin: 2%;
 }
 
+.payment-status {
+  display: flex;
+}
+
 .payment-status-icon {
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
 }
 
 .payment-container > view.program-details-container {

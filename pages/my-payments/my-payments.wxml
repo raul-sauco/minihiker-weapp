@@ -8,8 +8,8 @@
       <text>状态</text>
       <view class="current-status">
         <view class="payment-status">
-          <icon type="{{ payment.status_icon }}" class="payment-status-icon"/>
           <text>{{ payment.status_text }}</text>
+          <text class="fas {{payment.status_icon }}  payment-status-icon"></text>
         </view>
       </view>
     </view>
