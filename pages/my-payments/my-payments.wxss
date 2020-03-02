@@ -1,47 +1,95 @@
 /* pages/my-payments/my-payments.wxss */
 .payment-container {
   width: 100%;
-  padding: 2%;
-  border-bottom: 1px solid #CCC;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  box-sizing: border-box;
-}
-
-.item-price {
-  grid-area: 1 / 1 / 2 / 2;
-  font-weight: bold;
-}
-
-.item-date {
-  grid-area: 1 / 2 / 2 / last-line;
-  font-size: 0.8rem;
-  color: #666;
-  text-align: right;
-  justify-self: right;
-}
-
-.item-program-name {
-  grid-area: 2 / 1 / 3 / last-line;
-}
-
-.item-participants {
-  grid-area: 3 / 1 / last-line / 2;
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.item-status {
-  grid-area: 3 / 2 / last-line / last-line;
-  font-size: 0.8rem;
-  color: #666;
   display: flex;
-  text-align: right;
-  justify-self: right;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+  margin: 1% 0;
+  background-color: #fff;
+}
+
+.payment-container > view {
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+}
+
+.payment-status-icon {
+  margin-right: 0.5rem;
+}
+
+.payment-container > view.program-details-container {
+  padding: 4% 2%;
+  margin: 2% 0;
+  justify-content: start;
+  background: #eee;
+}
+
+.image-container {
+  display: flex;
   align-items: center;
 }
 
-.item-status-icon {
-  margin-right: 0.2rem;
+.image-container > image {
+  width: 40px;
+  height: 40px;
+}
+
+.name-container {
+  margin-left: 2%;
+}
+
+.program-name {
+  font-weight: bold;
+}
+
+.program-dates {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.price-participants {
+  color: #666;
+}
+
+.participants-container {
+  flex-direction: column;
+}
+
+.participants-header {
+  font-weight: bold;
+}
+
+.participant-container, .participants-header {
+  padding: 2% 0;
+  border-bottom: 1px #ddd solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-date {
+  color: #666;
+  text-align: right;
+  justify-self: right;
+}
+
+.actions {
+  padding: 2% 0;
+  margin: 2%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions > view {
+  width: 33.33333%;
+  text-align: center;
+  margin: 1%;
+  padding: 1%;
+}
+
+.actions > .action-button {
+  border: 1px solid #ddd;
 }

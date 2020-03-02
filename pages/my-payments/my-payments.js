@@ -8,6 +8,7 @@ Page({
    * Page initial data
    */
   data: {
+    resUrl: app.globalData.resUrl,
     payments: null
   },
 
@@ -17,7 +18,7 @@ Page({
   onLoad: function (options) {
 
     wx.setNavigationBarTitle({
-      title: '我的付款'
+      title: '我的订单'
     });
 
     this.fetchPayments();
@@ -33,13 +34,12 @@ Page({
       title: '下载中',
     });
 
-    let accountId = app.globalData.accountInfoProvider.id;
-    let url = app.globalData.url + 'wx-unified-payment-orders?expand=price';
-
-    let header = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + app.globalData.accessToken
-    }
+    // Fetch most recent payments first with 
+    const url = app.globalData.url + 'wx-unified-payment-orders?expand=price.program.programGroup,price.program.participants&sort=-created_at',
+      header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      }
 
     wx.request({
       url: url,

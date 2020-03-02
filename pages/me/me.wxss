@@ -43,6 +43,13 @@
   background: #fff;
 }
 
+.navigator-icon {
+  margin-right: 0.5rem;
+  color: #0ba360;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}
+
 .mh-logo-container {
   width: 100%;
   display: flex;

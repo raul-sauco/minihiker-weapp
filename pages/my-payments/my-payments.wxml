@@ -1,15 +1,86 @@
 <!--pages/my-payments/my-payments.wxml-->
 <view class="container">
 
-  <view wx:for='{{ payments }}' wx:for-item='payment' data-payment-id='{{ payment.id }}'
-    wx:key='id' class="payment-container" bindtap="viewPayment">
-  
-    <view class="item-price">¥{{ payment.price.price }}</view>
-    <view class="item-date">{{ payment.created_at_fmt }}</view>
-    <view class="item-program-name">{{ payment.price.program_weapp_name }}</view>
-    <view class="item-participants">{{ payment.price.kids }}小{{ payment.price.adults }}大</view>
-    <view class="item-status">
-      <icon type="{{ payment.status_icon }}" class="item-status-icon"/> {{ payment.status_text }}
+  <view wx:for='{{ payments }}' wx:for-item='payment' 
+    wx:key='id' class="payment-container">
+
+    <view class="status-container">
+      <text>状态</text>
+      <view class="current-status">
+        <view class="payment-status">
+          <icon type="{{ payment.status_icon }}" class="payment-status-icon"/>
+          <text>{{ payment.status_text }}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="program-details-container">
+
+      <view class="image-container">
+
+        <image mode="aspectFill"
+          src="{{ resUrl  + 'img/pg/' + payment.price.program.program_group_id + '/' + payment.price.program.programGroup.weapp_cover_image }}">
+        </image>
+
+      </view>
+    
+      <view class="name-container">
+
+        <view class="program-name">
+          {{ payment.price.program.programGroup.weapp_display_name }}
+          [{{ payment.price.program.programGroup.location_id }}]
+        </view>
+
+        <view class="program-dates">
+          {{ payment.price.program.start_date }} - {{ payment.price.program.end_date }}
+        </view>
+      
+      </view>
+
+    </view>
+
+    <view class="price-details">
+
+      <view class="price">¥{{ payment.price.price }}</view>
+
+      <view class="payment-date">{{ payment.created_at_fmt }}</view>
+
+    </view>
+
+    <view class="participants-container">
+
+      <view class="participants-header">
+        <text>参加者</text>
+        <view class="price-participants">
+          {{ payment.price.kids }}小{{ payment.price.adults }}大
+        </view>
+      </view>
+
+      <view wx:for='{{ payment.price.program.participants }}' wx:key='id'
+-          class="participant-container" wx:for-item='participant'>
+
+        <view class="participant-name">
+          {{ participant.name_zh || participant.nickname || participant.name_en }}
+        </view>
+
+        <view class="participant-registration-status">
+          已报名
+        </view>
+        
+      </view>    
+    
+    </view>
+
+    <view class="actions">
+
+      <view>更多</view>
+
+      <view class="action-button">编辑参加者</view>
+
+      <view bindtap='viewPayment' data-payment-id='{{ payment.id }}' class="action-button">
+        细节
+      </view>
+
     </view>
   
   </view>
