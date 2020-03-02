@@ -49,8 +49,7 @@ Page({
       loadingPg: true
     });
 
-    // We need to find the program group Id based on the program id
-    // This could require an asyncronous call if we don't have it already
+    // TODO move this logic to pages/select-participants
     app.globalData.programProvider.getProgramGroupIdByProgramId(this.data.payment.price.program_id).then(res => {
 
       this.setData({loadingPg: false});

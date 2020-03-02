@@ -50,7 +50,7 @@
     <view class="participants-container">
 
       <view class="participants-header">
-        <text>参加者</text>
+        <text>参与者</text>
         <view class="price-participants">
           {{ payment.price.kids }}小{{ payment.price.adults }}大
         </view>
@@ -75,7 +75,16 @@
 
       <view>更多</view>
 
-      <view class="action-button">编辑参加者</view>
+      <view bindtap='editParticipants' 
+        wx:if="{{ payment.status === 4 }}"
+        data-payment-id='{{ payment.id }}' 
+        class="action-button">
+          编辑参与者
+      </view>
+
+      <view wx:if="{{ payment.status !== 4 }}" class="action-button">
+          付款不完整
+      </view>
 
       <view bindtap='viewPayment' data-payment-id='{{ payment.id }}' class="action-button">
         细节

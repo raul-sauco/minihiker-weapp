@@ -22,26 +22,40 @@ Page({
    */
   onLoad: function (options) {
 
-    console.debug('Select participants for ProgramGroup ' + options.pg + ' program ' + options.p + ' price ' + options.price);
-
-    // Fetch the programGroup and program from the global programProvider
-    let pg = app.globalData.programProvider.get(options.pg);
-    let p = pg.programs.find(program => {
-      return program.id == options.p;
-    });
-    let price = p.prices.find(price => price.id == options.price);
-
-    this.setData({
-      programGroup: pg,
-      program: p,
-      price: price
-    });
-
     wx.setNavigationBarTitle({
       title: '选择参与者'
     });
 
-    this.fetchParticipants();
+    wx.showLoading({
+      title: '下载中',
+    });
+
+    console.debug('Select participants for ProgramGroup ' + options.pg + ' program ' + options.p + ' price ' + options.price);
+
+    // We need to find the program group Id based on the program id
+    // This could require an asyncronous call if we don't have it already
+    app.globalData.programProvider.getProgramGroupIdByProgramId(options.p).then(res => {
+
+      const pg = res,
+        program = pg.programs.find( p => +p.id === +options.p),
+        price = program.prices.find( pr => pr.id == options.price);
+
+      this.setData({
+        programGroup: pg,
+        program: program,
+        price: price
+      });
+
+      this.fetchParticipants();
+
+      wx.hideLoading();
+
+    }, err => {
+
+      console.warn('Error asynch fetching program group');
+      console.warn(err);
+
+    });
 
   },
 

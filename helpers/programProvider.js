@@ -94,26 +94,27 @@ class ProgramProvider {
       let parent;
 
       // Inside arrow functions this is the Provider
-      console.log('Looking in the existing programGroups');
       this.programGroups.forEach(pg => {
-        console.log('  Checking ProgramGroup ' + pg.id);
+        
         pg.programs.forEach(p => {
-          console.log('    Checking if p ' + p.id + ' has id ' + id);
-          if (p.id == id) {
-            console.log('>>> Found program ' + id + ' in ProgramGroup ' + pg.id);
+          
+          if (p.id === id) {
             parent = pg;
            }
         });
       });
 
       if (parent) {
+
         resolve(parent);
+
       } else {
         
         // We don't have the program locally, find it on the server
-        let url = this.url + 'programs/' + id + 
+        const url = this.url + 'programs/' + id + 
           '?expand=programGroup.location,programGroup.programs,programGroup.type,' + 
           'programGroup.programs.registrations,programGroup.programs.period,programGroup.programs.prices';
+          
         wx.request({
           url: url,
           method: 'GET',

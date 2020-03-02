@@ -86,6 +86,21 @@ Page({
   },
 
   /**
+   * Handle click in the select participants button for one of the 
+   * payments.
+   */
+  editParticipants: function (event) {
+
+    const payment = this.data.payments.find(p => p.id === event.currentTarget.dataset.paymentId);
+
+    wx.navigateTo({
+      url: "/pages/select-participants/select-participants?pg=" + payment.price.program.program_group_id +
+        "&p=" + payment.price.program_id + "&price=" + payment.price.id
+    });
+
+  },
+
+  /**
    * Get the textual meaning of the status.
    */
   getStatusText: function (status) {
