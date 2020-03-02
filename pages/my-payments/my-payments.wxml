@@ -1,7 +1,35 @@
 <!--pages/my-payments/my-payments.wxml-->
+<view class="filters-container">
+
+  <view class="filter-container {{ !filter ? 'active-filter' : '' }}" 
+    bindtap="switchFilter" data-filter="0">
+  
+    <text class="filter-icon">全</text>
+    <text>全都</text>
+  
+  </view>
+
+  <view class="filter-container {{ filter === 2 ? 'active-filter' : '' }}"
+    bindtap="switchFilter" data-filter="2">
+  
+    <text class="filter-icon">待</text>
+    <text>等待</text>
+  
+  </view>
+
+  <view class="filter-container {{ filter === 1 ? 'active-filter' : '' }}"
+    bindtap="switchFilter" data-filter="1">
+  
+    <text class="filter-icon">完</text>
+    <text>已完成</text>
+  
+  </view>
+
+</view>
+
 <view class="container">
 
-  <view wx:for='{{ payments }}' wx:for-item='payment' 
+  <view wx:for='{{ payments }}' wx:for-item='payment' wx:if="{{ !filter || filter === payment.filter }}"
     wx:key='id' class="payment-container">
 
     <view class="status-container">

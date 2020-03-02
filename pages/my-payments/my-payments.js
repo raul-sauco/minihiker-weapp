@@ -9,7 +9,8 @@ Page({
    */
   data: {
     resUrl: app.globalData.resUrl,
-    payments: null
+    payments: null,
+    filter: 0
   },
 
   /**
@@ -54,6 +55,7 @@ Page({
           payment.status_text = this.getStatusText(payment.status);
           payment.total_fee = parseInt(payment.total_fee);
           payment.status_icon = this.getStatusIconCss(payment.status);
+          payment.filter = this.getStatusFilter(payment.status);
         });
 
         this.setData({
@@ -101,6 +103,17 @@ Page({
   },
 
   /**
+   * Update the current filtering criteria
+   */
+  switchFilter: function (event) {
+
+    this.setData({
+      filter: +event.currentTarget.dataset.filter
+    });
+
+  },
+
+  /**
    * Get the textual meaning of the status.
    */
   getStatusText: function (status) {
@@ -113,6 +126,17 @@ Page({
     ];
 
     return texts[status];
+  },
+
+  /**
+   * Get the value of the filter to apply
+   */
+  getStatusFilter: function (status) {
+    if (status === 4) {
+      return 1;
+    } else {
+      return 2;
+    }
   },
 
   /**

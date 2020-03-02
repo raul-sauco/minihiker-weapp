@@ -1,4 +1,68 @@
 /* pages/my-payments/my-payments.wxss */
+.filters-container {
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%),
+    linear-gradient(to top, #c1dfc4 0%, #deecdd 100%), 
+    linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+
+  width: 100%;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-icon {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px 3px #333;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.3rem;
+  box-shadow: 0 0 3px 2px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+}
+
+/* Create the hidden pseudo-element */
+/* include the shadow for the end state */
+.filter-icon::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 5px #0ba360;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Scale up the box */
+.filter-icon:active {
+  transform: scale(0.8, 0.8);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.filter-icon:active::after {
+  opacity: 1;
+}
+
+.filter-container.active-filter {
+  color: #0ba360; 
+}
+
 .payment-container {
   width: 100%;
   display: flex;
