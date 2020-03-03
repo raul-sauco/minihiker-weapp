@@ -49,3 +49,46 @@
   border: 1px solid #0ba360;
   color: #0ba360;
 }
+
+.obtain-permission-container {
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%),
+    linear-gradient(to top, #c1dfc4 0%, #deecdd 100%), 
+    linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.authorize-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  flex-grow: 2;
+  margin-bottom: 1rem;
+}
+
+.mh-logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.mh-logo {
+  max-width: 40%;
+  max-height: 40%;
+}
+
+.blurry-logo {
+  position: fixed;
+  top: 0;
+  opacity: 0.3;
+}

@@ -3,7 +3,11 @@ const app = getApp()
 
 Page({
   data: {
+    canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
+    hasUserInfo: null,
+    userInfo: null,
     pageReady: false,
+    resUrl: app.globalData.resUrl,
     programProvider: app.globalData.programProvider,
     programGroups: [],
     filters: [
@@ -101,7 +105,13 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function () {    
+  onLoad: function () {
+
+    this.setData({
+      hasUserInfo: app.globalData.hasUserInfo,
+      userInfo: app.globalData.userInfo
+    });
+
     this.fetchActiveFilters();
     this.fetchProgramGroups();
   },
@@ -247,6 +257,29 @@ Page({
     });
 
     return endpoint;
+
+  },
+
+  /**
+   * If the user authorizes access to userInfo, we will get 
+   * the userInfo on the event.
+   */
+  bindGetUserInfo: function (e) {
+
+    let userInfo = e.detail.userInfo;
+
+    // Set the info on the app
+    app.globalData.userInfo = userInfo;
+    app.globalData.hasUserInfo = true;
+
+    // Call the application userInfoReadyCallback
+    app.userInfoReadyCallback(userInfo);
+
+    // Set the info on the page, will refresh the view
+    this.setData({
+      hasUserInfo: true,
+      userInfo: userInfo,
+    });
 
   },
 

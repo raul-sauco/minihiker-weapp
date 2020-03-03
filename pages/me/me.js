@@ -27,28 +27,5 @@ Page({
       title: '我的'
     });
     
-  },
-
-  /**
-   * If the user authorizes access to userInfo, we will get 
-   * the userInfo on the event.
-   */
-  bindGetUserInfo: function (e) {
-
-    let userInfo = e.detail.userInfo;
-
-    // Set the info on the app
-    app.globalData.userInfo = userInfo;
-    app.globalData.hasUserInfo = true;
-
-    // Call the application userInfoReadyCallback
-    app.userInfoReadyCallback(userInfo);
-
-    // Set the info on the page, will refresh the view
-    this.setData({
-      hasUserInfo: true,
-      userInfo: userInfo,
-    });
-
   }
 })

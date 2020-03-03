@@ -1,37 +1,73 @@
 <!--index.wxml-->
-<view class='filters-container'>
+<!-- This block only will be shown after obtaining access to the user information -->
+<block wx:if="{{ hasUserInfo }}">
 
-  <scroll-view scroll-x='true'>
+  <block wx:if='{{ pageReady }}'>
 
-    <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
-      class='filter-container'>
-      <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
-        class='{{ filter.active ? "active" : "" }}'>
-        {{ filter.title }}
-      </button>
+    <view class='filters-container'>
+
+      <scroll-view scroll-x='true'>
+
+        <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
+          class='filter-container'>
+          <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
+            class='{{ filter.active ? "active" : "" }}'>
+            {{ filter.title }}
+          </button>
+        </view>
+      
+      </scroll-view>
+
     </view>
-  
-  </scroll-view>
 
-</view>
-  
-<block wx:if='{{ pageReady }}'>
+    <view class="container" wx:if='{{ programGroups.length > 0  }}'>
 
-  <view class="container" wx:if='{{ programGroups.length > 0  }}'>
+      <block wx:for="{{ programGroups }}" wx:key='id'>
 
-    <block wx:for="{{ programGroups }}" wx:key='id'>
+        <program-group program-group-id='{{ item.id }}'></program-group>
 
-      <program-group program-group-id='{{ item.id }}'></program-group>
+      </block>
 
+    </view>
+
+    <view wx:else class='no-programs-message-container'>
+      <icon type='info' size='60' />
+      <view class='no-programs-header'>我们很抱歉!</view>
+      <view class='no-programs-body'>您所选时间目前暂无活动</view>
+      <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
+    </view>
+
+  </block>
+
+</block>
+<!-- This block only will be shown if the app component does not have access to the user information -->
+<block  wx:if="{{ hasUserInfo === false }}">
+
+  <view class="obtain-permission-container">
+
+    <block wx:if='{{ canIUseUserInfo }}'>
+      
+      <image class="blurry-logo" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />
+
+      <text class='authorize-text'>我们需要一些信息来为您创建一个帐户，请使用下面的按钮授权访问您的个人资料照片和昵称。</text>
+
+      <button open-type='getUserInfo' type="primary" id="obtain-permission-button"
+        bindgetuserinfo='bindGetUserInfo'>微信授权登录</button>
+
+      <view class="mh-logo-container">
+        <image class="mh-logo" mode="aspectFit" src="{{ resUrl + 'img/logo200.png'}}" />
+      </view>
+    
     </block>
 
+    <text wx:else>请更新您的微信版本。</text>
+
   </view>
 
-  <view wx:else class='no-programs-message-container'>
-    <icon type='info' size='60' />
-    <view class='no-programs-header'>我们很抱歉!</view>
-    <view class='no-programs-body'>您所选时间目前暂无活动</view>
-    <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
-  </view>
+</block>
+<!-- This block only will be shown if the index page has not loaded yet the globalData -->
+<block  wx:if="{{ hasUserInfo === null }}">
+
+  正在启动...
 
 </block>
