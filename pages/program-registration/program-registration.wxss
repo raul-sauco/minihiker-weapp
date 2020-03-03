@@ -21,13 +21,41 @@
 }
 
 .program-price-container{
-  font-size: 0.7rem;
+  position: relative;
+  box-shadow: 0 0 1px 1px #888, 0 0 3px 2px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+
   color:#aaa;
   margin: 0 0.5rem 0.3rem 0;
-  padding: 0.2rem;
+  padding: 0.3rem;
   box-sizing: border-box;
-  box-shadow: 0 0 1px 1px #888;
   border-radius: 5px;
+}
+
+.program-price-container::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 5px #0ba360;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Scale up the box */
+.program-price-container:active {
+  transform: scale(0.8, 0.8);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.program-price-container:active::after {
+  opacity: 1;
 }
 
 .program-prices .selected-price {
@@ -35,13 +63,12 @@
   color: #444;
 }
 
-.price-description-header, .refund-description-header {
+.refund-description-header {
   font-weight: bold;
 }
 
-.program-price-description-container, .program-refund-description-container {
-  font-size: 1rem;
-  padding: 0 20rpx 20px 20rpx;
+.program-refund-description-container {
+  margin: 20rpx 10px;
 }
 
 .program-refund-description-container {

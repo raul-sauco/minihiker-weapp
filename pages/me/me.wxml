@@ -5,6 +5,8 @@
 
   <view class='user-details-header'>
 
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />
+
     <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
 
     <view class='user-nickname'>{{ userInfo.nickName }}</view>
@@ -86,7 +88,7 @@
     </view>
 
     <view class="mh-logo-container">
-      <view><image class="mh-logo" src="{{ resUrl + 'img/logo-sm.jpg'}}" /></view>
+      <view><image class="mh-logo" src="{{ resUrl + 'img/logo500.png'}}" /></view>
     </view>
 
   </view>
@@ -94,19 +96,21 @@
 </block>
 <block wx:else>
 
-  <block wx:if='{{ canIUse }}'>
+  <view class="container">
 
-    <text class='authorize-text'>
-      We need to get some information to create an account for you, 
-      please use the button below to authorize access to your
-      profile photo and nickname.
-    </text>
+    <block wx:if='{{ canIUse }}'>
 
-    <button open-type='getUserInfo' 
-      bindgetuserinfo='bindGetUserInfo'>授权登录</button>
-  
-  </block>
+      <text class='authorize-text'>
+        我们需要一些信息来为您创建一个帐户，请使用下面的按钮授权访问您的个人资料照片和昵称。
+      </text>
 
-  <view wx:else>Please update your Wechat version.</view>
+      <button open-type='getUserInfo' 
+        bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+    
+    </block>
+
+    <view wx:else>请更新您的微信版本。</view>
+
+  </view>
 
 </block>

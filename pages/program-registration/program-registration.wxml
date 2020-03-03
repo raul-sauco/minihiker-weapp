@@ -37,11 +37,8 @@
 
 </view>
 
-<view class='program-price-description-container'>
-  <rich-text id='program-price-description' nodes='{{ programGroup.arraywad }}'></rich-text>
-</view>
-
 <view class='program-refund-description-container'>
+  <text class="refund-description-header">退款说明</text>
   <rich-text nodes='{{ programGroup.arraywar }}'></rich-text>
 </view>
 
