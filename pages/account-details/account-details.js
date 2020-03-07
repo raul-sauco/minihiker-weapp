@@ -8,6 +8,7 @@ Page({
    */
   data: {
     accountInfo: null,
+    ready: false
   },
 
   /**
@@ -28,14 +29,15 @@ Page({
 
     if (app.globalData.accountInfoProvider.infoIsOutdated()) {
 
-      console.log('AccountInfoProvider info is stale, require refresh');
+      console.debug('AccountInfoProvider info is stale, require refresh');
       this.fetchAccountInfo();
 
     } else {
 
       // If the current account info is valid, use it directly
       this.setData({
-        accountInfo: app.globalData.accountInfoProvider
+        accountInfo: app.globalData.accountInfoProvider,
+        ready: true
       });
 
     }
@@ -46,6 +48,10 @@ Page({
    * Page event handler function--Called when user drop down
    */
   onPullDownRefresh: function () {
+
+    this.setData({
+      ready: false
+    });
 
     // Force an accountInfo refresh
     this.fetchAccountInfo();
@@ -89,7 +95,8 @@ Page({
             res.data.updated_ts = Date.now();
             app.globalData.accountInfoProvider.saveFromServerResponse(res.data);
             this.setData({
-              accountInfo: app.globalData.accountInfoProvider
+              accountInfo: app.globalData.accountInfoProvider,
+              ready: true
             });
 
           } else {
@@ -99,16 +106,26 @@ Page({
             console.info(res);
 
             // If the request fails, try again after 5 seconds
+            app.requestLogin();
             setTimeout(this.fetchAccountInfo, 5000);
 
           }
         },
         fail: res => {
+
           console.warn('Error fetching family ' + app.globalData.accountInfo.id);
           console.info(res);
 
           // If the request fails, try again after 5 seconds
+          app.requestLogin();
           setTimeout(this.fetchAccountInfo, 5000);
+
+          wx.showToast({
+            title: '服务器错误',
+            icon: 'none',
+            duration: 2000
+          });
+
         },
         complete: res => {
           wx.hideLoading();

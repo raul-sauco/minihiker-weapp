@@ -27,7 +27,7 @@
     <view class="navigator-section">
 
       <navigator class='navigator' url='/pages/account-details/account-details'>
-        <text class="fas fa-atom navigator-icon"></text>
+        <text class="fas fa-users-cog navigator-icon"></text>
         <view class='navigator-text'>家庭信息</view>
         <view class='navigator-arrow'></view>
       </navigator>

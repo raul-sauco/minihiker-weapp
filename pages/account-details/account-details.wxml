@@ -46,5 +46,3 @@
   </view>
 
 </block>
-<view wx:else>No account info yet.</view>
-
