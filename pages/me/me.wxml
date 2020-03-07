@@ -1,116 +1,91 @@
 <!--pages/me/me.wxml-->
-<block wx:if="{{ hasUserInfo  }}">
 
-  <!-- We have user info, present the user account details -->
+<view class='user-details-header'>
 
-  <view class='user-details-header'>
+  <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />
 
-    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />
+  <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
 
-    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+  <view class='user-nickname'>{{ userInfo.nickName }}</view>
 
-    <view class='user-nickname'>{{ userInfo.nickName }}</view>
+</view>
 
-  </view>
+<view class='container'>
 
-  <view class='container'>
+  <view class='navigator-box navigator-box-show'>
 
-    <view class='navigator-box navigator-box-show'>
+    <view class="navigator-section">
 
-      <view class="navigator-section">
-
-        <navigator class='navigator' url='/pages/my-payments/my-payments'>
-          <text class="fas fa-file-invoice navigator-icon"></text>
-          <view class='navigator-text'>我的订单</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-      
-      </view>
-
-      <view class="navigator-section">
-
-        <navigator class='navigator' url='/pages/account-details/account-details'>
-          <text class="fas fa-atom navigator-icon"></text>
-          <view class='navigator-text'>家庭信息</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-      
-      </view>
-
-      <view class="navigator-section">
-
-        <navigator class='navigator' url='/pages/cs-phones/cs-phones'>
-          <text class="fas fa-spinner navigator-icon"></text>
-          <view class='navigator-text'>客服电话</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-
-        <navigator class='navigator' url='/pages/cs-online/cs-online'>
-          <text class="fas fa-robot navigator-icon"></text>
-          <view class='navigator-text'>在线客服</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-      
-      </view>
-
-      <view class="navigator-section">
-
-        <navigator class='navigator' url='/pages/navigation-history/navigation-history'>
-          <text class="fas fa-spinner navigator-icon"></text>
-          <view class='navigator-text'>浏览历史</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-
-        <navigator class='navigator' url='/pages/recommended/recommended'>
-          <text class="fas fa-spinner navigator-icon"></text>
-          <view class='navigator-text'>意见建议</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-      
-      </view>
-
-      <view class="navigator-section">
-
-        <navigator class='navigator' url='/pages/about-minihiker/about-minihiker'>
-          <text class="fas fa-spinner navigator-icon"></text>
-          <view class='navigator-text'>关于童行者</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-
-        <navigator class='navigator' url='/pages/official-account/official-account'>
-          <text class="fas fa-spinner navigator-icon"></text>
-          <view class='navigator-text'>关于童行者微信公众号</view>
-          <view class='navigator-arrow'></view>
-        </navigator>
-      
-      </view>
-
-    </view>
-
-    <view class="mh-logo-container">
-      <view><image class="mh-logo" src="{{ resUrl + 'img/logo500.png'}}" /></view>
-    </view>
-
-  </view>
-
-</block>
-<block wx:else>
-
-  <view class="container">
-
-    <block wx:if='{{ canIUse }}'>
-
-      <text class='authorize-text'>
-        我们需要一些信息来为您创建一个帐户，请使用下面的按钮授权访问您的个人资料照片和昵称。
-      </text>
-
-      <button open-type='getUserInfo' 
-        bindgetuserinfo='bindGetUserInfo'>授权登录</button>
+      <navigator class='navigator' url='/pages/my-payments/my-payments'>
+        <text class="fas fa-file-invoice navigator-icon"></text>
+        <view class='navigator-text'>我的订单</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
     
-    </block>
+    </view>
 
-    <view wx:else>请更新您的微信版本。</view>
+    <view class="navigator-section">
+
+      <navigator class='navigator' url='/pages/account-details/account-details'>
+        <text class="fas fa-atom navigator-icon"></text>
+        <view class='navigator-text'>家庭信息</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+    
+    </view>
+
+    <view class="navigator-section">
+
+      <navigator class='navigator' url='/pages/cs-phones/cs-phones'>
+        <text class="fas fa-spinner navigator-icon"></text>
+        <view class='navigator-text'>客服电话</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+
+      <navigator class='navigator' url='/pages/cs-online/cs-online'>
+        <text class="fas fa-robot navigator-icon"></text>
+        <view class='navigator-text'>在线客服</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+    
+    </view>
+
+    <view class="navigator-section">
+
+      <navigator class='navigator' url='/pages/navigation-history/navigation-history'>
+        <text class="fas fa-spinner navigator-icon"></text>
+        <view class='navigator-text'>浏览历史</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+
+      <navigator class='navigator' url='/pages/recommended/recommended'>
+        <text class="fas fa-spinner navigator-icon"></text>
+        <view class='navigator-text'>意见建议</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+    
+    </view>
+
+    <view class="navigator-section">
+
+      <navigator class='navigator' url='/pages/about-minihiker/about-minihiker'>
+        <text class="fas fa-spinner navigator-icon"></text>
+        <view class='navigator-text'>关于童行者</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+
+      <navigator class='navigator' url='/pages/official-account/official-account'>
+        <text class="fas fa-spinner navigator-icon"></text>
+        <view class='navigator-text'>关于童行者微信公众号</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+    
+    </view>
 
   </view>
 
-</block>
+  <view class="mh-logo-container">
+    <view><image class="mh-logo" src="{{ resUrl + 'img/logo500.png'}}" /></view>
+  </view>
+
+</view>

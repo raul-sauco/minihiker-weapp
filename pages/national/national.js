@@ -117,8 +117,35 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
+
+    // Force having user info
+    if (!app.globalData.hasUserInfo) {
+      console.log('Do not have user info: ');
+      wx.switchTab({
+        url: '/pages/index/index',
+      });
+    } else {
+      console.log('Have user info: ');
+      console.log(app.globalData.hasUserInfo);
+    }
+
     this.fetchActiveFilters();
     this.fetchProgramGroups();
+  },
+
+  /**
+   * Lifecycle function--Called when page is shown
+   */
+  onShow: function () {
+    // Force having user info
+    if (!app.globalData.hasUserInfo) {
+
+      console.debug('No user info found, redirecting to index page');
+      wx.switchTab({
+        url: '/pages/index/index',
+      });
+
+    }
   },
 
   /**
