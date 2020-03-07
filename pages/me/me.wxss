@@ -14,18 +14,22 @@
     linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
   height: 12em;
-  padding-left: 4rem;
+}
+
+.profile-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header-logo-blur {
-  position: absolute;
   width: 8rem;
   height: 8rem;
-  right: 2rem;
   opacity: 0.4;
 }
 

@@ -2,6 +2,8 @@
  * AccountInfoProvider encapsulates logic related with 
  * fetching and storing account information.
  */
+const util = require('../utils/util.js');
+
 class AccountInfoProvider {
 
   maxCache = 1000 * 60 * 60 * 2; // Two hours
@@ -11,6 +13,7 @@ class AccountInfoProvider {
   serial_number = '';
   category = '';
   membership_date = null;
+  mDate = null;
   address = '';
   place_of_residence = '';
   remarks = '';
@@ -59,6 +62,7 @@ class AccountInfoProvider {
     this.serial_number = data.serial_number;
     this.category = data.category;
     this.membership_date = data.membership_date;
+    this.mDate = util.formatDate(data.membership_date);
     this.address = data.address;
     this.place_of_residence = data.place_of_residence;
     this.remarks = data.remarks;

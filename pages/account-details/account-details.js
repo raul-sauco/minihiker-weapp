@@ -7,6 +7,9 @@ Page({
    * Page initial data
    */
   data: {
+    hasUserInfo: false,
+    userInfo: null,
+    resUrl: app.globalData.resUrl,
     accountInfo: null,
     ready: false
   },
@@ -15,6 +18,11 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+
+    this.setData({
+      hasUserInfo: app.globalData.hasUserInfo,
+      userInfo: app.globalData.userInfo
+    });
 
     wx.setNavigationBarTitle({
       title: '会员信息',

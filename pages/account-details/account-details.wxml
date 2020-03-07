@@ -1,31 +1,49 @@
 <!--pages/account-information/account-details.wxml-->
+
+<view class='user-details-header'>
+
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+    <view class='user-nickname' wx:else>{{ userInfo.nickName }}</view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
+  </view>
+
+
+</view>
+
 <block wx:if='{{ accountInfo }}'>
 
-  <view class='account-info-header'>
+  <view class="container">
   
-    <view>用户名: {{ accountInfo.name }}</view>
-    <view>帐户类型: {{ accountInfo.category }}</view>
-    <view>会员日期: {{ accountInfo.membership_date }}</view>
-  
-  </view>
+    <view class="account-info card">
+      
+      <view>帐户类型: {{ accountInfo.category }}</view>
+      <view wx:if="{{ accountInfo.category === '会员' }}">
+        会员注册日期: {{ accountInfo.mDate }}
+      </view>
 
-  <view class='client-info-header'>
-  
-    家庭信息: {{ accountInfo.clients.length }}
-
-    <view class='button-container'>
-      <button bindtap='addClient'>
-        <text class='fas fa-user-plus'></text>
-      </button>    
     </view>
-  
-  </view>
 
-  <view class='clients-container'>
-  
-    <view wx:for='{{ accountInfo.clients }}' wx:key='account-clients' 
-      class='client-container' wx:for-item='client'
-      data-client-id='{{ client.id }}'>
+    <view class='client-info-header card' bindtap='addClient'>
+    
+      <text>家庭信息: {{ accountInfo.clients.length }}</text>
+
+      <text class='fas fa-user-plus' id="add-client-icon"></text>      
+
+    </view>
+    
+    <view wx:for='{{ accountInfo.clients }}' wx:key='id' 
+      class='client-container card' wx:for-item='client'
+      data-client-id='{{ client.id }}' bindtap='updateClient'>
 
       <view>
 
@@ -35,11 +53,7 @@
         
       </view>
 
-      <view class='button-container'>
-        <button bindtap='updateClient' data-client-id='{{ client.id }}'>
-          <text class='fas fa-user-edit'></text>
-        </button>
-      </view>
+      <text class='fas fa-user-edit edit-user-icon'></text>
 
     </view>
   

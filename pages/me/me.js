@@ -7,10 +7,10 @@ Page({
    * Page initial data
    */
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hasUserInfo: false,
     userInfo: null,
-    resUrl: app.globalData.resUrl
+    resUrl: app.globalData.resUrl,
+    accountInfo: null,
   },
 
   /**
@@ -20,7 +20,8 @@ Page({
 
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      accountInfo: app.globalData.accountInfoProvider,
     });
 
     wx.setNavigationBarTitle({

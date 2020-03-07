@@ -1,53 +1,58 @@
 /* pages/account-information/account-details.wxss */
-.container {
-  padding: 0;
+.user-details-header {
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%),
+    linear-gradient(to top, #c1dfc4 0%, #deecdd 100%), 
+    linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 12em;
 }
 
-.account-info-header {
-  background: #0ba360;
-  color: #fff;
-
+.profile-info-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  width: 100%;
-
-  padding: 0 20rpx 20rpx 20rpx;
-}
-
-.client-info-header {
-  background: linear-gradient(to bottom, #606c88 0%,#3f4c6b 100%);
-  color: #fff;
-
-  padding: 20rpx;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
-.client-info-header button, .client-container button {
-  width: fit-content;
+.user-avatar {
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
-  background-color: #3cc51f;
+  margin: 20rpx;
 }
 
-.clients-container {
-  box-sizing: border-box;
-  padding: 0 20rpx;
+.user-nickname {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.client-container {
-  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0,0,0, 0.24);
-  margin: 10rpx 0;
-  padding: 20rpx;
+.header-logo-blur {
+  width: 8rem;
+  height: 8rem;
+  opacity: 0.4;
+}
+
+.account-info, .client-info-header {
+  font-weight: bold;
+}
+
+.account-info > view {
+  margin-bottom: 0.3rem;
+}
+
+.client-info-header, .client-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+}
+
+.edit-user-icon, #add-client-icon {
+  color: #0ba360;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
 }
 
 .client-container .client-index {
