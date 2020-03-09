@@ -35,6 +35,9 @@ Page({
    */
   onShow: function () {
 
+    // Force refresh on e
+    this.fetchAccountInfo();
+    /*
     if (app.globalData.accountInfoProvider.infoIsOutdated()) {
 
       console.debug('AccountInfoProvider info is stale, require refresh');
@@ -49,6 +52,7 @@ Page({
       });
 
     }
+    */
 
   },
 
@@ -83,7 +87,7 @@ Page({
 
     } else {
 
-      let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients';
+      let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients,clients.hasInt';
       let url = app.globalData.url + endpoint;
 
       let header = {

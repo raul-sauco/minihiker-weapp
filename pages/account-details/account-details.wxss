@@ -39,7 +39,7 @@
   font-weight: bold;
 }
 
-.account-info > view {
+.account-info > view, .errors-container > view {
   margin-bottom: 0.3rem;
 }
 
@@ -56,6 +56,20 @@
 }
 
 .client-container .client-index {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.has-error .client-index, .errors-container {
+  color: rgb(220,53,69);
+}
+
+.missing-attribute-name {
+  font-weight: bold;
+}
+
+.international-header {
+  margin-top: 0.7rem;
   font-size: 0.7rem;
   color: #777;
 }

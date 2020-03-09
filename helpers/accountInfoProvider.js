@@ -12,6 +12,8 @@ class AccountInfoProvider {
   name = '';
   serial_number = '';
   category = '';
+  phone = '';
+  wechat = '';
   membership_date = null;
   mDate = null;
   address = '';
@@ -61,6 +63,8 @@ class AccountInfoProvider {
     this.name = data.name;
     this.serial_number = data.serial_number;
     this.category = data.category;
+    this.phone = data.phone;
+    this.wechat = data.wechat;
     this.membership_date = data.membership_date;
     this.mDate = util.formatDate(data.membership_date);
     this.address = data.address;
