@@ -138,3 +138,75 @@ input {
 .active-card:active::after {
   opacity: 1;
 }
+
+/** Form elements */
+.input-group {
+  margin-bottom: 10rpx;
+}
+
+.input-label {
+  color: #aaa;
+  font-size: 0.7rem;
+  margin: 6rpx 0 6rpx 24rpx;
+}
+
+.input-label-required-icon {
+  color: #a94442;
+}
+
+picker .picker-box {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input, .input-group textarea, picker .picker-box {
+  box-sizing: border-box;
+  padding: 12rpx 24rpx;
+  width: 100%;
+  font-size: 28rpx;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.input-group input, picker .picker-box {
+  height: fit-content;
+}
+
+.input-group input:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.input-group radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.has-error .input-label, .has-error {
+  color: #a94442;
+}
+
+.has-error input, .has-error textarea, .has-error .picker-box {
+  border-color: #d9534f;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(217, 83, 79, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(217, 83, 79, 0.6);
+}
+
+.has-error .error-message-container {
+  margin: 6rpx 0 6rpx 24rpx;
+  font-size: 0.7rem;
+}

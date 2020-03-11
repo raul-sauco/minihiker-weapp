@@ -161,10 +161,16 @@ Page({
    * Navigate to the personal-info page to perform a client PI update
    */
   updateClient: function (e) {
-
     wx.navigateTo({
       url: '/pages/personal-information/personal-information?id=' + e.currentTarget.dataset.clientId
     })
+  },
+
+  /** Navigate to the edit-account-details page */
+  editAccountDetails: function () {
+    wx.navigateTo({
+      url: '/pages/edit-account-details/edit-account-details',
+    });
   },
 
   /**

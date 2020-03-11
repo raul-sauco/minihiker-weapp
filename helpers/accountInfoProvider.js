@@ -82,9 +82,6 @@ class AccountInfoProvider {
    */
   saveFromServerResponse (serverJson) {
 
-    console.log('Updating application AccountInfoProvider with JSON data from server');
-    console.log(serverJson);
-
     this.assignDataFromJSON(serverJson);
 
     this.saveToStorage();

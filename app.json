@@ -19,7 +19,8 @@
     "pages/cs-online/cs-online",
     "pages/navigation-history/navigation-history",
     "pages/recommended/recommended",
-    "pages/about-minihiker/about-minihiker"
+    "pages/about-minihiker/about-minihiker",
+    "pages/edit-account-details/edit-account-details"
   ],
   "window": {
     "backgroundTextStyle": "light",

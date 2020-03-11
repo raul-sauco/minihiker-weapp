@@ -16,31 +16,41 @@
     <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
   </view>
 
-
 </view>
 
 <block wx:if='{{ accountInfo }}'>
 
   <view class="container">
   
-    <view class="account-info card">
-      
-      <view>帐户类型: {{ accountInfo.category }}</view>
-      <view wx:if="{{ accountInfo.category === '会员' }}">
-        会员注册日期: {{ accountInfo.mDate }}
-      </view>
+    <view class="account-info card active-card" bindtap='editAccountDetails'>
 
-      <view class="errors-container">
-      
-        <view wx:if="{{ !accountInfo.phone }}">
+      <view class="account-info-details">
+        
+        <view>帐户名称: {{ accountInfo.name }}</view>
+        
+        <view>帐户类型: {{ accountInfo.category }}</view>
+
+        <view wx:if="{{ accountInfo.category === '会员' }}">
+          会员注册日期: {{ accountInfo.mDate }}
+        </view>
+        
+        <view wx:if="{{ accountInfo.phone }}">
+          帐号电话号码: {{ accountInfo.phone }}
+        </view>
+        <view wx:else class="error-container">
           请提供至少一个客户的<text class="missing-attribute-name">电话号码</text>
         </view>
-      
-        <view wx:if="{{ !accountInfo.wechat }}">
-          请提供至少一个客户的<text class="missing-attribute-name">微信ID</text>
+        
+        <view wx:if="{{ accountInfo.wechat }}">
+          帐号微信号码: {{ accountInfo.wechat }}
+        </view>
+        <view wx:else class="error-container">
+            请提供至少一个客户的<text class="missing-attribute-name">微信ID</text>
         </view>
       
       </view>
+
+      <text class='fas fa-user-edit edit-user-icon'></text>
 
     </view>
 

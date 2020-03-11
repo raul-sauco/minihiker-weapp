@@ -1,0 +1,73 @@
+<!--pages/edit-account-details/edit-account-details.wxml-->
+<view class='user-details-header'>
+
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+    <view class='user-nickname' wx:else>{{ userInfo.nickName }}</view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
+  </view>
+
+</view>
+<block wx:if='{{ accountInfo }}'>
+
+  <view class="container">
+
+    <form bindsubmit="formSubmit">
+
+      <view class='input-group {{ errors.name ? "has-error" : "" }}'>
+        <view class='input-label'>
+          帐户名称
+          <text class="input-label-required-icon">*</text>
+        </view>
+        <input name='name' maxlength='12'
+          value='{{ accountInfo.name }}' data-attr='name'>
+        </input>
+        <view class='error-message-container' wx:if='{{ errors.name }}'>
+          {{ errors.name }}
+        </view>
+      </view>
+
+      <view class='input-group {{ errors.phone ? "has-error" : "" }}'>
+        <view class='input-label'>
+          帐户电话号码
+          <text class="input-label-required-icon">*</text>
+        </view>
+        <input name='phone' maxlength='18' 
+          value='{{ accountInfo.phone }}' data-attr='phone'>
+        </input>
+        <view class='error-message-container' wx:if='{{ errors.phone }}'>
+          {{ errors.phone }}
+        </view>
+      </view>
+
+      <view class='input-group {{ errors.wechat ? "has-error" : "" }}'>
+        <view class='input-label'>
+          帐户微信编号
+          <text class="input-label-required-icon">*</text>
+        </view>
+        <input name='wechat' maxlength='64'focus 
+          value='{{ accountInfo.wechat }}' data-attr='wechat'>
+        </input>
+        <view class='error-message-container' wx:if='{{ errors.wechat }}'>
+          {{ errors.wechat }}
+        </view>
+      </view>
+      
+      <view class="form-btn-area">
+        <button form-type="submit" type='primary'>更新</button>
+      </view>
+    
+    </form>
+  
+  </view>
+
+</block>
