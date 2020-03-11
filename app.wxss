@@ -139,6 +139,43 @@ input {
   opacity: 1;
 }
 
+/** Main header styles */
+.user-details-header {
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%),
+    linear-gradient(to top, #c1dfc4 0%, #deecdd 100%), 
+    linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 12em;
+}
+
+.profile-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
+.user-nickname {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.header-logo-blur {
+  width: 8rem;
+  height: 8rem;
+  opacity: 0.4;
+}
+
 /** Form elements */
 .input-group {
   margin-bottom: 10rpx;
@@ -195,7 +232,7 @@ picker .picker-box {
   justify-content: space-evenly;
 }
 
-.has-error .input-label, .has-error {
+.has-error .input-label {
   color: #a94442;
 }
 

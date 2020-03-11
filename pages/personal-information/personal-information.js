@@ -7,6 +7,10 @@ Page({
    * Page initial data
    */
   data: {
+    hasUserInfo: false,
+    userInfo: null,
+    resUrl: app.globalData.resUrl,
+    accountInfo: null,
     client: {},
     errors: {},
     familyRoles: ['','孩子','父亲','母亲','爷爷','奶奶','姥姥','姥爷','其他'],
@@ -44,6 +48,9 @@ Page({
     }
 
     this.setData({
+      hasUserInfo: app.globalData.hasUserInfo,
+      userInfo: app.globalData.userInfo,
+      accountInfo: app.globalData.accountInfoProvider,
       client: client
     });
 
@@ -237,6 +244,45 @@ Page({
   /**
    * Give users a more obvious way to conclude the personal data update.
    */
+  formSubmit: function() {
+
+    const errors = {};
+
+    let requiredAttrs = ['name_zh','id_card_number','family_role_id'],
+      missing = false;
+    if (this.data.client.hasInt) {
+      requiredAttrs.push('passport_number', 'passport_issue_date', 'passport_expire_date', 'passport_place_of_issue');
+    }
+
+    requiredAttrs.forEach( a => {
+
+      // Check if a required field is empty
+      if (!this.data.client[a]) {
+
+        missing = true;
+        errors[a] = '请填写必填项';
+
+      }
+
+    });
+
+    // If any of the required fields are empty, ask the user to fill them
+    if (missing) {
+
+      this.setData({
+        errors: errors
+      });
+
+    } else {
+
+      // If all the required fields have data, continue. Conclude update will check other validation errors
+      this.concludeUpdate();
+
+    }
+
+  },
+
+  /** Check validation errors and navigate back */
   concludeUpdate: function () {
 
     if (Object.keys(this.data.errors).length > 0) {
@@ -250,7 +296,7 @@ Page({
           if (res.confirm) {
             console.log('Hiding modal')
           } else if (res.cancel) {
-            wx.navigateBack();
+            wx.navigateBack({delta: 1});
           }
         }
       })

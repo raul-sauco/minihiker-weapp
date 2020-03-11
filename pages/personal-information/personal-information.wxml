@@ -1,10 +1,31 @@
 <!--pages/personal-information/personal-information.wxml-->
+<view class='user-details-header'>
+
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+    <view class='user-nickname' wx:else>{{ userInfo.nickName }}</view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
+  </view>
+
+</view>
 <view id='personal-information-container'>
 
   <form bindsubmit='submitPI'>
 
     <view class='input-group {{ errors.name_zh ? "has-error" : "" }}'>
-      <view class='input-label'>营员名称</view>
+      <view class='input-label'>
+        营员名称
+        <text class="input-label-required-icon">*</text>
+      </view>
       <input name='name_zh' maxlength='12'
         focus bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
@@ -67,7 +88,10 @@
     </view>
 
     <view class='input-group {{ errors.family_role_id ? "has-error" : "" }}'>
-      <view class='input-label'>家庭角色</view>
+      <view class='input-label'>
+        家庭角色
+        <text class="input-label-required-icon">*</text>
+      </view>
       <picker bindchange="updatePI" value='{{ client.family_role_id || "" }}' 
         range="{{ familyRoles }}" data-attr='family_role_id'>
         <view class="picker-box">{{ familyRoles[client.family_role_id] }}</view>
@@ -108,7 +132,10 @@
     </view>
 
     <view class='input-group {{ errors.id_card_number ? "has-error" : "" }}'>
-      <view class='input-label'>身份证号码</view>
+      <view class='input-label'>
+        身份证号码
+        <text class="input-label-required-icon">*</text>
+      </view>
       <input name='id_card_number' bindblur='updatePI' maxlength='20'
         value='{{ client.id_card_number }}' data-attr='id_card_number'>
       </input>
@@ -118,7 +145,10 @@
     </view>
 
     <view class='input-group {{ errors.passport_number ? "has-error" : "" }}'>
-      <view class='input-label'>护照号</view>
+      <view class='input-label'>
+        护照号
+        <text class="input-label-required-icon" wx:if='{{ client.hasInt }}'>*</text>
+      </view>
       <input name='passport_number' bindblur='updatePI' maxlength='20'
         value='{{ client.passport_number }}' data-attr='passport_number' 
         placeholder='您只需为国际项目提供护照信息'>
@@ -129,7 +159,10 @@
     </view>
 
     <view class='input-group {{ errors.passport_issue_date ? "has-error" : "" }}'>
-      <view class='input-label'>护照签发日期</view>
+      <view class='input-label'>
+        护照签发日期
+        <text class="input-label-required-icon" wx:if='{{ client.hasInt }}'>*</text>
+      </view>
       <picker name='passport_issue_date' mode='date' bindchange='updatePI'
         data-attr='passport_issue_date' value='{{ client.passport_issue_date }}'>
         <view class='picker-box'>
@@ -142,7 +175,10 @@
     </view>
 
     <view class='input-group {{ errors.passport_expire_date ? "has-error" : "" }}'>
-      <view class='input-label'>护照到期日</view>
+      <view class='input-label'>
+        护照到期日
+        <text class="input-label-required-icon" wx:if='{{ client.hasInt }}'>*</text>
+      </view>
       <picker name='passport_expire_date' mode='date' bindchange='updatePI'
         data-attr='passport_expire_date' value='{{ client.passport_expire_date }}'>
         <view class='picker-box'>
@@ -155,7 +191,10 @@
     </view>
 
     <view class='input-group {{ errors.passport_place_of_issue ? "has-error" : "" }}'>
-      <view class='input-label'>签发护照的地方</view>
+      <view class='input-label'>
+        签发护照的地方
+        <text class="input-label-required-icon" wx:if='{{ client.hasInt }}'>*</text>
+      </view>
       <input name='passport_place_of_issue' bindblur='updatePI' maxlength='60'
         value='{{ client.passport_place_of_issue }}' data-attr='passport_place_of_issue'>
       </input>
@@ -184,7 +223,7 @@
       </view>
     </view>
 
-    <button id='pi-confirm-update-button' bindtap='concludeUpdate' type='primary'>更新</button>
+    <button id='pi-confirm-update-button' bindtap='formSubmit' type='primary'>更新</button>
   
   </form>
 
