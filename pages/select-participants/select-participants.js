@@ -14,7 +14,12 @@ Page({
     kidParticipants: 0,
     adultParticipants: 0,
     kidSummary: '',
-    adultSummary: ''
+    adultSummary: '',
+    accountInfo: app.globalData.accountInfoProvider,
+    resUrl: app.globalData.resUrl,
+    hasUserInfo: false,
+    userInfo: null,
+    hasUnselected: true
   },
 
   /**
@@ -22,15 +27,9 @@ Page({
    */
   onLoad: function (options) {
 
-    wx.setNavigationBarTitle({
-      title: '选择参与者'
-    });
-
     wx.showLoading({
       title: '下载中',
     });
-
-    console.debug('Select participants for ProgramGroup ' + options.pg + ' program ' + options.p + ' price ' + options.price);
 
     // We need to find the program group Id based on the program id
     // This could require an asyncronous call if we don't have it already
@@ -38,17 +37,20 @@ Page({
 
       const pg = res,
         program = pg.programs.find( p => +p.id === +options.p),
-        price = program.prices.find( pr => pr.id == options.price);
+        price = program.prices.find( pr => pr.id === +options.price);
 
       this.setData({
         programGroup: pg,
         program: program,
-        price: price
+        price: price,
+        accountInfo: app.globalData.accountInfoProvider,
+        hasUserInfo: app.globalData.hasUserInfo,
+        userInfo: app.globalData.userInfo,
       });
 
-      this.fetchParticipants();
-
       wx.hideLoading();
+
+      this.fetchParticipants();
 
     }, err => {
 
@@ -70,7 +72,7 @@ Page({
     });
 
     // Iterate over the provider client collection and copy wanted data
-    let clients = [];
+    const clients = [];
     app.globalData.accountInfoProvider.clients.forEach(client => {
 
       let c = {};
@@ -81,7 +83,7 @@ Page({
 
     });
 
-    let url = app.globalData.url + 'participants/' + this.data.program.id;
+    const url = app.globalData.url + 'participants/' + this.data.program.id;
 
     wx.request({
       url: url,
@@ -126,7 +128,8 @@ Page({
           kidParticipants: totalKids,
           adultParticipants: totalAdults,
           kidSummary: this.generateSummaryMessage(totalKids, true),
-          adultSummary: this.generateSummaryMessage(totalAdults, false)
+          adultSummary: this.generateSummaryMessage(totalAdults, false),
+          hasUnselected: this.hasUnselected(totalAdults, totalKids)
         });
 
       },
@@ -201,6 +204,24 @@ Page({
 
     return message;
 
+  },
+
+  /**
+   * Check if the user can still select participants
+   */
+  hasUnselected: function (adults, kids) {
+
+    return adults < this.data.price.adults || kids < this.data.price.kids;
+
+  },
+  
+  /**
+   * Conclude participant selection and navigate to my-account page
+   */
+  confirm: function () {
+    wx.switchTab({
+      url: '/pages/me/me',
+    });
   }
   
 })

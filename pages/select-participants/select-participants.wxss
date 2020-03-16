@@ -1,34 +1,31 @@
 /* pages/select-participants/select-participants.wxss */
+.container {
+  text-align: center;
+}
+
 .client-container {
   box-sizing: border-box;
   width: 100%;  
   padding: 2% 0;
   border-bottom: 1px solid #CCC;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .header {
-  font-size: 1.5rem;
-  font-weight: bold;
   padding: 5% 0;
 }
 
-.disabled {
+.disabled, .loading-container {
   background-color: #efefef;
   color: #CCC;
 }
 
-.summary {
-  margin-top: 1rem;
-  text-align: center;
-}
-
 .summary view {
-  margin-bottom: 0.5rem;
+  margin: 20rpx 0;
 }
 
 .summary .price-totals {
-  font-size: 0.8rem;
   color: #666;  
 }

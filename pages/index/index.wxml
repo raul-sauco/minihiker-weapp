@@ -5,7 +5,7 @@
     -- Remove on production 
     -->
 
-    <button bindtap="go" type="success">Go</button>
+    <button bindtap="go" type="primary" id="go">预览变更</button>
 
 </block>
 
