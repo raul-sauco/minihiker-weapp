@@ -10,7 +10,10 @@ Page({
     programGroup: null,
     program: null,
     price: null,
-    accountInfo: null
+    accountInfo: app.globalData.accountInfoProvider,
+    resUrl: app.globalData.resUrl,
+    hasUserInfo: false,
+    userInfo: null,
   },
 
   /**
@@ -19,17 +22,17 @@ Page({
   onLoad: function (options) {
 
     // Fetch the programGroup and program from the global programProvider
-    let pg = app.globalData.programProvider.get(options.pg);
-    let p = pg.programs.find(program => {
-      return program.id == options.p;
-    });
-    let price = p.prices.find(price => price.id == options.price);
+    const pg = app.globalData.programProvider.get(options.pg),
+      program = pg.programs.find( p => p.id === +options.p ),
+      price = program.prices.find( pr => pr.id === +options.price);
 
     this.setData({
       programGroup: pg,
-      program: p,
+      program: program,
       price: price,
-      accountInfo: app.globalData.accountInfoProvider
+      accountInfo: app.globalData.accountInfoProvider,
+      hasUserInfo: app.globalData.hasUserInfo,
+      userInfo: app.globalData.userInfo,
     });
 
   },
@@ -44,28 +47,5 @@ Page({
         "&p=" + this.data.program.id + "&price=" + this.data.price.id
     });
 
-  },
-
-  /**
-   * Navigate to the International programs page.
-   */
-  navigateInt: function () {
-
-    wx.switchTab({
-      url: '/pages/index/index',
-    });
-
-  },
-
-  /**
-   * Navigate to the National programs page.
-   */
-  navigateNat: function () {
-
-    wx.switchTab({
-      url: '/pages/national/national',
-    });
-
   }
-
 })

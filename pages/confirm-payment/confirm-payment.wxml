@@ -1,25 +1,38 @@
 <!--pages/confirm-payment/confirm-payment.wxml-->
+<view class='user-details-header'>
+
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
+  </view>
+
+</view>
+
 <view class="container">
-
-  <icon type="success" size="125"></icon>
-
-  <view class="confirm-success">付款成功</view>
 
   <view wx:if='{{ accountInfo }}' class="confirm-success-details">
 
-    <view class="congrat-message">恭喜{{ accountInfo.name }}</view>
+    <icon type="success" size="80"></icon>
 
-    <view>
-      您已成功报名<text class="price-details">{{ price.adults}}大和{{ price.kids }}小</text>参加我们<text 
-        class="program-details">{{ programGroup.weapp_display_name }}</text>
+    <view class="confirm-success-message">付款成功</view>
+
+    <view class="congrat-message">
+      恭喜{{ accountInfo.name }}, 您已成功报名
+      <text class="price-details">{{ price.adults}}大和{{ price.kids }}小</text>参加我们
+      <text class="program-details">{{ programGroup.weapp_display_name }}</text>
     </view>
     
   </view>
 
   <button class="navigate-button" bindtap="selectParticipants" type="primary">选择项目参与者</button>
-
-  <button class="navigate-button" bindtap="navigateInt" type="primary">继续浏览国际项目</button>
-
-  <button class="navigate-button" bindtap="navigateNat" type="primary">继续浏览国内项目</button>
 
 </view>

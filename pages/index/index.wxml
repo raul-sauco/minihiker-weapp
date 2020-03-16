@@ -1,4 +1,14 @@
 <!--index.wxml-->
+<block wx:if="{{ true }}">
+
+  <!-- This block is used to navigate to the currently developed page quicker 
+    -- Remove on production 
+    -->
+
+    <button bindtap="go" type="success">Go</button>
+
+</block>
+
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
 

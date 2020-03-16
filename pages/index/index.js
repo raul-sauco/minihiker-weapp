@@ -283,6 +283,17 @@ Page({
 
   },
 
+  /** 
+   * Used during development to navigate quickly to page currently under development.
+   */
+  go: function () {
+    // Display payment confirmation
+    wx.navigateTo({
+      url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210',
+    });
+
+  },
+
   /**
    * Generate the share information for the page.
    */
