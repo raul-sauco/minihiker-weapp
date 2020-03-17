@@ -1,6 +1,48 @@
-<view class="container centered-content">
+<view class='user-details-header'>
 
-  <text>客服电话</text>
-  <text>页面正在办理中</text>
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
+  </view>
+
+</view>
+<view class="container">
+
+  <view wx:for='{{ contacts }}' wx:for-item='contact' wx:key='phone' 
+    class="card contact-container">  
+
+    <view class="image-container">
+
+      <image src="{{ resUrl + 'img/' + contact.image }}"></image>
+    
+    </view>
+
+    <view class="details-container">
+  
+      <view class="contact-name">{{ contact.name }}</view>
+
+      <view class="contact-hours">{{ contact.hours }}</view>
+
+      <view class="contact-phone">{{ contact.phone }}</view>
+    
+    
+    </view>
+
+    <view class="call-container" bindtap="call" data-phone="{{ contact.phone }}">
+    
+      <text class="fas fa-phone call-icon"></text>
+
+    </view>
+  
+  </view>
 
 </view>

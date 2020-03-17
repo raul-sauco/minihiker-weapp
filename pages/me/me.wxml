@@ -46,7 +46,7 @@
     <view class="navigator-section">
 
       <navigator class='navigator' url='/pages/cs-phones/cs-phones'>
-        <text class="fas fa-spinner navigator-icon"></text>
+        <text class="fas fa-phone navigator-icon"></text>
         <view class='navigator-text'>客服电话</view>
         <view class='navigator-arrow'></view>
       </navigator>

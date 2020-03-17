@@ -1,1 +1,38 @@
-/* pages/cs-phones/cs-phones.wxss */
+.contact-container {
+  display: flex;
+}
+
+.image-container, .call-container {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-container image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+}
+
+.details-container {
+  margin-left: 20rpx;
+  flex-grow: 1;
+}
+
+.contact-name {
+  font-weight: bold;
+}
+
+.contact-hours {
+  font-style: italic;
+}
+
+.call-icon {  
+  color: #0ba360;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}

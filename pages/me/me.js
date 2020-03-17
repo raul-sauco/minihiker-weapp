@@ -23,10 +23,6 @@ Page({
       userInfo: app.globalData.userInfo,
       accountInfo: app.globalData.accountInfoProvider,
     });
-
-    wx.setNavigationBarTitle({
-      title: '我的'
-    });
     
   },
 

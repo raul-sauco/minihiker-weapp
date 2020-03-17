@@ -289,7 +289,8 @@ Page({
   go: function () {
     // Display payment confirmation
     wx.navigateTo({
-      url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210',
+      url: '/pages/cs-phones/cs-phones'
+      // url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
     });
 
   },
