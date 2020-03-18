@@ -1,20 +1,5 @@
-<view class='user-details-header'>
+<main-header></main-header>
 
-  <view class="profile-info-container">
-
-    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
-
-    <view class="user-nickname" wx:if='{{ accountInfo }}'>
-      {{ accountInfo.name }}
-    </view>
-
-  </view>
-
-  <view class="logo-blur-container">
-    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
-  </view>
-
-</view>
 <view class="container">
 
   <view wx:for='{{ contacts }}' wx:for-item='contact' wx:key='phone' 
@@ -22,7 +7,7 @@
 
     <view class="image-container">
 
-      <image src="{{ resUrl + 'img/' + contact.image }}"></image>
+      <image src="{{ resUrl + 'img/xcx/' + contact.image }}"></image>
     
     </view>
 

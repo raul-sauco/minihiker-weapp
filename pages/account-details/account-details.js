@@ -7,8 +7,6 @@ Page({
    * Page initial data
    */
   data: {
-    hasUserInfo: false,
-    userInfo: null,
     resUrl: app.globalData.resUrl,
     accountInfo: null,
     ready: false
@@ -24,10 +22,6 @@ Page({
       userInfo: app.globalData.userInfo
     });
 
-    wx.setNavigationBarTitle({
-      title: '会员信息',
-    });
-
   },
 
   /**
@@ -35,24 +29,7 @@ Page({
    */
   onShow: function () {
 
-    // Force refresh on e
     this.fetchAccountInfo();
-    /*
-    if (app.globalData.accountInfoProvider.infoIsOutdated()) {
-
-      console.debug('AccountInfoProvider info is stale, require refresh');
-      this.fetchAccountInfo();
-
-    } else {
-
-      // If the current account info is valid, use it directly
-      this.setData({
-        accountInfo: app.globalData.accountInfoProvider,
-        ready: true
-      });
-
-    }
-    */
 
   },
 
@@ -171,40 +148,6 @@ Page({
     wx.navigateTo({
       url: '/pages/edit-account-details/edit-account-details',
     });
-  },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
   }
+
 })

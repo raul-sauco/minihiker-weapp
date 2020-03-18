@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "国内项目",
   "usingComponents": {
     "program-group": "../components/program-group/program-group"
   }

@@ -1,5 +1,5 @@
 <!--pages/national/national.wxml-->
-<view class='filters-container'>
+<view class='filters-container' wx:if="{{ filters }}">
 
   <scroll-view scroll-x='true'>
 

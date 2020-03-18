@@ -15,10 +15,7 @@ Page({
     adultParticipants: 0,
     kidSummary: '',
     adultSummary: '',
-    accountInfo: app.globalData.accountInfoProvider,
     resUrl: app.globalData.resUrl,
-    hasUserInfo: false,
-    userInfo: null,
     hasUnselected: true
   },
 
@@ -42,10 +39,7 @@ Page({
       this.setData({
         programGroup: pg,
         program: program,
-        price: price,
-        accountInfo: app.globalData.accountInfoProvider,
-        hasUserInfo: app.globalData.hasUserInfo,
-        userInfo: app.globalData.userInfo,
+        price: price
       });
 
       wx.hideLoading();

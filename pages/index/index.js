@@ -10,96 +10,7 @@ Page({
     resUrl: app.globalData.resUrl,
     programProvider: app.globalData.programProvider,
     programGroups: [],
-    filters: [
-      {
-        title: '寒假',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '寒假'
-        }
-      },
-      {
-        title: '暑假',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '暑假'
-        },
-      },
-      {
-        title: '清明',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '清明'
-        }
-      },
-      {
-        title: '春假',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '春假'
-        }
-      },
-      {
-        title: '五一',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '五一'
-        }
-      },
-      {
-        title: '端午',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '端午'
-        }
-      },
-      {
-        title: '国庆',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '国庆'
-        }
-      },
-      {
-        title: '圣诞',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '圣诞'
-        },
-      },
-      {
-        title: '元旦',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '元旦'
-        }
-      },
-      {
-        title: '夏令营',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '夏令营'
-        }
-      },
-      {
-        title: '冬令营',
-        active: false,
-        query: {
-          parameter: 'type',
-          value: '冬令营'
-        }
-      }
-    ]
+    filters: []
   },
 
   /**
@@ -121,7 +32,7 @@ Page({
    */
   fetchActiveFilters: function () {
 
-    let endpoint = 'program-types?weapp-visible=true&int=true';
+    const endpoint = 'program-types?weapp-visible=true&int=true';
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -130,7 +41,7 @@ Page({
       },
       success: (res) => {
 
-        let filters = [];
+        const filters = [];
 
         // If the request is successful we should get a ProgramTypes array back
         // Create an filter array using active program-types
@@ -289,8 +200,8 @@ Page({
   go: function () {
     // Display payment confirmation
     wx.navigateTo({
-      url: '/pages/cs-phones/cs-phones'
-      // url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
+      // url: '/pages/cs-phones/cs-phones'
+      url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
     });
 
   },

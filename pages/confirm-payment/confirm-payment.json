@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "客服电话"
+  "navigationBarTitleText": "付款成功",
+  "usingComponents": {
+    "main-header": "/pages/components/main-header/main-header"
+  }
 }

@@ -7,10 +7,6 @@ Page({
    * Page initial data
    */
   data: {
-    hasUserInfo: false,
-    userInfo: null,
-    resUrl: app.globalData.resUrl,
-    accountInfo: null,
     client: {},
     errors: {},
     familyRoles: ['','孩子','父亲','母亲','爷爷','奶奶','姥姥','姥爷','其他'],
@@ -48,9 +44,6 @@ Page({
     }
 
     this.setData({
-      hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo,
-      accountInfo: app.globalData.accountInfoProvider,
       client: client
     });
 

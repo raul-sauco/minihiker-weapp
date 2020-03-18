@@ -1,21 +1,5 @@
-<!--pages/select-participants/select-participants.wxml-->
-<view class='user-details-header'>
+<main-header></main-header>
 
-  <view class="profile-info-container">
-
-    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
-
-    <view class="user-nickname" wx:if='{{ accountInfo }}'>
-      {{ accountInfo.name }}
-    </view>
-
-  </view>
-
-  <view class="logo-blur-container">
-    <image class="header-logo-blur" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />  
-  </view>
-
-</view>
 <view class="container">
 
   <view class="header" wx:if="{{ programGroup }}">

@@ -1,0 +1,17 @@
+<view class='user-details-header'>
+
+  <view class="profile-info-container">
+
+    <image class="user-avatar" src='{{ userInfo.avatarUrl }}'></image>
+
+    <view class="user-nickname" wx:if='{{ accountInfo }}'>
+      {{ accountInfo.name }}
+    </view>
+
+  </view>
+
+  <view class="logo-blur-container">
+    <image class="header-logo-blur" src="{{ resUrl + 'img/xcx/logo-only-blur-200.png'}}" />  
+  </view>
+
+</view>

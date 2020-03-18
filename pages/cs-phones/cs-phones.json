@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "客服电话"
+  "navigationBarTitleText": "客服电话",
+  "usingComponents": {
+    "main-header": "../components/main-header/main-header"
+  }
 }

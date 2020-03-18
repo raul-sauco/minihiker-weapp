@@ -19,13 +19,13 @@ Page({
       },
       {
         name: '小精灵Lily',
-        image: 'logo-only-sq-64.png',
+        image: '1567223293-64.jpg',
         hours: '周末及下班时间',
         phone: '17600979374'
       },
       {
         name: '小精灵Amy',
-        image: 'logo-only-sq-64.png',
+        image: '1021158525-64.jpg',
         hours: '周末及下班时间',
         phone: '18514784894'
       }

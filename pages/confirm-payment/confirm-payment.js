@@ -7,13 +7,10 @@ Page({
    * Page initial data
    */
   data: {
+    accountInfo: null,
     programGroup: null,
     program: null,
-    price: null,
-    accountInfo: app.globalData.accountInfoProvider,
-    resUrl: app.globalData.resUrl,
-    hasUserInfo: false,
-    userInfo: null,
+    price: null
   },
 
   /**
@@ -27,12 +24,10 @@ Page({
       price = program.prices.find( pr => pr.id === +options.price);
 
     this.setData({
+      accountInfo: app.globalData.accountInfoProvider,
       programGroup: pg,
       program: program,
-      price: price,
-      accountInfo: app.globalData.accountInfoProvider,
-      hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo,
+      price: price
     });
 
   },

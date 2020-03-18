@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "main-header": "/pages/components/main-header/main-header"
+  }
 }
