@@ -13,10 +13,16 @@ Page({
     filters: []
   },
 
+  /** Shorcut to the page currently under development */
+  onLoad: function () {
+    // Shortcut to the page currently under development.
+    this.go();
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function () {
+  onLoadNos: function () {
 
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
@@ -200,8 +206,10 @@ Page({
   go: function () {
     // Display payment confirmation
     wx.navigateTo({
+      // url: '/pages/official-account/official-account'
+      url: '/pages/about-minihiker/about-minihiker'
       // url: '/pages/cs-phones/cs-phones'
-      url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
+      // url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
     });
 
   },

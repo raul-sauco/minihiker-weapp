@@ -1,1 +1,95 @@
-/* pages/about-minihiker/about-minihiker.wxss */
+page {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+swiper {
+  height: 100%;
+  width: 100%;
+}
+
+.slide {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 10% 10% 5% 10%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+
+  font-size: 1.2rem;
+}
+
+#slide-1 {
+  background: #fff100;
+  padding: 0 0 20% 0;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#slide-1 .image-container {
+  width: 90%;
+}
+
+.footer-container, .footer-container image {
+  max-height: 85rpx;
+  max-width: 100%;
+  text-align: center;
+}
+
+.image-container {
+  width: 100%;
+}
+
+.image-container image {
+  width: 100%;
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.list-container {
+  width: 100%;
+}
+
+.responsive-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.responsive-container .image-container {
+  width: 90%;
+}
+
+.water-bullet {
+  color: #b9dcbb;
+}
+
+.photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  max-height: 95%;
+}
+
+.photo-container {
+  width: 23%;
+  height: 19%;
+  max-height: 19%;
+  margin: 0.5% 1%;
+}
+
+.photo-container image {
+  max-width: 100%;
+  max-height: 100%;
+}

@@ -1,6 +1,134 @@
-<view class="container centered-content">
+<swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
 
-  <text>关于童行者</text>
-  <text>页面正在办理中</text>
+  <swiper-item>
+    <view id="slide-1" class="slide">
+      <view class="image-container">
+        <image id="main-logo" mode="widthFix" src="{{ resUrl + 'img/xcx/logo500.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
 
-</view>
+  <swiper-item>
+    <view id="slide-2" class="slide">
+      <view class="header">童行者源起...... </view>
+      <view class="image-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/flowers-lg.png' }}"></image>
+      </view>
+      <text>一百年后的今天，你现在开什么车，住什么房子，做什么职位，赚多少钱，都变得无关紧要。而唯一重要的是，你如何养育了你的孩子。</text>
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="slide">
+      <view class="header">
+        <view>童行简介</view>
+        <view>一所没有围墙的学校</view>
+      </view>
+      <view>童行者是一所没有围墙的学校，专注于12岁一下儿童和亲子家庭的户外教育，用独特的社会，
+        自然和团队体验，引领孩子们走入自然，认识社会，锻炼人际交往，一及独立解决问题的能力。
+      </view>
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="slide">
+      <view class="header">
+        <view>童行简介</view>
+        <view>清华创始人团队</view>
+      </view>
+      <view>
+        2011年由清华MBA妈妈创立的童行者，是清华MBA的定向实习企业，并入选清华-MIT
+        （清华经管学院与麻省理工学院斯隆管理学院）的创业案例嗯，但却是一家“慢热”，
+        “不商业化”的公司。我们专注于开发深度体验类产品，斯特以己之力影响中国家庭的素质教育。
+      </view>
+      <view>
+        目前总部设在北京，并于2017年在深圳开设分公司。
+      </view>
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="slide">
+      <view class="header">童行者DNA</view>
+
+      <view class="responsive-container">
+
+        <view class="image-container">
+          <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/dna-circle-300.png' }}"></image>
+        </view>
+
+        <view class="list-container">
+          <view>
+            <text class="fas fa-water water-bullet"></text>
+            深度体验：像当地人一样生活
+          </view>
+          <view>
+            <text class="fas fa-water water-bullet"></text>
+            独家线路：游客无法抵达的地方
+          </view>
+          <view>
+            <text class="fas fa-water water-bullet"></text>
+            专注教育：有理念，更有方法
+          </view>
+          <view>
+            <text class="fas fa-water water-bullet"></text>
+            国际视野：让孩子在多元文化下成长
+          </view>
+        </view>
+
+      </view>
+
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="slide">
+      <view class="header">童行者的童行者</view>
+      <view>• 多年来，与我们童行过的家庭超过8000个，近4万人次，97%以上的家庭由转介绍而来，并多次参加活动。</view>
+      <view>
+        <view>• 走遍中国：</view>
+        <view>呼伦贝尔，泰岭，皖南，天目山，洛阳，西安，敦煌，祁连山，福建，丹霞山，
+          千岛湖，宁夏，新疆，贵州，腾冲，西双版纳，台湾，香港，杭州，大理，虎跳峡，
+          菩提岛，三亚，沙漠，雪乡....... 近50多个城市
+        </view>
+      </view>
+      <view>
+        <view>• 走遍世界：</view>
+        <view>美国，澳大利亚，新西兰，巴厘岛，尼泊尔，南法，意大利，东非，清迈，日本，
+          朝鲜，芬兰，夏威夷，斯里兰卡，留尼旺，以色列...... 近20多个国家
+        </view>
+      </view>
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view class="slide">
+      <view class="header">童行者活动掠影</view>
+      <view class="photos-container">
+
+        <view wx:for="{{ photos }}" wx:for-item="i" wx:key="unique" class="photo-container">
+          <image mode="aspectFill" src="{{ resUrl + 'img/xcx/about-us/slides/x150/' + (i + 1) + '.png' }}"></image>
+        </view>
+
+
+      </view>
+    </view>
+  </swiper-item>
+
+</swiper>
