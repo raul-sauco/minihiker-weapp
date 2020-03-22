@@ -7,22 +7,17 @@ Page({
     hasUserInfo: null,
     userInfo: null,
     pageReady: false,
+    hasNextPage: false,
+    nextPageNumber: null,
     resUrl: app.globalData.resUrl,
-    programProvider: app.globalData.programProvider,
     programGroups: [],
     filters: []
-  },
-
-  /** Shorcut to the page currently under development */
-  onLoad: function () {
-    // Shortcut to the page currently under development.
-    this.go();
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoadNos: function () {
+  onLoad: function () {
 
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
@@ -38,7 +33,7 @@ Page({
    */
   fetchActiveFilters: function () {
 
-    const endpoint = 'program-types?weapp-visible=true&int=true';
+    const endpoint = 'program-types?weapp-visible=true&int=true&upcomi';
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -72,7 +67,7 @@ Page({
         console.warn('Request failed. ' + app.globalData.url + endpoint);
       },
       complete: (res) => {
-        console.log('Request completed. ' + app.globalData.url + endpoint);
+        console.debug('Request completed. ' + app.globalData.url + endpoint);
       }
     });
 
@@ -81,9 +76,9 @@ Page({
   /**
    * Fetch program groups from the server
    */
-  fetchProgramGroups: function() {
+  fetchProgramGroups: function(searchQuery = '', page = 1) {
 
-    // TODO allow for pagination
+    console.log('inside fetchProgramGroup q: ' + searchQuery + ' page: ' + page);
 
     this.setData({
       pageReady: false
@@ -92,39 +87,44 @@ Page({
     wx.showLoading({
       title: '下载中',
     });
-    
-    // We are fetching international programs
-    let endpoint = 'program-groups?weapp_visible=true&int=true&' + 
-      'expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
 
-    endpoint = this.addFiltersToEndpoint(endpoint);
+    // TODO add filters
+    const params = {
+      int: 'true',
+      page: page,
+      'per-page': 2,  // TODO remove after implementing pagination
+      expand: 'location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar'
+    };
 
-    wx.request({
-      url: app.globalData.url + endpoint,
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: (res) => {
+    if (searchQuery) {
+      params.q = searchQuery;
+    }
 
-        // If the request is successful we should get a ProgramGroups array back
-        // Add the ProgramGroups to the provider
-        app.globalData.programProvider.addFromArray(res.data);
-        
-        // And add them to the data set, will refresh the UI
-        this.setData({
-          programGroups: res.data,
-          pageReady: true
-        });
+    app.globalData.programProvider.fetchProgramGroups(params).then(res => {
 
-        wx.hideLoading();
-      },
-      fail: (res) => {
-        console.warn('Request failed. ' + app.globalData.url + endpoint);
-      },
-      complete: (res) => {
-        console.log('Request completed. ' + app.globalData.url + endpoint);
-      }
+      // And add them to the data set, will refresh the UI
+      this.setData({
+        hasNextPage: res.hasNextPage,
+        nextPageNumber: res.nextPageNumber,
+        programGroups: this.data.programGroups.concat(res.programGroups),
+        pageReady: true
+      });
+
+      wx.hideLoading();
+
+    }).catch(err => {
+
+      wx.hideLoading();
+      wx.showToast({
+        icon: 'none',
+        title: err.msg,
+      });
+      
+      // TODO implement retry
+
     });
+
+    // endpoint = this.addFiltersToEndpoint(endpoint);
 
   },
 
@@ -207,9 +207,9 @@ Page({
     // Display payment confirmation
     wx.navigateTo({
       // url: '/pages/official-account/official-account'
-      url: '/pages/about-minihiker/about-minihiker'
+      // url: '/pages/about-minihiker/about-minihiker'
       // url: '/pages/cs-phones/cs-phones'
-      // url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
+      url: '/pages/confirm-payment/confirm-payment?pg=679&p=926&price=210'
     });
 
   },

@@ -98,11 +98,11 @@ class ProgramProvider {
         
         pg.programs.forEach(p => {
           
-          console.log("Checking p ID " + p.id + " against ID " + id);
+          console.debug("Checking p ID " + p.id + " against ID " + id);
 
           if (p.id === id) {
 
-            console.log("Found match, returning ProgramGroup " + pg.id);
+            console.debug("Found match, returning ProgramGroup " + pg.id);
             parent = pg;
 
            }
@@ -117,7 +117,7 @@ class ProgramProvider {
 
       } else {
 
-        console.log("No ProgramGroup found for Program " + id + " fetching from server");
+        console.debug("No ProgramGroup found for Program " + id + " fetching from server");
         
         // We don't have the program locally, find it on the server
         const url = this.url + 'programs/' + id + 
@@ -159,6 +159,95 @@ class ProgramProvider {
       }
 
     });
+  }
+
+  /**
+   * Query the server for program groups by the given parameters.
+   * It will add the response data to the program provider object.
+   */
+  fetchProgramGroups (params) {
+
+    return new Promise((resolve, reject) => {
+
+      let url = this.url + 'wxps?';
+
+      // Add the parameters to the endpoint
+      Object.keys(params).forEach( key => {
+
+        url += '&' + key + '=' + params[key];
+
+      });
+
+      wx.request({
+        url: url,
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + (this.accessToken ? this.accessToken : 'guest')
+        },
+        success: res => {
+
+          if (res.statusCode === 200) {
+
+            // res.data contains a programGroup[] even if legth = 0
+            this.addFromArray(res.data);
+
+            // Return an object with the data that the page needs
+            resolve({
+              programGroups: res.data,
+              hasNextPage: this.hasNextPage(res),
+              nextPageNumber: this.nextPageNumber(res)
+            });
+
+          } else {
+
+            console.warn("Request successful but no programGroup");
+            reject({
+              error: true,
+              msg: '服务器错误'
+            });
+
+          }
+
+        },
+        fail: res => {
+          console.warn("Request failed: " + url);
+          reject({
+            error: true,
+            msg: '服务器错误'
+          });
+        },
+        complete: res => {
+          console.debug("Request completed: " + url);
+        }
+      });
+    });
+  }
+
+  /**
+   * Check if the response pagination info informs that there are more pages
+   */
+  hasNextPage (res) {
+
+    const currentPage = res.header['X-Pagination-Current-Page'],
+      totalPages = res.header['X-Pagination-Page-Count'];
+
+    return currentPage < totalPages;
+  }
+
+  /**
+   * Find the page number for the next page of items if it exists.
+   */
+  nextPageNumber (res) {
+
+    if (this.hasNextPage(res)) {
+
+      return +res.header['X-Pagination-Current-Page'] + 1;
+
+    }
+
+    return null;
+
   }
 
 }
