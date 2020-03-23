@@ -6,9 +6,11 @@ Page({
     canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
     hasUserInfo: null,
     userInfo: null,
-    pageReady: false,
+    filtersReady: false,
+    loadingPrograms: true,
     hasNextPage: false,
     nextPageNumber: null,
+    searchQuery: '',
     resUrl: app.globalData.resUrl,
     programGroups: [],
     filters: []
@@ -21,11 +23,12 @@ Page({
 
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      filterReady: false
     });
 
     this.fetchActiveFilters();
-    this.fetchProgramGroups();
+    this.fetchProgramGroups(null, null);
   },
 
   /**
@@ -33,7 +36,11 @@ Page({
    */
   fetchActiveFilters: function () {
 
-    const endpoint = 'program-types?weapp-visible=true&int=true&upcomi';
+    wx.showLoading({
+      title: '下载中',
+    });
+
+    const endpoint = 'program-types?weapp-visible=true&int=true';
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -49,16 +56,13 @@ Page({
         res.data.forEach(pt => {
           filters.push({
             title: pt.name,
-            active: false,
-            query: {
-              parameter: 'type',
-              value: pt.name
-            }
+            active: false
           });
         });
 
         // And add them to the data set, will refresh the UI
         this.setData({
+          filtersReady: true,
           filters: filters
         });
 
@@ -67,6 +71,7 @@ Page({
         console.warn('Request failed. ' + app.globalData.url + endpoint);
       },
       complete: (res) => {
+        wx.hideLoading();
         console.debug('Request completed. ' + app.globalData.url + endpoint);
       }
     });
@@ -76,28 +81,29 @@ Page({
   /**
    * Fetch program groups from the server
    */
-  fetchProgramGroups: function(searchQuery = '', page = 1) {
-
-    console.log('inside fetchProgramGroup q: ' + searchQuery + ' page: ' + page);
+  fetchProgramGroups: function(searchQuery, page) {
 
     this.setData({
-      pageReady: false
-    });
-
-    wx.showLoading({
-      title: '下载中',
+      loadingPrograms: true
     });
 
     // TODO add filters
     const params = {
       int: 'true',
-      page: page,
-      'per-page': 2,  // TODO remove after implementing pagination
-      expand: 'location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar'
+      'per-page': 3,  // TODO remove after implementing pagination
     };
 
     if (searchQuery) {
       params.q = searchQuery;
+    }
+
+    if (page) {
+      params.page = page;
+    }
+
+    const typeFilters = this.getTypeFilteringValue();
+    if (typeFilters) {
+      params.type = typeFilters;
     }
 
     app.globalData.programProvider.fetchProgramGroups(params).then(res => {
@@ -107,24 +113,19 @@ Page({
         hasNextPage: res.hasNextPage,
         nextPageNumber: res.nextPageNumber,
         programGroups: this.data.programGroups.concat(res.programGroups),
-        pageReady: true
+        loadingPrograms: false
       });
-
-      wx.hideLoading();
 
     }).catch(err => {
 
-      wx.hideLoading();
       wx.showToast({
         icon: 'none',
         title: err.msg,
       });
       
-      // TODO implement retry
+      setTimeout(this.fetchProgramGroups, 3000, searchQuery, page);
 
     });
-
-    // endpoint = this.addFiltersToEndpoint(endpoint);
 
   },
 
@@ -152,7 +153,9 @@ Page({
     });
 
     this.setData({
-      filters: filters
+      filters: filters,
+      programGroups: [],      // Clean up programGroups, will get a new set
+      loadingPrograms: true   // Set flag to avoid having the "no programs found" message flash
     });
 
     this.fetchProgramGroups();
@@ -160,20 +163,24 @@ Page({
   },
 
   /**
-   * Add filters to the request endpoint
+   * Get active filter by type parameter.
    */
-  addFiltersToEndpoint: function (endpoint) {
+  getTypeFilteringValue: function () {
 
     // TODO allow for multiple filters
+    /*
+     * Each filter is an object on the form
+     * {
+     *   title: 春假,
+     *   active: bool
+     * }
+     */
+    let filters = [];
 
-    this.data.filters.forEach(f => {
+    this.data.filters.filter( f => f.active ).forEach( f => { filters.push(f.title); });
 
-      if (f.active) {
-        endpoint += '&' + f.query.parameter + '=' + f.query.value;
-      }
-    });
-
-    return endpoint;
+    // Return all the active filter titles separated by ','
+    return filters.join();
 
   },
 
@@ -197,6 +204,17 @@ Page({
       hasUserInfo: true,
       userInfo: userInfo,
     });
+
+  },
+
+  /** Fetch the next page of data */
+  onReachBottom: function () {
+
+    if (!this.data.loadingPrograms && this.data.hasNextPage) {
+
+      this.fetchProgramGroups(this.data.searchQuery, this.data.nextPageNumber);
+
+    }
 
   },
 

@@ -169,7 +169,8 @@ class ProgramProvider {
 
     return new Promise((resolve, reject) => {
 
-      let url = this.url + 'wxps?';
+      let url = this.url + 
+        'wxps?expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
 
       // Add the parameters to the endpoint
       Object.keys(params).forEach( key => {

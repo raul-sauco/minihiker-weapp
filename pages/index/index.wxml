@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<block wx:if="{{ true }}">
+<block wx:if="{{ false }}">
 
   <!-- This block is used to navigate to the currently developed page quicker 
     -- Remove on production 
@@ -12,7 +12,7 @@
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
 
-  <block wx:if='{{ pageReady }}'>
+  <block wx:if='{{ filtersReady }}'>
 
     <view class='filters-container' wx:if="{{ filters }}">
 
@@ -30,26 +30,31 @@
 
     </view>
 
-    <view class="container" wx:if='{{ programGroups.length > 0  }}'>
-
-      <block wx:for="{{ programGroups }}" wx:key='id'>
-
-        <program-group program-group-id='{{ item.id }}'></program-group>
-
-      </block>
-
-    </view>
-
-    <view wx:else class='no-programs-message-container'>
-      <icon type='info' size='60' />
-      <view class='no-programs-header'>我们很抱歉!</view>
-      <view class='no-programs-body'>您所选时间目前暂无活动</view>
-      <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
-    </view>
-
   </block>
 
+  <view class="container" wx:if='{{ programGroups.length > 0  }}'>
+
+    <block wx:for="{{ programGroups }}" wx:key='id'>
+
+      <program-group program-group-id='{{ item.id }}'></program-group>
+
+    </block>
+
+  </view>
+
+  <view wx:if="{{ loadingPrograms }}" class="program-loading-container card">    
+    <image mode="widthFix" class="loading-gif" src="{{ resUrl + 'img/xcx/loading-color-50.gif' }}"></image>    
+  </view>
+
+  <view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
+    <icon type='info' size='60' />
+    <view class='no-programs-header'>我们很抱歉!</view>
+    <view class='no-programs-body'>您所选时间目前暂无活动</view>
+    <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
+  </view>
+
 </block>
+
 <!-- This block only will be shown if the app component does not have access to the user information -->
 <block  wx:if="{{ hasUserInfo === false }}">
 
@@ -75,6 +80,7 @@
   </view>
 
 </block>
+
 <!-- This block only will be shown if the index page has not loaded yet the globalData -->
 <block  wx:if="{{ hasUserInfo === null }}">
 
