@@ -12,7 +12,7 @@
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
 
-  <block wx:if='{{ filtersReady }}'>
+  <block wx:if='{{ true }}'>
 
     <view class='filters-container' wx:if="{{ filters }}">
 
@@ -51,6 +51,15 @@
     <view class='no-programs-header'>我们很抱歉!</view>
     <view class='no-programs-body'>您所选时间目前暂无活动</view>
     <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
+  </view>
+  
+  <view class="search-bar-container {{ isSearchBarVisible ? '' : 'search-bar-container-hidden' }}">
+    <view class="search-bar-components-container">
+    <text class="fas fa-search search-bar-icon"></text>
+    <input type="text" confirm-type="search" id="program-search-box"
+      placeholder="请输入关键词"
+      bindconfirm="search" value="{{ searchQuery }}"></input>    
+    </view>
   </view>
 
 </block>

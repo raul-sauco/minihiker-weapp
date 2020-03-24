@@ -31,6 +31,7 @@
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   margin-bottom: 0.3rem;
+  margin-top: 40px;   /* Clear the search bar */
   white-space: nowrap;
 }
 
@@ -103,4 +104,37 @@
 .loading-gif {
   height: 100rpx;
   width: 100rpx;
+}
+
+.search-bar-container {
+  box-sizing: border-box;
+  display: flex;
+  direction: column;
+  align-items: stretch;
+  background: #0ba360;
+  padding: 0 20rpx 20rpx 20rpx;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar-container-hidden {
+  transform: translateY(-40px);
+}
+
+.search-bar-components-container {
+  display: flex;
+  align-items: center;
+  background-color: #F8F8F8;
+  width: 100%;
+}
+
+.search-bar-icon {
+  color: #0ba360;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+  padding: 10rpx;
 }
