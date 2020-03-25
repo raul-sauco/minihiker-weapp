@@ -76,18 +76,24 @@
 
   <view class='program-group-action-bar'>
 
-    <button bindtap='showQA'>
-      <text class='fas fa-question'></text>
-      问答
+    <button bindtap='goHome'>
+      <text class='fas fa-home action-button-icon'></text><text>首页</text>
     </button>
 
-    <button open-type='contact'>
-      <text class='fas fa-headset'></text>
+    <button bindtap='showQA'>
+      <text class='fas fa-question action-button-icon'></text><text>问答</text>
+    </button>
+
+    <button send-message-title="{{ programGroup.weapp_display_name }}"
+      send-message-img="{{ resUrl + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}"
+      show-message-card="true" send-message-path="/pages/program-group/program-group?id={{programGroup.id}}"
+      open-type='contact'>
+      <text class='fas fa-headset action-button-icon'></text>
       客服
     </button>
 
     <button open-type='share'>
-      <text class='fas fa-share-alt'></text>
+      <text class='fas fa-share-alt action-button-icon'></text>
       分享
     </button>
 

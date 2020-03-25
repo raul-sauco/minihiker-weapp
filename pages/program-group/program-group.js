@@ -69,5 +69,12 @@ Page({
       url: '/pages/program-registration/program-registration?pg=' + this.data.programGroup.id + 
         '&p=' + this.data.selectedProgram.id,
     });
+  },
+
+  /** Navigate home */
+  goHome: function () {
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
   }
 })

@@ -1,6 +1,7 @@
 /* pages/program-group/program-group.wxss */
 .container {
-  padding: 0 0 50px 0;
+  padding: 0 0 70px 0;
+  align-items: center;
 }
 
 .program-group-cover-image {
@@ -11,21 +12,18 @@
   width: 95%;
 }
 
-.program-group-details-container .fas {
+#programs-container .fas, #programs-container .far, .program-group-details-container .fas {
   color: #0ba360;
-  width: 30rpx;
+  width: 60rpx;
   text-align: center;
-}
-#programs-container .fas, #programs-container .far {
-  color: #0ba360;
-  width: 40rpx;
-  text-align: center;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
 }
 
 .program-group-details-entry {
   text-align: left;
   color: #777;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
 
   padding: 0.4rem 0.3rem;
   border-bottom: 1px solid #aaa;
@@ -57,7 +55,7 @@
 .program-inner { 
   color: #555;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   padding: 0 0.5rem;
   
   box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
@@ -89,36 +87,13 @@
 .program-group-description {
   width: 95%;
   margin: 0.3rem 0;
-  font-size: 1rem;
-  color: #777;
   overflow: hidden;
-}
-
-.program-group-description img {
-  max-width: 100%;
-  height: auto;
-}
-
-.program-group-images {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 95%;
-}
-
-.program-group-image-container {
-  width: 100%;
-  margin-bottom: 1%;
-}
-
-.program-group-image {
-  width: 100%;
 }
 
 .program-group-action-bar {
   position: fixed;
   bottom: 0;
-  height: 40px;
+  height: 50px;
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
@@ -127,47 +102,40 @@
   border-top: 0.5px solid #ddd;
 }
 
-.program-group-action-bar > text {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 0.7rem;
-  color: #777;
-
-  /* Use flex-box to ceter vertically the content */
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-
-  border-right: 0.2px solid #ddd;
-}
-
 .program-group-action-bar > button {
   flex-grow: 1;
-  text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #777;
 
   /* Use flex-box to ceter vertically the content */
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
 
   border-right: 0.2px solid #ddd;
 
   /* Override default button styles */
   background-color: inherit;
   border-radius: 0;
-  line-height: 1.5;
+  line-height: 1.7;
   padding: 0;
   margin: -1px;
   box-shadow: none;
   border: none;
 }
 
+.action-button-icon {
+  color: #0ba360;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}
+
 /* Remove the border from the last item */
 .program-group-action-bar > button:last-child {
   border-right: none;
-  flex-grow: 1.5;
+  flex-grow: 2;
+  justify-content: center;
   color: white;
   text-shadow: 1px 1px 2px #444, 0 0 0.2em #ddd;
   
