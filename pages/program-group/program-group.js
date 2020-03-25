@@ -10,7 +10,8 @@ Page({
     programGroup: null,
     selectedProgram: null,
     resUrl: app.globalData.resUrl,
-    images: null
+    isScrollToTopVisible: false,
+    scrollTop: 0
   },
 
   /**
@@ -76,5 +77,41 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     })
+  },
+
+  backToTop: function () {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
+  },
+
+  /** 
+   * Handle page scrolling event
+   */
+  onPageScroll: function (e) {
+
+    const top = e.scrollTop;
+
+    // Scrolling down, hide the scroll button if visible
+    if (top < 400 || (this.data.scrollTop < top && this.data.isScrollToTopVisible)) {
+
+      this.setData({
+        isScrollToTopVisible: false
+      });
+
+    }
+
+    // Scrolling up, display the scroll button if hidden
+    if (top > 400 && this.data.scrollTop > top && !this.data.isScrollToTopVisible) {
+
+      this.setData({
+        isScrollToTopVisible: true
+      });
+
+    }
+    
+    this.data.scrollTop = top;
+
   }
 })

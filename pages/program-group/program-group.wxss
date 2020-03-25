@@ -141,3 +141,31 @@
   
   background-image: radial-gradient(at 10% 10%, #0ba360 0%, #3cba92 100%);
 }
+
+.go-back-to-top-container {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  color: #0ba360;
+  font-size: 2rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.go-back-to-top-container, .go-back-to-top-container:active {
+  border-radius: 50%;
+}
+
+.hidden-container {
+  opacity: 0;
+}
+
+.visible-container {
+  opacity: 1;
+}

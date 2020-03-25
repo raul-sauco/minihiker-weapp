@@ -101,4 +101,9 @@
     
   </view>
 
+  <view class="go-back-to-top-container card active-card {{ isScrollToTopVisible ? 'visible-container' : 'hidden-container' }}" 
+    bindtap="backToTop">
+    <text class="fas fa-angle-double-up"></text>
+  </view>
+
 </view>
