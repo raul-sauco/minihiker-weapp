@@ -59,13 +59,13 @@
     <view class="navigator-section">
 
       <navigator class='navigator' url='/pages/about-minihiker/about-minihiker'>
-        <text class="fas fa-spinner navigator-icon"></text>
+        <text class="fas fa-info-circle navigator-icon"></text>
         <view class='navigator-text'>关于童行者</view>
         <view class='navigator-arrow'></view>
       </navigator>
 
       <navigator class='navigator' url='/pages/official-account/official-account'>
-        <text class="fas fa-spinner navigator-icon"></text>
+        <text class="far fa-newspaper navigator-icon"></text>
         <view class='navigator-text'>关于童行者微信公众号</view>
         <view class='navigator-arrow'></view>
       </navigator>

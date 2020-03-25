@@ -1,1 +1,12 @@
-/* pages/official-account/official-account.wxss */
+official-account {
+  width: 400px;
+  height: 200px;
+}
+
+.error-container {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
