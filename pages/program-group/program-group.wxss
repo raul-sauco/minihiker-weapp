@@ -169,3 +169,66 @@
 .visible-container {
   opacity: 1;
 }
+
+/* Styles for the rich-text description field */
+.wart-section-header {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #0ba360;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20rpx 0;
+}
+
+.wart-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20rpx 0;
+}
+
+.wart-image-caption {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.wart-icon {
+  color: #0ba360;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}
+
+.wart-icon-h-padded {
+  padding: 0 0.5rem;
+}
+
+.wart-bullet-big {
+  color: #0ba360;
+  font-size: 1.3rem;
+  width: 1.5rem;
+  text-align: left;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}
+
+.wart-italic-block {
+  font-style: italic;
+}
+
+.wart-padded-block {
+  padding: 1rem;
+}
+
+.wart-poem-container {
+  font-style: italic;
+  margin: 40rpx 0;
+}
+
+.wart-p {
+  padding: 5rpx 0 10rpx;
+}
+
+.wart-fun-fact {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rpx;
+}
