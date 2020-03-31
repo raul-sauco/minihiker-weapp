@@ -14,24 +14,33 @@
   </scroll-view>
 
 </view>
-  
-<block wx:if='{{ pageReady }}'>
 
-  <view class="container" wx:if='{{ programGroups.length > 0  }}'>
+<view class="container" wx:if='{{ programGroups.length > 0  }}'>
 
-    <block wx:for="{{ programGroups }}" wx:key='id'>
+  <block wx:for="{{ programGroups }}" wx:key='id'>
 
-      <program-group program-group-id='{{ item.id }}'></program-group>
+    <program-group program-group-id='{{ item.id }}'></program-group>
 
-    </block>
+  </block>
 
+</view>
+
+<view wx:if="{{ loadingPrograms }}" class="program-loading-container card">    
+  <image mode="widthFix" class="loading-gif" src="{{ resUrl + 'img/xcx/loading-color-50.gif' }}"></image>    
+</view>
+
+<view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
+  <icon type='info' size='60' />
+  <view class='no-programs-header'>我们很抱歉!</view>
+  <view class='no-programs-body'>您所选时间目前暂无活动</view>
+  <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
+</view>
+
+<view class="search-bar-container {{ isSearchBarVisible ? '' : 'search-bar-container-hidden' }}">
+  <view class="search-bar-components-container">
+  <text class="fas fa-search search-bar-icon"></text>
+  <input type="text" confirm-type="search" id="program-search-box"
+    placeholder="请输入关键词，亲子/单飞，地点"
+    bindconfirm="search" value="{{ searchQuery }}"></input>    
   </view>
-
-  <view wx:else class='no-programs-message-container'>
-    <icon type='info' size='60' />
-    <view class='no-programs-header'>我们很抱歉!</view>
-    <view class='no-programs-body'>您所选时间目前暂无活动</view>
-    <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
-  </view>
-
-</block>
+</view>

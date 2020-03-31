@@ -12,25 +12,21 @@
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
 
-  <block wx:if='{{ true }}'>
+  <view class='filters-container' wx:if="{{ filters }}">
 
-    <view class='filters-container' wx:if="{{ filters }}">
+    <scroll-view scroll-x='true'>
 
-      <scroll-view scroll-x='true'>
+      <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
+        class='filter-container'>
+        <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
+          class='{{ filter.active ? "active" : "" }}'>
+          {{ filter.title }}
+        </button>
+      </view>
+    
+    </scroll-view>
 
-        <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
-          class='filter-container'>
-          <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
-            class='{{ filter.active ? "active" : "" }}'>
-            {{ filter.title }}
-          </button>
-        </view>
-      
-      </scroll-view>
-
-    </view>
-
-  </block>
+  </view>
 
   <view class="container" wx:if='{{ programGroups.length > 0  }}'>
 

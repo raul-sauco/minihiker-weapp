@@ -6,7 +6,6 @@ Page({
     canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
     hasUserInfo: null,
     userInfo: null,
-    filtersReady: false,
     loadingPrograms: true,
     hasNextPage: false,
     nextPageNumber: null,
@@ -26,8 +25,7 @@ Page({
 
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo,
-      filterReady: false
+      userInfo: app.globalData.userInfo
     });
 
     this.fetchActiveFilters();
@@ -65,7 +63,6 @@ Page({
 
         // And add them to the data set, will refresh the UI
         this.setData({
-          filtersReady: true,
           filters: filters
         });
 

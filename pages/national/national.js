@@ -3,9 +3,16 @@ const app = getApp()
 
 Page({
   data: {
-    pageReady: false,
+    loadingPrograms: true,
+    hasNextPage: false,
+    nextPageNumber: null,
+    searchQuery: '',
+    resUrl: app.globalData.resUrl,
     programGroups: [],
-    filters: []
+    filters: [],
+    isSearchBarVisible: true,
+    scrollTop: 0,
+    scrollDetectTimeout: null
   },
 
   /**
@@ -15,40 +22,47 @@ Page({
 
     // Force having user info
     if (!app.globalData.hasUserInfo) {
-      console.log('Do not have user info: ');
+      
+      console.warn('Trying to navigate to pages/national without user info');
+
       wx.switchTab({
         url: '/pages/index/index',
       });
-    } else {
-      console.log('Have user info: ');
-      console.log(app.globalData.hasUserInfo);
+
     }
 
     this.fetchActiveFilters();
-    this.fetchProgramGroups();
+    this.fetchProgramGroups(null, null);
   },
 
   /**
    * Lifecycle function--Called when page is shown
    */
   onShow: function () {
+
     // Force having user info
     if (!app.globalData.hasUserInfo) {
 
-      console.debug('No user info found, redirecting to index page');
+      console.warn('Trying to navigate to pages/national without user info');
+
       wx.switchTab({
         url: '/pages/index/index',
       });
 
     }
+
   },
 
   /**
-     * Fetch all the active program-types for the international programs.
-     */
+   * Fetch all the active program-types for the national programs.
+   */
   fetchActiveFilters: function () {
 
-    let endpoint = 'program-types?weapp-visible=true&int=false';
+    wx.showLoading({
+      title: '下载中',
+    });
+
+    const endpoint = 'program-types?weapp-visible=true&int=false';
 
     wx.request({
       url: app.globalData.url + endpoint,
@@ -57,20 +71,14 @@ Page({
       },
       success: (res) => {
 
-        console.log(res);
-
-        let filters = [];
+        const filters = [];
 
         // If the request is successful we should get a ProgramTypes array back
         // Create an filter array using active program-types
         res.data.forEach(pt => {
           filters.push({
             title: pt.name,
-            active: false,
-            query: {
-              parameter: 'type',
-              value: pt.name
-            }
+            active: false
           });
         });
 
@@ -84,7 +92,8 @@ Page({
         console.warn('Request failed. ' + app.globalData.url + endpoint);
       },
       complete: (res) => {
-        console.log('Request completed. ' + app.globalData.url + endpoint);
+        wx.hideLoading();
+        console.debug('Request completed. ' + app.globalData.url + endpoint);
       }
     });
 
@@ -93,49 +102,50 @@ Page({
   /**
    * Fetch program groups from the server
    */
-  fetchProgramGroups: function () {
-
-    // TODO allow for pagination
+  fetchProgramGroups: function (searchQuery, page) {
 
     this.setData({
-      pageReady: false
+      loadingPrograms: true
     });
 
-    wx.showLoading({
-      title: '下载中',
-    });
+    // TODO add filters
+    const params = {
+      int: 'false',
+      'per-page': 3,    // 3 seems to work well, maybe increase reach page end sensitivity
+    };
 
-    // We are fetching national programs
-    let endpoint = 'program-groups?weapp_visible=true&int=false' + 
-      '&expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
+    if (searchQuery) {
+      params.q = searchQuery;
+    }
 
-    endpoint = this.addFiltersToEndpoint(endpoint);
+    if (page) {
+      params.page = page;
+    }
 
-    wx.request({
-      url: app.globalData.url + endpoint,
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: (res) => {
+    const typeFilters = this.getTypeFilteringValue();
+    if (typeFilters) {
+      params.type = typeFilters;
+    }
 
-        // If the request is successful we should get a ProgramGroups array back
-        // Add the ProgramGroups to the provider
-        app.globalData.programProvider.addFromArray(res.data);
+    app.globalData.programProvider.fetchProgramGroups(params).then(res => {
 
-        // And add them to the data set, will refresh the UI
-        this.setData({
-          programGroups: res.data,
-          pageReady: true
-        });
+      // And add them to the data set, will refresh the UI
+      this.setData({
+        hasNextPage: res.hasNextPage,
+        nextPageNumber: res.nextPageNumber,
+        programGroups: this.data.programGroups.concat(res.programGroups),
+        loadingPrograms: false
+      });
 
-        wx.hideLoading();
-      },
-      fail: (res) => {
-        console.warn('Request failed. ' + app.globalData.url + endpoint);
-      },
-      complete: (res) => {
-        console.log('Request completed. ' + app.globalData.url + endpoint);
-      }
+    }).catch(err => {
+
+      wx.showToast({
+        icon: 'none',
+        title: err.msg,
+      });
+
+      setTimeout(this.fetchProgramGroups, 3000, searchQuery, page);
+
     });
 
   },
@@ -164,7 +174,12 @@ Page({
     });
 
     this.setData({
-      filters: filters
+      filters: filters,
+      programGroups: [],      // Clean up programGroups, will get a new set
+      loadingPrograms: true,  // Set flag to avoid having the "no programs found" message flash
+      hasNextPage: false,
+      nextPageNumber: null,
+      searchQuery: '',
     });
 
     this.fetchProgramGroups();
@@ -172,20 +187,125 @@ Page({
   },
 
   /**
-   * Add filters to the request endpoint
+   * Get active filter by type parameter.
    */
-  addFiltersToEndpoint: function (endpoint) {
+  getTypeFilteringValue: function () {
 
     // TODO allow for multiple filters
+    /*
+     * Each filter is an object on the form
+     * {
+     *   title: 春假,
+     *   active: bool
+     * }
+     */
+    let filters = [];
 
-    this.data.filters.forEach(f => {
+    this.data.filters.filter(f => f.active).forEach(f => { filters.push(f.title); });
 
-      if (f.active) {
-        endpoint += '&' + f.query.parameter + '=' + f.query.value; 
-      }
+    // Return all the active filter titles separated by ','
+    return filters.join();
+
+  },
+
+  /** Launch a search */
+  search: function (e) {
+
+    const queryString = e.detail.value;
+
+    console.debug(`User launched ProgramGroup search with query "${queryString}"`);
+
+    this.setData({
+      programGroups: [],      // With the search we get a complete new set of ProgramGroups
+      loadingPrograms: true,  // Set flag to avoid having the "no programs found" message flash
+      hasNextPage: false,     // Reset paginator object pointers
+      nextPageNumber: null,
+      searchQuery: queryString,
     });
 
-    return endpoint;
+    this.fetchProgramGroups(queryString, null);
+  },
+
+  /** Fetch the next page of data */
+  onReachBottom: function () {
+
+    if (!this.data.loadingPrograms && this.data.hasNextPage) {
+
+      this.fetchProgramGroups(this.data.searchQuery, this.data.nextPageNumber);
+
+    }
+
+  },
+
+  /** 
+   * Handle page scrolling event.
+   * This event gets called to often, we add a timeout to simulate a "stop scrolling" event.
+   */
+  onPageScroll: function (e) {
+
+    // TODO possibly check if we are near the top of the page, 
+    // bar should always be visible in that case
+
+    const top = e.scrollTop,
+      diff = Math.abs(top - this.data.scrollTop),
+      delay = 150,
+      sensitivity = 5;
+
+    if (diff > sensitivity) {
+
+      console.debug('Detected fast scroll movement');
+
+      // Clear the current timeout if there is one. 
+      clearTimeout(this.data.scrollDetectTimeout);
+
+      if (this.data.scrollTop < top) {
+
+        this.data.scrollDetectTimeout = setTimeout(this.hideSearchBar, delay);
+
+      }
+
+      if (this.data.scrollTop > top) {
+
+        this.data.scrollDetectTimeout = setTimeout(this.displaySearchBar, delay);
+
+      }
+    }
+
+    this.data.scrollTop = top;
+
+  },
+
+  /**
+   * Display the top search bar if hidden
+   */
+  displaySearchBar: function () {
+
+    if (!this.data.isSearchBarVisible) {
+
+      console.debug('Showing top search bar');
+
+      this.setData({
+        isSearchBarVisible: true
+      });
+
+    }
+
+  },
+
+  /**
+   * Hide the top search bar if visible
+   */
+  hideSearchBar: function () {
+
+    if (this.data.isSearchBarVisible) {
+
+      console.debug('Hiding top search bar');
+
+      this.setData({
+        isSearchBarVisible: false
+      })
+
+    }
 
   },
 
