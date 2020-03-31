@@ -1,5 +1,4 @@
 /* pages/components/program-group/program-group.wxss */
-
 .program-group-wrapper {
   box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
     0 1px 3px rgba(0, 0, 0, 0.12),
@@ -12,14 +11,12 @@
   position: relative;
 }
 
-/** TODO need to find a better solution to preserving aspect ratio */
 .image-container > image {
-  height: 175px;
   width: 100%;
 }
 
 .registration-status {
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   text-shadow: 1px 2px 1px rgba(0,0,0,0.3);
   color: #fff;
 
@@ -47,37 +44,20 @@
 }
 
 .program-details-name {
-  padding-bottom: 15rpx;
-  color: #555;
+  padding-bottom: 0.1rem;
+  color: #333;
+  font-weight: bold;
 }
 
 .program-details-summary {
-  font-size: 0.7rem;
-  color: #999;
+  color: #666;
 }
 
 .program-details-multirow {
   display: flex;
-  color: #225222;
-  font-size: 0.7rem;
-  text-align: center;
-  margin-top: 3px;
-}
-
-.program-details-multirow {
+  justify-content: space-around;
   color: #0ba360;
-}
-
-.program-ages {
-  flex-grow: 1;
-}
-
-.program-type {
-  flex-grow: 1;
-}
-
-.program-period {
-  flex-grow: 1;
+  margin-top: 0.3rem;
 }
 
 /* FontAwesome classes */

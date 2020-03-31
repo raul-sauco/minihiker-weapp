@@ -57,7 +57,7 @@
     <view class="search-bar-components-container">
     <text class="fas fa-search search-bar-icon"></text>
     <input type="text" confirm-type="search" id="program-search-box"
-      placeholder="请输入关键词"
+      placeholder="请输入关键词，亲子/单飞，地点"
       bindconfirm="search" value="{{ searchQuery }}"></input>    
     </view>
   </view>
