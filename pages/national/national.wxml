@@ -1,4 +1,8 @@
 <!--pages/national/national.wxml-->
+<view class="search-bar-clear"></view>
+
+<banner int="false" class="pg-banner"></banner>
+
 <view class='filters-container' wx:if="{{ filters }}">
 
   <scroll-view scroll-x='true'>

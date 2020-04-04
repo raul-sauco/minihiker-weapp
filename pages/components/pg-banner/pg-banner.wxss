@@ -1,0 +1,30 @@
+swiper {
+  height: 200px;
+}
+
+swiper-item image {
+  width: 100%;
+}
+
+.program-group-banner-name-container, .program-group-banner-theme-container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
+.program-group-banner-name-container {
+  top: 20rpx;
+  font-size: 1.3rem;
+}
+
+.program-group-banner-theme-container {
+  bottom: 20rpx;
+  font-size: 1.2rem;
+}
+
+.program-group-banner-text {
+  color: #fcfcfc;
+  text-shadow: 0 0 2px #000;
+  mix-blend-mode: exclusion;
+}

@@ -24,14 +24,17 @@
   font-weight: bold;
 }
 
+.search-bar-clear {
+  height: 40px;
+}
+
 .filters-container {
   width: 100%;
   display: flex;
   font: 0.8rem;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 0.3rem;
-  margin-top: 40px;   /* Clear the search bar */
+  margin: 0.3rem 0;
   white-space: nowrap;
 }
 

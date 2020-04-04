@@ -12,6 +12,10 @@
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
 
+  <view class="search-bar-clear"></view>
+
+  <banner int="true" class="pg-banner"></banner>
+
   <view class='filters-container' wx:if="{{ filters }}">
 
     <scroll-view scroll-x='true'>
