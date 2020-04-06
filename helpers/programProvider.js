@@ -173,22 +173,52 @@ class ProgramProvider {
   }
 
   /**
-   * Query the server for program groups by the given parameters.
+   * Query the server for program groups
+   */
+  fetchProgramGroups(params) {
+
+    let url = this.url + 'wxps?expand=location,type,registration_open';
+
+    // Add the parameters to the endpoint
+    Object.keys(params).forEach(key => {
+
+      url += '&' + key + '=' + params[key];
+
+    });
+
+    return this.sendRequest(url);
+
+  }
+
+  /**
+   * Query the server for program groups that the current user has visited
+   */
+  fetchVisitedProgramGroups(params) {
+
+    let url = this.url + 'wxvh?expand=location,type,registration_open';
+
+    // Add the parameters to the endpoint
+    Object.keys(params).forEach(key => {
+
+      url += '&' + key + '=' + params[key];
+
+    });
+
+    return this.sendRequest(url);
+
+  }
+
+  /**
+   * Send a GET request to the server at the given URL
+   * 
+   * @return Promise that resolves in the requested data or an object 
+   * with information on the error.
+   * 
    * It will add the response data to the program provider object.
    */
-  fetchProgramGroups (params) {
+  sendRequest(url) {
 
     return new Promise((resolve, reject) => {
-
-      let url = this.url + 'wxps?expand=location,type,registration_open';
-        // 'wxps?expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
-
-      // Add the parameters to the endpoint
-      Object.keys(params).forEach( key => {
-
-        url += '&' + key + '=' + params[key];
-
-      });
 
       wx.request({
         url: url,
@@ -234,6 +264,7 @@ class ProgramProvider {
         }
       });
     });
+
   }
 
 

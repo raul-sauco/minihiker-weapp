@@ -1,6 +1,20 @@
-<view class="container centered-content">
+<view class="container" wx:if='{{ programGroups.length > 0  }}'>
 
-  <text>浏览历史</text>
-  <text>页面正在办理中</text>
+  <block wx:for="{{ programGroups }}" wx:key='id'>
 
+    <program-group program-group-id='{{ item.id }}'></program-group>
+
+  </block>
+
+</view>
+
+<block wx:if="{{ loadingPrograms }}">    
+  <loading></loading>    
+</block>
+
+<view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
+  <icon type='info' size='60' />
+  <view class='no-programs-header'>我们很抱歉!</view>
+  <view class='no-programs-body'>您所选时间目前暂无活动</view>
+  <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
 </view>

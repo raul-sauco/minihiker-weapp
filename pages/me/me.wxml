@@ -43,7 +43,7 @@
     <view class="navigator-section">
 
       <navigator class='navigator' url='/pages/navigation-history/navigation-history'>
-        <text class="fas fa-spinner navigator-icon"></text>
+        <text class="fas fa-history navigator-icon"></text>
         <view class='navigator-text'>浏览历史</view>
         <view class='navigator-arrow'></view>
       </navigator>

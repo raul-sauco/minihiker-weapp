@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "我的浏览历史",
+  "usingComponents": {
+    "program-group": "/pages/components/program-group/program-group",
+    "loading": "/pages/components/loading-m/loading-m"
+  }
 }

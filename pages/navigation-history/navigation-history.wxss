@@ -1,1 +1,29 @@
 /* pages/navigation-history/navigation-history.wxss */
+.container {
+  align-items: stretch;
+}
+
+.no-programs-message-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.no-programs-message-container icon, 
+.no-programs-body, 
+.no-programs-header {
+  margin-bottom: 1rem;
+}
+
+.no-programs-header {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+loading {
+  width: 100%;
+}
