@@ -25,6 +25,17 @@
   text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
 }
 
+button.navigator {
+  text-align: left;
+  background: #fff;
+  line-height: 1.555556;
+  border: none;
+}
+
+button.navigator::after {
+  border: none;
+}
+
 .mh-logo-container {
   width: 100%;
   display: flex;

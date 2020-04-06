@@ -31,13 +31,13 @@
         <view class='navigator-text'>客服电话</view>
         <view class='navigator-arrow'></view>
       </navigator>
-
-      <navigator class='navigator' url='/pages/cs-online/cs-online'>
-        <text class="fas fa-robot navigator-icon"></text>
+      
+      <button open-type="contact" class="navigator">
+        <text class="fas fa-headset navigator-icon"></text>
         <view class='navigator-text'>在线客服</view>
         <view class='navigator-arrow'></view>
-      </navigator>
-    
+      </button>
+
     </view>
 
     <view class="navigator-section">
@@ -64,11 +64,9 @@
         <view class='navigator-arrow'></view>
       </navigator>
 
-      <navigator class='navigator' url='/pages/official-account/official-account'>
-        <text class="far fa-newspaper navigator-icon"></text>
-        <view class='navigator-text'>关于童行者微信公众号</view>
-        <view class='navigator-arrow'></view>
-      </navigator>
+      <view class='navigator'>
+        <official-account></official-account>
+      </view>
     
     </view>
 
