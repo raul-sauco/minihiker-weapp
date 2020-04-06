@@ -1,0 +1,8 @@
+<view class="loading-container">
+
+  <image mode="widthFix" 
+    class="loading-gif" 
+    src="{{ resUrl + 'img/xcx/loading-color-50.gif' }}">
+  </image>    
+
+</view>

@@ -2,6 +2,7 @@
   "navigationBarTitleText": "国际项目",
   "usingComponents": {
     "program-group": "/pages/components/program-group/program-group",
-    "banner": "/pages/components/pg-banner/pg-banner"
+    "banner": "/pages/components/pg-banner/pg-banner",
+    "loading": "/pages/components/loading-m/loading-m"
   }
 }

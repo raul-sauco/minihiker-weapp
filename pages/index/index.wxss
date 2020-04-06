@@ -97,16 +97,8 @@
   opacity: 0.3;
 }
 
-.program-loading-container {
-  display: flex;
-  justify-content: center;
-  background:#f5f6f7;
-  margin: 20rpx;
-}
-
-.loading-gif {
-  height: 100rpx;
-  width: 100rpx;
+loading {
+  width: 100%;
 }
 
 .search-bar-container {

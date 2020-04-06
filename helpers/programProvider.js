@@ -68,18 +68,29 @@ class ProgramProvider {
    * start date.
    */
   reorderPrograms(pg) {
-    pg.programs.sort((p1, p2) => {
-      let date1 = new Date(p1.start_date);
-      let date2 = new Date(p2.start_date);
 
-      if (date1 < date2) {
-        return -1;
-      } else if (date2 < date1) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    // Only sort if the Program Group has programs
+    if (pg.programs) {
+
+      pg.programs.sort((p1, p2) => {
+        let date1 = new Date(p1.start_date);
+        let date2 = new Date(p2.start_date);
+
+        if (date1 < date2) {
+          return -1;
+        } else if (date2 < date1) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+    } else {
+
+      // If pg.programs is empty, assign a value to it
+      pg.programs = [];
+
+    }
   }
 
   /**
@@ -169,8 +180,8 @@ class ProgramProvider {
 
     return new Promise((resolve, reject) => {
 
-      let url = this.url + 
-        'wxps?expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
+      let url = this.url + 'wxps?expand=location,type,registration_open';
+        // 'wxps?expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
 
       // Add the parameters to the endpoint
       Object.keys(params).forEach( key => {
@@ -199,6 +210,62 @@ class ProgramProvider {
               hasNextPage: this.hasNextPage(res),
               nextPageNumber: this.nextPageNumber(res)
             });
+
+          } else {
+
+            console.warn("Request successful but no programGroup");
+            reject({
+              error: true,
+              msg: '服务器错误'
+            });
+
+          }
+
+        },
+        fail: res => {
+          console.warn("Request failed: " + url);
+          reject({
+            error: true,
+            msg: '服务器错误'
+          });
+        },
+        complete: res => {
+          console.debug("Request completed: " + url);
+        }
+      });
+    });
+  }
+
+
+  /**
+   * Query the server for complete data for one program group.
+   * It will add the response data to the program provider object.
+   */
+  fetchProgramGroup(id) {
+
+    return new Promise((resolve, reject) => {
+
+      const url = `${this.url}program-groups/${id}?` +
+      'expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar,registration_open';
+
+      wx.request({
+        url: url,
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + (this.accessToken ? this.accessToken : 'guest')
+        },
+        success: res => {
+
+          console.debug('Request successful, got Program Group ' + id);
+
+          if (res.statusCode === 200) {
+
+            // res.data contains a programGroup
+            this.add(res.data);
+
+            // return directly the program group
+            resolve(res.data);
 
           } else {
 

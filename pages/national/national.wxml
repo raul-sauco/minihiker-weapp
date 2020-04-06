@@ -29,9 +29,9 @@
 
 </view>
 
-<view wx:if="{{ loadingPrograms }}" class="program-loading-container card">    
-  <image mode="widthFix" class="loading-gif" src="{{ resUrl + 'img/xcx/loading-color-50.gif' }}"></image>    
-</view>
+<block wx:if="{{ loadingPrograms }}">    
+  <loading></loading>    
+</block>
 
 <view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
   <icon type='info' size='60' />

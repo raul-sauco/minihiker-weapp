@@ -29,7 +29,7 @@
 
     </wxs>
 
-    <block wx:if="{{ mreg.checkRegistration(programGroup) }}">
+    <block wx:if="{{ programGroup.registration_open }}">
       <view class='registration-status registration-open'>
         报名中
       </view>

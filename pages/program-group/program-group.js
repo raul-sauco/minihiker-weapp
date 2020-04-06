@@ -19,6 +19,7 @@ Page({
    */
   onLoad: function (options) {
 
+    // Initial set data to display whatever the provider has
     this.setData({
       programGroup: app.globalData.programProvider.get(options.id),
       selectedProgram: app.globalData.programProvider.get(options.id).programs[0]
@@ -28,6 +29,47 @@ Page({
       title: this.data.programGroup.weapp_display_name
     });
 
+    // Fetch full program group data
+    this.fetchProgramGroupData();
+
+  },
+
+  /**
+   * Ask the program provider to fetch more comprehensive data.
+   * This will include the programs[] data and the 
+   * textual descriptions as an array of nodes.
+   */
+  fetchProgramGroupData: function () {
+
+    // Loading status feedback can be subtle
+    wx.showNavigationBarLoading();
+
+    app.globalData.programProvider.fetchProgramGroup(this.data.programGroup.id).then( pg => {
+
+      console.debug('Promise returned with Program Group data');
+
+      // If there were no errors, we have a program group
+      this.setData({
+        programGroup: pg,
+        selectedProgram: pg.programs[0]
+      });
+
+    }).catch(err => {
+
+      console.error(err);
+
+      wx.showToast({
+        icon: 'none',
+        title: err.msg,
+      });
+
+      setTimeout(this.fetchProgramGroupData, 3000);
+
+    }).finally( () => {
+
+      wx.hideNavigationBarLoading();
+      
+    });
   },
 
   /** 
@@ -48,7 +90,7 @@ Page({
    */
   showQA: function (event) {
     wx.navigateTo({
-      url: '../program-group-qa/program-group-qa?id=' + this.data.programGroup.id,
+      url: '/pages/program-group-qa/program-group-qa?id=' + this.data.programGroup.id,
     });
   },
 

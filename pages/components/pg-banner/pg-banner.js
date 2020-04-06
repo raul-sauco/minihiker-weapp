@@ -29,10 +29,8 @@ Component({
    */
   attached: function () {
 
-    console.log('Attached banner component. Int prop is: ' + this.properties.int + ' of type ' + typeof this.properties.int)
-
-    const url = app.globalData.url + 'wxbp?int=' + this.properties.int + 
-      '&expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
+    const url = app.globalData.url + 'wxbp?int=' + this.properties.int;
+      // '&expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar';
     
     wx.request({
       url: url,

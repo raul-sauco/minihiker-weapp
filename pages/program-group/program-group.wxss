@@ -90,6 +90,10 @@
   overflow: hidden;
 }
 
+loading {
+  width: 100%;
+}
+
 .program-group-action-bar {
   position: fixed;
   bottom: 0;

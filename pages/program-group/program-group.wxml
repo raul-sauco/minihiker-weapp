@@ -70,9 +70,12 @@
   
   </scroll-view>
 
-  <view class='program-group-description'>
+  <view class='program-group-description' wx:if="{{ programGroup.arraywad }}">
     <rich-text nodes="{{ programGroup.arraywad }}"></rich-text>
   </view>
+  <block wx:else>
+    <loading></loading>
+  </block>
 
   <view class='program-group-action-bar'>
 
