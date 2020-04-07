@@ -28,7 +28,7 @@
         <view>童行简介</view>
         <view>一所没有围墙的学校</view>
       </view>
-      <view>童行者是一所没有围墙的学校，专注于12岁一下儿童和亲子家庭的户外教育，用独特的社会，
+      <view>童行者是一所没有围墙的学校，专注于12岁以下儿童和亲子家庭的户外教育，用独特的社会，
         自然和团队体验，引领孩子们走入自然，认识社会，锻炼人际交往，一及独立解决问题的能力。
       </view>
       <view class="footer-container">
@@ -122,12 +122,18 @@
       <view class="header">童行者活动掠影</view>
       <view class="photos-container">
 
-        <view wx:for="{{ photos }}" wx:for-item="i" wx:key="unique" class="photo-container">
-          <image mode="aspectFill" src="{{ resUrl + 'img/xcx/about-us/slides/x150/' + (i + 1) + '.png' }}"></image>
-        </view>
-
+        <image mode="aspectFit" src="{{ resUrl + 'img/xcx/about-us/slides/all.png' }}"></image>
 
       </view>
+      <view class="footer-container">
+        <image mode="widthFix" src="{{ resUrl + 'img/xcx/about-us/footer-logo-85.png' }}"></image>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item>
+    <view id="slide-8" class="slide">
+      <view class="header">期待与您童行</view>
     </view>
   </swiper-item>
 
