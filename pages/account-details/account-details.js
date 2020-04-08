@@ -8,21 +8,13 @@ Page({
    */
   data: {
     resUrl: app.globalData.resUrl,
-    accountInfo: null,
-    ready: false
+    accountInfo: null
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
-
-    this.setData({
-      hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo
-    });
-
-  },
+  // onLoad: function (options) { },
 
   /**
    * Lifecycle function--Called when page show
@@ -38,11 +30,6 @@ Page({
    */
   onPullDownRefresh: function () {
 
-    this.setData({
-      ready: false
-    });
-
-    // Force an accountInfo refresh
     this.fetchAccountInfo();
 
   },
@@ -56,72 +43,43 @@ Page({
       title: '下载中',
     });
 
-    if (!app.globalData.accountInfoProvider.id) {
+    wx.showNavigationBarLoading();
 
-      // We have to wait until we have an accountId
-      app.requestLogin();
-      setTimeout(this.fetchAccountInfo, 1000);
+    app.globalData.accountInfoProvider.fetchAccountInfo().then( res => {
 
-    } else {
-
-      let endpoint = 'families/' + app.globalData.accountInfoProvider.id + '?expand=clients,clients.hasInt';
-      let url = app.globalData.url + endpoint;
-
-      let header = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + app.globalData.accessToken
-      };
-
-      wx.request({
-        url: app.globalData.url + endpoint,
-        header: header,
-        method: 'GET',
-        success: res => {
-
-          if (res.statusCode == 200) {
-
-            // Save the refreshed data 
-            res.data.updated_ts = Date.now();
-            app.globalData.accountInfoProvider.saveFromServerResponse(res.data);
-            this.setData({
-              accountInfo: app.globalData.accountInfoProvider,
-              ready: true
-            });
-
-          } else {
-
-            // There was a problem with the request
-            console.warn('Error fetching family ' + app.globalData.accountInfo.id);
-            console.info(res);
-
-            // If the request fails, try again after 5 seconds
-            app.requestLogin();
-            setTimeout(this.fetchAccountInfo, 5000);
-
-          }
-        },
-        fail: res => {
-
-          console.warn('Error fetching family ' + app.globalData.accountInfo.id);
-          console.info(res);
-
-          // If the request fails, try again after 5 seconds
-          app.requestLogin();
-          setTimeout(this.fetchAccountInfo, 5000);
-
-          wx.showToast({
-            title: '服务器错误',
-            icon: 'none',
-            duration: 2000
-          });
-
-        },
-        complete: res => {
-          wx.hideLoading();
-        }
+      // Success res.accountInfo has the data
+      this.setData({
+        accountInfo: res.accountInfo
       });
 
-    }
+    }).catch( err => {
+
+      // Error
+      if (err.code === 100) {
+
+        // Wrong login status, request login and retry
+        // No need to show a toast
+        app.requestLogin();
+
+      } else {
+
+        // Inform of the problem
+        wx.showToast({
+          title: err.msg,
+        });
+
+      }
+
+      // If we have ana error retry
+      this.setTimeout(this.fetchAccountInfo, 3000);
+
+    }).finally( () => {
+
+      // Always 
+      wx.hideLoading();
+      wx.hideNavigationBarLoading();
+
+    });
 
   },
 

@@ -7,7 +7,10 @@ const util = require('../utils/util.js');
 class AccountInfoProvider {
 
   maxCache = 1000 * 60 * 60 * 2; // Two hours
+  accessToken;
+  url;
 
+  // Account details
   id = null;
   name = '';
   serial_number = '';
@@ -36,6 +39,108 @@ class AccountInfoProvider {
       },
     });
 
+  }
+
+  /** Setter for API URL */
+  setApiUrl(url) {
+    this.url = url;
+  }
+
+  /** Setter for user's API access token */
+  setAccessToken(token) {
+    this.accessToken = token;
+  }
+
+  /**
+   * Fetch current user's account information from the backend
+   * @returns Promise with the data or object with error details
+   */
+  fetchAccountInfo() {
+
+    return new Promise((resolve, reject) => {
+
+      if (!this.id) {
+
+        // We have to wait until we have an accountId
+        console.warn('Tried to fetch account info without account ID');
+        
+        // Reject promise and let the component handle retry
+        reject({
+          error: true,
+          msg: '帐户编号遗失',
+          code: 100 // Missing login status
+        });
+
+      } else {
+
+        // We have an ID, send the request
+        const endpoint = `families/${this.id}?expand=clients,clients.hasInt`,
+          url = this.url + endpoint,
+          header = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`
+          };
+
+        wx.request({
+          url: url,
+          header: header,
+          method: 'GET',
+          success: res => {
+
+            if (res.statusCode === 200) {
+
+              // Save the refreshed data 
+              res.data.updated_ts = Date.now();
+              this.saveFromServerResponse(res.data);
+
+              console.group('Fetch Account Info Success');
+              console.debug('Success fetching account information from server');
+              console.debug(res.data);
+              console.groupEnd();
+
+              resolve({
+                error: false,
+                accountInfo: res.data
+              });
+              
+            } else {
+
+              // There was a problem with the request
+              console.group('Fetch account info success not 200');
+              console.warn(`Request success but code not 200 fetching account info ${this.id}`);
+              console.debug(res);
+              console.groupEnd();
+
+              reject({
+                error: true,
+                msg: '服务器错误',
+                code: 200   // Request success but not expected status code
+              });
+
+            }
+          },
+          fail: res => {
+
+            // There was a problem with the request
+            console.group('Fetch account info fail');
+            console.warn(`Request fail fetching account info ${this.id}`);
+            console.debug(res);
+            console.groupEnd();
+
+            reject({
+              error: true,
+              msg: '服务器错误',
+              code: 0   // Undefined error
+            });
+
+          },
+          complete: res => {  }
+        });
+
+      }
+
+    });
+    
   }
 
   /**

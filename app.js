@@ -10,6 +10,8 @@ App({
 
     // Get an instance of AccountInfoProvider
     this.globalData.accountInfoProvider = new AccountInfoProvider();
+    this.globalData.accountInfoProvider.setApiUrl(this.globalData.url);
+    this.globalData.accountInfoProvider.setAccessToken(this.globalData.accessToken);
 
     // Get an instance of ProgramProvider
     this.globalData.programProvider = new ProgramProvider();
