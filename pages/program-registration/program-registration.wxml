@@ -23,6 +23,12 @@
 
   </view>
 
+  <view class="select-price-warning-container {{ selectPriceWarningVisible ? 'warning-visible' : '' }}">
+    <view class="select-price-warning-alert has-error">
+      使用此警告下方的按钮选择套餐
+    </view>
+  </view>
+
 </view>
 
 <view class='program-prices'>
@@ -47,7 +53,7 @@
   <view>要支付: {{ amountDue }}元 </view>
 
   <view class='proceed-payment-button-container'>
-    <button bindtap='processPayment' type='primary' disabled='{{ !amountDue }}'>
+    <button bindtap='handlePaymentClick' type='primary'>
       {{ selectedPrice ? '支付' : '选择套餐' }}
     </button>
   </view>

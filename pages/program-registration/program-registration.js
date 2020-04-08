@@ -13,6 +13,7 @@ Page({
     selectedPrice: null,
     amountDue: 0,
     resUrl: app.globalData.resUrl,
+    selectPriceWarningVisible: false
   },
 
   /**
@@ -126,75 +127,124 @@ Page({
     }
   },
 
+  /** 
+   * Handle click on process payment button
+   * If the user has selected a price, it will call processPayment
+   * otherwise, it will display a warning asking the user to select
+   * a price
+   */
+  handlePaymentClick: function () {
+
+    console.debug('Handling click on process payment button');
+
+    // Handle a click on the payment button
+    if (this.data.selectedPrice && this.data.amountDue) {
+
+      // The user has selected a price, process the payment
+      this.processPayment();
+
+    } else {
+
+      console.debug('User trying to pay without selecting price, displaying warning');
+
+      // The user has not selected a price, show a warning
+      this.setData({
+        selectPriceWarningVisible: true
+      });
+
+      setTimeout(this.hideSelectPriceWarning, 3000);
+
+    }
+
+  },
+
+  /** Hide the select price warning dialog */
+  hideSelectPriceWarning: function () {
+
+    console.debug('Hiding select price warning');
+
+    this.setData({
+      selectPriceWarningVisible: false
+    });
+
+  },
+
   /**
    * Process client payment for a given program.
    */
   processPayment: function () {
 
-    let selectedPrice = this.data.selectedPrice;
-    let amount = this.data.amountDue;
-
-    if (selectedPrice && amount) {
-
-      let data = {
+    const selectedPrice = this.data.selectedPrice,
+      amount = this.data.amountDue,
+      data = {
         price: selectedPrice.id,
         amount: amount
-      };
-
-      let endpoint = 'wx-payment';
-
-      let header = {
+      },
+      endpoint = 'wx-payment',
+      header = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + app.globalData.accessToken
-      }
+      };
 
-      wx.showLoading({
-        title: '处理付款',
-      });
+    wx.showLoading({
+      title: '处理付款',
+    });
 
-      // Send data to the minihiker server. The server expects two parameters
-      // {
-      //   amount: 1 // number: the total amount the user will be charged for
-      //   price: 25 // number: the id of the Price model the user has selected 
-      // }
-      wx.request({
-        url: app.globalData.url + endpoint,
-        data: data,
-        method: 'POST',
-        header: header,
-        success: res => {
-          
-          // Check if the request was successfull
-          if (res.statusCode == 200 || res.statusCode == 201) {
+    console.group('Requesting process payment from backend');
 
-            // Success creating the prepay order, show confirmation dialog
-            this.requestPaymentConfirmation(res.data);
+    // Send data to the minihiker server. The server expects two parameters
+    // {
+    //   amount: 1 // number: the total amount the user will be charged for
+    //   price: 25 // number: the id of the Price model the user has selected 
+    // }
+    wx.request({
+      url: app.globalData.url + endpoint,
+      data: data,
+      method: 'POST',
+      header: header,
+      success: res => {
+        
+        // Check if the request was successfull
+        if (res.statusCode === 200 || res.statusCode === 201) {
 
-          } else {
+          console.debug('Request successful, obtaining confirmation from end user');
+          // Success creating the prepay order, show confirmation dialog
+          this.requestPaymentConfirmation(res.data);
 
-            // Server error, either MH or Wx
-            console.warn(res);
-            wx.showToast({
-              title: '服务器或网络错误, 请稍后再试。',
-              icon: 'none'
-            });
+        } else {
 
-          }
-        },
-        fail: res => {
-          console.warn('Request failed. ' + app.globalData.url + endpoint);
-          console.warn(res);
+          // Server error, either MH or Wx
+          console.warn('Request success but status not 200 or 201');
+          console.debug(res);
+
           wx.showToast({
             title: '服务器或网络错误, 请稍后再试。',
             icon: 'none'
           });
-        },
-        complete: res => {
-          console.log('Request completed. ' + app.globalData.url + endpoint);
-          wx.hideLoading();
+
         }
-      });
-    }
+      },
+      fail: res => {
+
+        console.warn('Request failed. ' + app.globalData.url + endpoint);
+        console.debug(res);
+
+        wx.showToast({
+          title: '服务器或网络错误, 请稍后再试。',
+          icon: 'none'
+        });
+
+      },
+      complete: res => {
+
+        console.debug('Request completed. ' + app.globalData.url + endpoint);
+        console.groupEnd();
+
+        wx.hideLoading();
+
+      }
+    });
+
   },
 
   /**
