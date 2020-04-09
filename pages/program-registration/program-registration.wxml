@@ -25,7 +25,7 @@
 
   <view class="select-price-warning-container {{ selectPriceWarningVisible ? 'warning-visible' : '' }}">
     <view class="select-price-warning-alert has-error">
-      使用此警告下方的按钮选择套餐
+      <text class="fas fa-exclamation-triangle text-danger"></text> 使用此警告以上的按钮选择套餐
     </view>
   </view>
 

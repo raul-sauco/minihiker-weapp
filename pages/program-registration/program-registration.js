@@ -160,7 +160,8 @@ Page({
 
       this.setData({
         selectedPrice: selectedPrice,
-        amountDue: selectedPrice.price
+        amountDue: selectedPrice.price,
+        selectPriceWarningVisible: false  // Hide the warning if it was visible
       });
 
     }
@@ -259,39 +260,31 @@ Page({
     console.debug('User selected updating contact information. Navigating to /pages/edit-account-details');
 
     this.hideContactInfoModal();
-    wx.showNavigationBarLoading();
-    
-    // Refresh account info
-    app.globalData.accountInfoProvider.fetchAccountInfo().then( () => {
 
-      wx.navigateTo({
-        url: '/pages/edit-account-details/edit-account-details?ref=program-registration',
-      });
-
-    }).catch( err => {
-
-      console.group();
-      console.warn('Error updating account info');
-      console.debug(err);
-      console.groupEnd();
-
-      setTimeout(this.updateContactInfo, 3000);
-
-    }).finally( () => {
-
-      wx.hideNavigationBarLoading();
-
+    // ref parameter is not used currently, leave it in case we use it in the future
+    wx.navigateTo({
+      url: '/pages/edit-account-details/edit-account-details?ref=program-registration',
     });
+    
   },
 
   /** Hide the select price warning dialog */
   hideSelectPriceWarning: function () {
 
-    console.debug('Hiding select price warning');
+    // Make sure the warning is visible, it may have been hidden by selecting a price
+    if (this.data.selectPriceWarningVisible) {
 
-    this.setData({
-      selectPriceWarningVisible: false
-    });
+      console.debug('Hiding select price warning');
+
+      this.setData({
+        selectPriceWarningVisible: false
+      });
+
+    } else {
+
+      console.debug('Called hideSelectPriceWarning() but warning was hidden already');
+
+    }
 
   },
 
