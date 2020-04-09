@@ -100,7 +100,10 @@
       分享
     </button>
 
-    <button bindtap='register' type='primary'>现在报名</button>
+    <button bindtap='register' type='primary' 
+      disabled="{{ !selectedProgram }}" loading="{{ !selectedProgram }}">
+      {{ selectedProgram ? '现在报名' : '' }}
+    </button>
     
   </view>
 
