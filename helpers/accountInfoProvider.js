@@ -16,6 +16,7 @@ class AccountInfoProvider {
   serial_number = '';
   category = '';
   phone = '';
+  phone_verified = false;
   wechat = '';
   membership_date = null;
   mDate = null;
@@ -169,6 +170,7 @@ class AccountInfoProvider {
     this.serial_number = data.serial_number;
     this.category = data.category;
     this.phone = data.phone;
+    this.phone_verified = data.phone_verified;
     this.wechat = data.wechat;
     this.membership_date = data.membership_date;
     this.mDate = util.formatDate(data.membership_date);
@@ -262,6 +264,17 @@ class AccountInfoProvider {
       data: this,
       success: () => {console.log('Saved account information to storage')}
     });
+  }
+
+  /**
+   * Check if we have a verified way to contact the client by phone-number or wechat
+   */
+  hasVerifiedContactInformation () {
+
+    return this.phone_verified && this.wechat && this.phone;
+
+    // TODO add methods to check if phone number is valid
+
   }
 
 }

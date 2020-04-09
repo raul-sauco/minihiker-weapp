@@ -1,5 +1,6 @@
 // pages/program-registration/program-registration.js
 const app = getApp();
+const util = require('../../utils/util.js');
 
 Page({
 
@@ -13,17 +14,14 @@ Page({
     selectedPrice: null,
     amountDue: 0,
     resUrl: app.globalData.resUrl,
-    selectPriceWarningVisible: false
+    selectPriceWarningVisible: false,
+    contactInfoModalVisible: false
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
-    wx.setNavigationBarTitle({
-      title: '正在报名',
-    });
 
     // Fetch the programGroup and program from the global programProvider
     let pg = app.globalData.programProvider.get(options.pg);
@@ -43,6 +41,47 @@ Page({
       program: p,
       accountInfo: app.globalData.accountInfoProvider
     });
+  },
+
+  /** 
+   * Use onShow to refresh account info, useful to get the latest
+   * version on page load, and to refresh the data after an 
+   * user edit.
+   */
+  onShow: function () {
+    this.refreshAccountInfo();
+  },
+
+  /**
+   * Ask the account info provider to update account info from
+   * the server.
+   */
+  refreshAccountInfo: function () {
+
+    wx.showNavigationBarLoading();
+
+    // Refresh account info
+    app.globalData.accountInfoProvider.fetchAccountInfo().then( res => {
+
+      this.setData({
+        accountInfo: res.accountInfo
+      });
+
+    }).catch(err => {
+
+      console.group();
+      console.warn('Error updating account info');
+      console.debug(err);
+      console.groupEnd();
+
+      setTimeout(this.refreshAccountInfo, 3000);
+
+    }).finally(() => {
+
+      wx.hideNavigationBarLoading();
+
+    });
+
   },
 
   /**
@@ -141,7 +180,23 @@ Page({
     if (this.data.selectedPrice && this.data.amountDue) {
 
       // The user has selected a price, process the payment
-      this.processPayment();
+
+      // Check if we have valid verified contact information
+      if ( app.globalData.accountInfoProvider.hasVerifiedContactInformation() ) {
+
+        console.debug('The account contact information is verified, proceed with payment');
+
+        // We have valid contact information, proceed with the payment
+        this.processPayment();
+
+      } else {
+
+        console.debug('The account contact information is not verified, display warning');
+
+        // We do not have verified contact information
+        this.displayContactInfoWarning();
+
+      }
 
     } else {
 
@@ -156,6 +211,77 @@ Page({
 
     }
 
+  },
+
+  /**
+   * Warn the user that the contact information that we have for them may not be accurate and may not allow us to 
+   * contact them.
+   */
+  displayContactInfoWarning: function () {
+
+    this.setData({
+      contactInfoModalVisible: true
+    });
+
+  },
+
+  /**
+   * Hide the contact info warning modal
+   */
+  hideContactInfoModal: function () {
+
+    this.setData({
+      contactInfoModalVisible: false
+    });
+
+  },
+
+  /**
+   * The user has been warned that their contact information may have problems
+   * but still wants to proceed
+   */
+  proceedWithPayment: function () {
+
+    console.debug('User selects to proceed with payment when warned that contact info may be inacurate');
+
+    // Hide the modal and continue with the payment process
+    this.hideContactInfoModal();
+    this.processPayment();
+
+  },
+
+  /**
+   * The user has selected to update their contact information when warned that
+   * it may be inaccurate.
+   */
+  updateContactInfo: function () {
+
+    console.debug('User selected updating contact information. Navigating to /pages/edit-account-details');
+
+    this.hideContactInfoModal();
+    wx.showNavigationBarLoading();
+    
+    // Refresh account info
+    app.globalData.accountInfoProvider.fetchAccountInfo().then( () => {
+
+      wx.navigateTo({
+        url: '/pages/edit-account-details/edit-account-details?ref=program-registration',
+      });
+
+    }).catch( err => {
+
+      console.group();
+      console.warn('Error updating account info');
+      console.debug(err);
+      console.groupEnd();
+
+      setTimeout(this.updateContactInfo, 3000);
+
+    }).finally( () => {
+
+      wx.hideNavigationBarLoading();
+
+    });
   },
 
   /** Hide the select price warning dialog */
@@ -291,6 +417,7 @@ Page({
 
   /**
    * Generate a random string of a required length
+   * TODO unused function, move to /utils
    */
   generateRandomString: function (length) {
     var result = '';
@@ -304,6 +431,7 @@ Page({
 
   /**
    * Return a formatted version of the date.
+   * TODO remove this function and use /utils instead
    */
   formatDate: function (dateString) {
     const currentYear = new Date().getFullYear();
@@ -321,55 +449,6 @@ Page({
     formattedDate += dates[2] + '日';
 
     return formattedDate;
-
-  },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
 
   }
 })

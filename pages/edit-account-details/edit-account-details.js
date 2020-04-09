@@ -25,10 +25,6 @@ Page({
       accountInfo: app.globalData.accountInfoProvider
     });
 
-    wx.setNavigationBarTitle({
-      title: '编辑会员信息',
-    });
-
   },
 
   /** Handle account info form submission */
