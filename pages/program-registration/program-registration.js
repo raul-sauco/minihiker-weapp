@@ -1,6 +1,6 @@
 // pages/program-registration/program-registration.js
 const app = getApp();
-const util = require('../../utils/util.js');
+const utils = require('../../utils/util.js');
 
 Page({
 
@@ -34,8 +34,8 @@ Page({
     p.minPrice = this.getMinPrice(p.prices);
     p.maxPrice = this.getMaxPrice(p.prices);
 
-    p.formattedStartDate = this.formatDate(p.start_date);
-    p.formattedEndDate = this.formatDate(p.end_date);
+    p.formattedStartDate = utils.formatDate(p.start_date);
+    p.formattedEndDate = utils.formatDate(p.end_date);
 
     this.setData({
       programGroup: pg,
@@ -422,43 +422,6 @@ Page({
 
       }
     });
-
-  },
-
-  /**
-   * Generate a random string of a required length
-   * TODO unused function, move to /utils
-   */
-  generateRandomString: function (length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for( var i = 0; i<length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  },
-
-  /**
-   * Return a formatted version of the date.
-   * TODO remove this function and use /utils instead
-   */
-  formatDate: function (dateString) {
-    const currentYear = new Date().getFullYear();
-
-    let dates = dateString.split("-");
-    let formattedDate = '';
-
-    if (currentYear !== parseInt(dates[0])) {
-
-      formattedDate += dates[0] + '年';
-
-    }
-
-    formattedDate += dates[1] + '月';
-    formattedDate += dates[2] + '日';
-
-    return formattedDate;
 
   }
 })

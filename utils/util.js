@@ -36,6 +36,22 @@ const formatDate = dateString => {
 
 }
 
+/**
+ * Generate a random string of a required length
+ * TODO unused function, move to /utils
+ */
+const generateRandomString = length => {
+
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i<length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return result;
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate
