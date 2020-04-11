@@ -13,6 +13,7 @@ Page({
     accountInfo: null,
     selectedPrice: null,
     amountDue: 0,
+    deposit: 0,
     resUrl: app.globalData.resUrl,
     selectPriceWarningVisible: false,
     contactInfoModalVisible: false
@@ -149,22 +150,38 @@ Page({
 
       this.setData({
         selectedPrice: null,
-        amountDue: 0
+        amountDue: 0,
+        deposit: 0
       });
 
     } else {
 
-      let selectedPrice = this.data.program.prices.find(price => {
+      const selectedPrice = this.data.program.prices.find(price => {
         return price.id === id;
       });
 
       this.setData({
         selectedPrice: selectedPrice,
         amountDue: selectedPrice.price,
+        deposit: this.calculateDeposit(selectedPrice),
         selectPriceWarningVisible: false  // Hide the warning if it was visible
       });
 
     }
+  },
+
+  /**
+   * Calculate the deposit required to register for the trip under that price.
+   * @param {Price} price 
+   */
+  calculateDeposit: function (price) {
+
+    const adults = price.adults || 0,
+      kids = price.kids || 0,
+      perPerson = this.data.programGroup.location.international ? 5000 : 2000;
+
+    return (adults + kids) * perPerson;
+
   },
 
   /** 
@@ -294,7 +311,7 @@ Page({
   processPayment: function () {
 
     const selectedPrice = this.data.selectedPrice,
-      amount = this.data.amountDue,
+      amount = this.data.deposit, // Clients only pay a deposit when registering
       data = {
         price: selectedPrice.id,
         amount: amount
@@ -398,7 +415,7 @@ Page({
       },
       'fail': res => {
 
-        console.log(res);
+        console.error(res);
         wx.showModal(
           '付款失败'
         );

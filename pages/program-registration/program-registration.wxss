@@ -116,18 +116,34 @@
   margin: 20rpx 10px;
 }
 
-.program-refund-description-container {
-  padding-bottom: 50px;
+  /* Avoid content being hidden by bottom-bar */
+.program-refund-description-container { padding-bottom: 100px; }
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.booking-fee-warning {
+  color:#222;
+  background-color: #FFC837;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  transition: all 300ms ease-in-out;
+}
+
+.booking-fee-warning-hidden {
+  transform: translateY(100%);
+  opacity: 0;
 }
 
 .payment-details {
-  background: linear-gradient(to bottom, #606c88 0%,#3f4c6b 100%);
-  color: #fff;
-
-  position: fixed;
-  bottom: 0;
-
-  padding-left: 20rpx;
+  background-color: #fff;
+  box-shadow: 0 0 2px #888;
+  padding-left: 0.3rem;
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -174,19 +190,19 @@
 }
 
 .modal-title {
-  padding-top: 50rpx;
-  font-size: 36rpx;
+  padding-top: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #030303;
   text-align: center;
 }
 
 .modal-content {
-  padding: 50rpx 32rpx;
+  padding: 1rem;
 }
 
 .field {
-  margin: 15px 0;
+  margin: 0.3rem 0;
 }
 
 .highlight {

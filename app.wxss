@@ -208,3 +208,8 @@ picker .picker-box {
   margin: 6rpx 0 6rpx 24rpx;
   font-size: 0.7rem;
 }
+
+/* Out of focus and grayed out class, used behind modals */
+.blur {
+  filter: blur(2px) grayscale(50%);
+}
