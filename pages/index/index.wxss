@@ -29,29 +29,68 @@
 }
 
 .filters-container {
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   font: 0.8rem;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
-  margin: 0.3rem 0;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  flex-wrap: nowrap;
+
+  /* Needed to keep the scroll-view oneliner */
   white-space: nowrap;
 }
 
 .filter-container {
-  width: fit-content;
-  padding: 0.3rem;
   display: inline-block;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+  transition: all 0.3s ease-in-out;
+
+  color:#222;
+  background-color: #FFC837;
+  margin-right: 20rpx;
+  padding: 0.3rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.filter-container button {
-  font-size: 0.8rem;
-  line-height: 2;
+.filter-container::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 5px;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.filter-container button.active {
-  border: 1px solid #0ba360;
-  color: #0ba360;
+/* Scale up the box */
+.filter-container:active {
+  transform: scale(0.8, 0.8);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.filter-container:active::after {
+  opacity: 1;
+}
+
+.active-filter {
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+  /* background-image: linear-gradient(to top, #1D976C 0%, #93F9B9 51%, #1D976C 100%); */
+  background-color: #3cba92;
 }
 
 .obtain-permission-container {

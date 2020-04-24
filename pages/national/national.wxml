@@ -7,13 +7,10 @@
 
   <scroll-view scroll-x='true'>
 
-    <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
-      class='filter-container'>
-      <button bindtap='toggleFilter' data-filter='{{ filter.title }}' 
-        class='{{ filter.active ? "active" : "" }}'>
+      <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
+        class='filter-container {{ filter.active ? "active-filter" : "" }}' bindtap='toggleFilter' data-filter='{{ filter.title }}'>
         {{ filter.title }}
-      </button>
-    </view>
+      </view>
   
   </scroll-view>
 
