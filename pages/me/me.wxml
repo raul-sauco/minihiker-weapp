@@ -49,7 +49,7 @@
       </navigator>
 
       <navigator class='navigator' url='/pages/recommended/recommended'>
-        <text class="fas fa-spinner navigator-icon"></text>
+        <text class="far fa-thumbs-up navigator-icon"></text>
         <view class='navigator-text'>意见建议</view>
         <view class='navigator-arrow'></view>
       </navigator>

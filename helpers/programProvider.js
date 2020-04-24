@@ -209,6 +209,23 @@ class ProgramProvider {
   }
 
   /**
+   * Query the server for program groups recommended for the current user
+   */
+  fetchRecommendedProgramGroups(params) {
+
+    let url = this.url + 'wxrp?expand=location,type.registration_open';
+
+    Object.keys(params).forEach(key => {
+
+      url += '&' + key + '=' + params[key];
+
+    });
+
+    return this.sendRequest(url);
+
+  }
+
+  /**
    * Send a GET request to the server at the given URL
    * 
    * @return Promise that resolves in the requested data or an object 

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "为你推荐",
+  "usingComponents": {
+    "program-group": "/pages/components/program-group/program-group",
+    "loading": "/pages/components/loading-m/loading-m"
+  }
 }
