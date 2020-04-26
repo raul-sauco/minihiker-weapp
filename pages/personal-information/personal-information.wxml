@@ -84,6 +84,26 @@
       </view> 
     </view>
 
+    <view class='input-group {{ errors.allergies ? "has-error" : "" }}'>
+      <view class='input-label'>药物过敏</view>
+      <input name='allergies' bindblur='updatePI' maxlength='255'
+        value='{{ client.allergies }}' data-attr='allergies'>
+      </input>
+      <view class='error-message-container' wx:if='{{ errors.allergies }}'>
+        {{ errors.allergies }}
+      </view> 
+    </view>
+
+    <view class='input-group {{ errors.dietary_restrictions ? "has-error" : "" }}'>
+      <view class='input-label'>饮食禁忌</view>
+      <input name='dietary_restrictions' bindblur='updatePI' maxlength='255'
+        value='{{ client.dietary_restrictions }}' data-attr='dietary_restrictions'>
+      </input>
+      <view class='error-message-container' wx:if='{{ errors.dietary_restrictions }}'>
+        {{ errors.dietary_restrictions }}
+      </view> 
+    </view>
+
     <view class='input-group {{ errors.phone_number ? "has-error" : "" }}'>
       <view class='input-label'>电话号码</view>
       <input name='phone_number' bindblur='updatePI' maxlength='18'
