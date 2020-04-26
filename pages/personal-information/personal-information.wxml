@@ -10,7 +10,7 @@
         <text class="input-label-required-icon">*</text>
       </view>
       <input name='name_zh' maxlength='12'
-        focus bindblur='updatePI' 
+        bindblur='updatePI' 
         value='{{ client.name_zh }}' data-attr='name_zh'>
       </input>
       <view class='error-message-container' wx:if='{{ errors.name_zh }}'>
@@ -195,6 +195,28 @@
         {{ errors.passport_issuing_authority }}
       </view> 
     </view>
+
+    <!-- START photo upload section -->
+
+    <view class='input-group {{ errors.passport_image ? "has-error" : "" }}' bindtap="uploadImage">
+      <view class='input-label'>护照照片</view>
+      <view class="passport-image-container"  wx:if='{{ client.passport_image }}' >
+        <image 
+          src="{{ resUrl }}img/c/p/{{ client.passport_image }}" 
+          mode="widthFix"
+          class="passport-image"></image>
+        <view class="update-image-message">更新图片</view>
+      </view>
+      <view wx:else class="no-passport-image">
+        <text class="fas fa-passport passport-icon"></text>
+        <text>选择图片</text>
+      </view>
+      <view class='error-message-container' wx:if='{{ errors.passport_image }}'>
+        {{ errors.passport_image }}
+      </view>
+    </view>
+
+    <!-- END photo upload section -->
 
     <view class='input-group {{ errors.remarks ? "has-error" : "" }}'>
       <view class='input-label'>备注</view>

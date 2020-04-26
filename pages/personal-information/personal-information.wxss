@@ -33,3 +33,40 @@
 .pi-confirm-update-button {
   width: 100%;
 }
+
+.passport-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.passport-image {
+  width: 100%;
+}
+
+.update-image-message {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+  left: 20rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  background: rgba(255,255,255, 0.6);
+}
+
+.no-passport-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 20rpx;
+  color: #acacac;
+  margin-bottom: 10rpx;
+}
+
+.passport-icon {
+  font-size: 5rem;
+  margin-bottom: 20rpx;
+}

@@ -16,7 +16,8 @@ Page({
       cssClass: '',
       content: '',
       icon: 'info'
-    }
+    },
+    resUrl: null
   },
 
   /**
@@ -44,7 +45,8 @@ Page({
     }
 
     this.setData({
-      client: client
+      client: client,
+      resUrl: app.globalData.resUrl
     });
 
     wx.setNavigationBarTitle({
@@ -168,8 +170,8 @@ Page({
         } else if (res.statusCode == 422) {
 
           // The request was correct but there were some validation errors
-          console.log('PI::saveUser server encountered validation errors 422 code returned');
-          console.log(res.data);
+          console.debug('PI::saveUser server encountered validation errors 422 code returned');
+          console.debug(res.data);
 
           this.updateModelErrors(res.data);
 
@@ -339,9 +341,133 @@ Page({
   },
 
   /**
-   * Lifecycle function--Called when page is initially rendered
+   * Allow the user to upload passport images
    */
-  onReady: function () {
+  uploadImage: function () {
 
+    console.debug('Uploading client passport image');
+
+    wx.chooseImage({
+      success: res => {
+        const tempFilePaths = res.tempFilePaths
+        const url = app.globalData.url + 'wxcpi';
+
+        console.debug('User selected Image to upload');
+
+        wx.showLoading({
+          title: '在上传图片',
+        });
+
+        wx.showNavigationBarLoading();
+
+        wx.uploadFile({
+          url: url,
+          header: {
+            'Authorization': 'Bearer ' + app.globalData.accessToken
+          },
+          filePath: tempFilePaths[0],
+          name: 'image',
+          formData: {
+            'client': this.data.client.id
+          },
+          success: res => {
+
+            // request sends mulitpart data, parse response
+            const clientData = JSON.parse(res.data);
+
+            console.debug('Image Upload success');
+
+            if (res.statusCode === 200) {
+
+              console.debug('Image Upload 200; Updating UI');
+
+              this.setData({
+                client: clientData,
+
+              });
+
+              this.showToast({
+                icon: 'success',
+                content: '保存所有更改'
+              });
+
+              // Update the global provider information with client data and persist it
+              app.globalData.accountInfoProvider.updateClientInfo(clientData);
+
+            } else if (res.statusCode == 422) {
+
+              // The request was correct but there were some validation errors
+              console.log('PI::uploadImage encountered validation errors 422 code returned');
+              console.warn(clientData);
+
+              this.updateModelErrors(clientData);
+
+              this.showToast({
+                icon: 'error',
+                content: '资料有误'
+              });
+
+            } else {
+
+              console.warn('PI::uploadImage; Server returned a ' + res.statusCode + ' code.');
+
+              this.showToast({
+                icon: 'error',
+                content: '有些不对劲'
+              });
+
+              wx.showModal({
+                title: '有些不对劲',
+                content: JSON.stringify(err),
+              });
+
+            }
+          },
+          fail: err => {
+            console.error(err);
+
+            this.showToast({
+              icon: 'error',
+              content: '网络错误'
+            });
+
+            if (err.errMsg && err.errMsg.indexOf('url') !== 1) {
+
+              wx.showModal({
+                title: '网络错误',
+                content: `${err.errMsg}; url: ${url}`,
+              });
+
+            } else {
+
+              wx.showModal({
+                title: '网络错误',
+                content: JSON.stringify(err),
+              });
+            }
+
+          },
+          complete: () => {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
+          }
+        })
+      },
+      fail: err => {
+        
+        console.error('wx.chooseImage error');
+
+        this.showToast({
+          icon: 'error',
+          content: '选择图片时出错'
+        });
+
+        wx.showModal({
+          title: '有些不对劲',
+          content: JSON.stringify(err),
+        });
+
+      }
+    });
   }
 })

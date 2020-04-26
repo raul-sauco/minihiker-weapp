@@ -139,12 +139,12 @@ input {
 
 /** Form elements */
 .input-group {
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
 }
 
 .input-label {
   color: #aaa;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   margin: 6rpx 0 6rpx 24rpx;
 }
 
@@ -162,7 +162,6 @@ picker .picker-box {
   box-sizing: border-box;
   padding: 12rpx 24rpx;
   width: 100%;
-  font-size: 28rpx;
   line-height: 1.42857143;
   color: #555555;
   background-color: #fff;
