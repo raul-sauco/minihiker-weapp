@@ -101,21 +101,11 @@
 
     <view class="actions">
 
-      <view>更多</view>
-
       <view bindtap='editParticipants' 
         wx:if="{{ payment.status === 4 }}"
         data-payment-id='{{ payment.id }}' 
         class="action-button">
           编辑参与者
-      </view>
-
-      <view wx:if="{{ payment.status !== 4 }}" class="action-button">
-          付款不完整
-      </view>
-
-      <view bindtap='viewPayment' data-payment-id='{{ payment.id }}' class="action-button">
-        细节
       </view>
 
     </view>

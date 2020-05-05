@@ -149,20 +149,9 @@
   justify-self: right;
 }
 
-.actions {
-  padding: 2% 0;
-  margin: 2%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.actions > view {
-  width: 33.33333%;
-  text-align: center;
-  margin: 1%;
-  padding: 1%;
-}
-
 .actions > .action-button {
   border: 1px solid #ddd;
+  width: 100%;
+  text-align: center;
+  padding: 2%;
 }
