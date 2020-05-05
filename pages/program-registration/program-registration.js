@@ -311,7 +311,8 @@ Page({
   processPayment: function () {
 
     const selectedPrice = this.data.selectedPrice,
-      amount = this.data.deposit, // Clients only pay a deposit when registering
+      // amount = this.data.deposit,     // Clients only pay a deposit when registering
+      amount = 1,                                // TODO fix this amount during testing, change back for production
       data = {
         price: selectedPrice.id,
         amount: amount

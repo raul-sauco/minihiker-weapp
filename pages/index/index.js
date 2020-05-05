@@ -28,6 +28,8 @@ Page({
       userInfo: app.globalData.userInfo
     });
 
+    console.debug('User info set from app.globalData', this.data);
+
     this.fetchActiveFilters();
     this.fetchProgramGroups(null, null);
   },

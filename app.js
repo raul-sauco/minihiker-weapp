@@ -62,7 +62,11 @@ App({
           this.globalData.userInfo = res.data;
           this.globalData.hasUserInfo = true;
 
+          console.debug('Obtained user data from wxStorage', res.data);
+
         } else {
+
+          console.debug('Fetching wx user data from wx server');
 
           // Get user info if the user has authorized it previously
           this.obtainUserInfo();
@@ -70,7 +74,8 @@ App({
         }
 
       },
-      fail: (res) => {
+      fail: (err) => {
+        consoel.warn('Failed to access wxStorage', err);
         this.obtainUserInfo();
       }
     });
