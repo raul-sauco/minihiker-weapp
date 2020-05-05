@@ -1,2 +1,0 @@
-<view wx:if="{{ hasError }}" class="error-container">{{ error }}</view>
-<official-account bindload="bindload" binderror="binderror" wx:else></official-account>
