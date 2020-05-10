@@ -69,10 +69,12 @@
   color:#222;
   background-color: #FFC837;
   margin: 0 0.5rem 0.3rem 0;
-  padding: 0.3rem;
+  padding: 0.3rem 0;
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: bold;
+  width: 4.5rem;
+  text-align: center;
 }
 
 .program-price-container::after {
