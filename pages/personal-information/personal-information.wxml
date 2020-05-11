@@ -59,6 +59,7 @@
       </view>
     </view>
 
+    <!--  TODO control that null || 0 || '0' || undefined all produce the expected results -->
     <view class='input-group {{ errors.is_male ? "has-error" : "" }}'>
       <view class='input-label'>性别</view>
       <picker bindchange="updatePI" value='{{ client.is_male }}' 
@@ -248,7 +249,8 @@
       </view>
     </view>
 
-    <button id='pi-confirm-update-button' bindtap='formSubmit' type='primary'>更新</button>
+    <button class='pi-form-action-button' bindtap='formSubmit' type='primary'>更新</button>
+    <button class='pi-form-action-button' bindtap='deleteClient' type='warn'>删除</button>
   
   </form>
 

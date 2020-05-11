@@ -127,13 +127,12 @@ Page({
 
     if (!this.data.client.id) {
 
-      console.log('New client entry, POST');
-      console.log(this.data.client);
+      console.debug('New client entry, POST', this.data.client);
       method = 'POST';
 
     } else {
 
-      console.log('Existing client with ID ' + this.data.client.id + ' PUT ');
+      console.debug('Existing client with ID ' + this.data.client.id + ' PUT ');
 
       // Update endpoint to include the client ID ie 'clients/45'
       endpoint += '/' + this.data.client.id;
@@ -184,8 +183,6 @@ Page({
             content: '有些不对劲'
           });
         }
-
-        console.log(res);
       },
       fail: res => {
 
@@ -194,7 +191,7 @@ Page({
           content: '有些不对劲'
         });
 
-        console.log('PI::saveUser request failed');
+        console.warn('PI::saveUser request failed');
       },
       complete: res => {}
     });
@@ -468,6 +465,63 @@ Page({
         });
 
       }
+    });
+  }, // End upload image
+
+  deleteClient: function() {
+
+    console.debug(`Deleting client ${this.data.client.id}`);
+
+    wx.showLoading({
+      title: '删除中',
+    });
+
+    const url = app.globalData.url + 'clients/' + this.data.client.id;
+
+    wx.request({
+      url,
+      method: 'DELETE',
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      },
+      success: res => {
+
+        wx.hideLoading();
+
+        if (res.statusCode == 204) {
+
+          this.showToast({
+            icon: 'success',
+            content: '删除成功'
+          });
+
+          // Update the global provider information with client data and persist it
+          wx.navigateBack({ delta: 1 });
+
+        }  else {
+
+          console.warn('Client delete encountered an error', res);
+
+          this.showToast({
+            icon: 'error',
+            content: '有些不对劲'
+          });
+
+        }
+      },
+      fail: err => {
+
+        wx.hideLoading();
+
+        this.showToast({
+          icon: 'error',
+          content: '有些不对劲'
+        });
+
+        console.warn('PI::saveUser request failed', err);
+      },
+      complete: res => { }
     });
   }
 })
