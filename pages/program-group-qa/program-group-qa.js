@@ -53,7 +53,8 @@ Page({
     wx.request({
       url: app.globalData.url + endpoint,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
       },
       success: (res) => {
 

@@ -92,7 +92,8 @@ Page({
     let endpoint = 'qas';
 
     let header = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + app.globalData.accessToken
     };
 
     wx.request({
