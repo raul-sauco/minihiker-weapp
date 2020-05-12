@@ -255,6 +255,7 @@ App({
     accountInfoProvider: null,
     payments: null,
     url: 'https://wxapiv1.minihiker.com/',
-    resUrl: 'https://minihiker.com/webapp/'
+    resUrl: 'https://minihiker.com/webapp/',
+    staticUrl: 'https://static.minihiker.com/'
   }
 })

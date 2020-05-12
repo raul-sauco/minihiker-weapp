@@ -17,7 +17,8 @@ Page({
       content: '',
       icon: 'info'
     },
-    resUrl: null
+    resUrl: null,
+    staticUrl: null
   },
 
   /**
@@ -46,7 +47,8 @@ Page({
 
     this.setData({
       client: client,
-      resUrl: app.globalData.resUrl
+      resUrl: app.globalData.resUrl,
+      staticUrl: app.globalData.staticUrl
     });
 
     wx.setNavigationBarTitle({

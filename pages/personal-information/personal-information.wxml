@@ -223,7 +223,7 @@
       <view class='input-label'>护照照片</view>
       <view class="passport-image-container"  wx:if='{{ client.passport_image }}' >
         <image 
-          src="{{ resUrl }}img/c/p/{{ client.passport_image }}" 
+          src="{{ staticUrl }}img/c/p/{{ client.passport_image }}" 
           mode="widthFix"
           class="passport-image"></image>
         <view class="update-image-message">更新图片</view>
