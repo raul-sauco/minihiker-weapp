@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.image-container > image {
+.program-group-image {
   width: 100%;
 }
 

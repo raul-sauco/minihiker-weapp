@@ -4,7 +4,7 @@
 
   <view class='image-container'>
 
-    <image mode="widthFix"
+    <image mode="widthFix" class="program-group-image"
       src="{{ resUrl  + 'img/pg/' + programGroup.id + '/' + programGroup.weapp_cover_image }}">
     </image>
 

@@ -1,8 +1,8 @@
-swiper {
+.swiper {
   height: 200px;
 }
 
-swiper-item image {
+.swiper-item-image {
   width: 100%;
 }
 

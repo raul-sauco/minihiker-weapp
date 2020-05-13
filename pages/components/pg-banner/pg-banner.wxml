@@ -1,15 +1,15 @@
-<swiper indicator-dots="{{indicatorDots}}"
+<swiper indicator-dots="{{indicatorDots}}" class="swiper"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">  
 
   <swiper-item wx:for="{{ programGroups }}" wx:key="id" wx:for-item="pg"
-    class="program-group-banner-item" bindtap='showProgram'
+    class="program-group-banner-item swiper-item" bindtap='showProgram'
     data-id='{{ pg.id }}'>
 
     <view class="program-group-banner-name-container">
       <text class="program-group-banner-text">{{ pg.weapp_display_name }}</text>
     </view>
 
-    <image mode="aspectFill"
+    <image mode="aspectFill" class="swiper-item-image"
       src="{{ resUrl  + 'img/pg/' + pg.id + '/' + pg.weapp_cover_image }}">
     </image>    
 
