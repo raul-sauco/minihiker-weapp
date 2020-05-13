@@ -36,6 +36,15 @@ button.navigator::after {
   border: none;
 }
 
+.qr-container {
+  width: 100%;
+  text-align: center;
+}
+
+.qr-label {
+  margin-bottom: 20rpx;
+}
+
 .mh-logo-container {
   width: 100%;
   display: flex;

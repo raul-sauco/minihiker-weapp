@@ -65,7 +65,16 @@
       </navigator>
 
       <view class='navigator'>
-        <official-account></official-account>
+        <official-account 
+          bindload='officialAccountLoad' 
+          binderror='officialAccountError'>
+        </official-account>
+        <view wx:if="{{ qrCodeVisible }}" class="qr-container">
+          <image src="{{ staticUrl + 'img/xcx/oa-qr-bj.jpg' }}" mode="widthFix" />
+          <view class="qr-label">微信公众号—北京</view>
+          <image src="{{ staticUrl + 'img/xcx/oa-qr-sz.jpg' }}" mode="widthFix" />
+          <view class="qr-label">微信公众号—深圳</view>
+        </view>
       </view>
     
     </view>
@@ -73,7 +82,7 @@
   </view>
 
   <view class="mh-logo-container">
-    <view><image class="mh-logo" src="{{ resUrl + 'img/logo500.png'}}" /></view>
+    <view><image class="mh-logo" src="{{ staticUrl + 'img/logo500.png'}}" /></view>
   </view>
 
 </view>
