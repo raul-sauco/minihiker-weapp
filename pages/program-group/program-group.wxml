@@ -30,7 +30,7 @@
 
   </view>
 
-  <scroll-view scroll-x="true" id='programs-container'>
+  <scroll-view scroll-x="true" id='programs-container' wx:if='selectedProgram'>
 
     <view wx:for='{{ programGroup.programs }}' wx:key='id' 
       class='program-container {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
@@ -112,4 +112,10 @@
     <text class="fas fa-angle-double-up"></text>
   </view>
 
+</view>
+<view wx:else class="full-page-loading">
+  <image mode="widthFix" 
+    class="loading-gif" 
+    src="{{ '/img/loading-color-50.gif' }}">
+  </image> 
 </view>

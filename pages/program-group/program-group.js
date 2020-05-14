@@ -11,7 +11,8 @@ Page({
     selectedProgram: null,
     resUrl: app.globalData.resUrl,
     isScrollToTopVisible: false,
-    scrollTop: 0
+    scrollTop: 0,
+    nextRequestTimeout: 3000
   },
 
   /**
@@ -19,18 +20,28 @@ Page({
    */
   onLoad: function (options) {
 
-    // Initial set data to display whatever the provider has
-    this.setData({
-      programGroup: app.globalData.programProvider.get(options.id),
-      selectedProgram: app.globalData.programProvider.get(options.id).programs[0]
-    });
+    const programGroup = app.globalData.programProvider.get(options.id);
+    if (programGroup) {
 
-    wx.setNavigationBarTitle({
-      title: this.data.programGroup.weapp_display_name
-    });
+      // Initial set data to display whatever the provider has
+      this.setData({
+        programGroup
+      });
+
+      wx.setNavigationBarTitle({
+        title: programGroup.weapp_display_name
+      });
+      
+    } else {
+
+      wx.setNavigationBarTitle({
+        title: '正在下载'
+      });
+
+    }
 
     // Fetch full program group data
-    this.fetchProgramGroupData();
+    this.fetchProgramGroupData(options.id);
 
   },
 
@@ -39,12 +50,12 @@ Page({
    * This will include the programs[] data and the 
    * textual descriptions as an array of nodes.
    */
-  fetchProgramGroupData: function () {
+  fetchProgramGroupData: function (id) {
 
     // Loading status feedback can be subtle
     wx.showNavigationBarLoading();
 
-    app.globalData.programProvider.fetchProgramGroup(this.data.programGroup.id).then( pg => {
+    app.globalData.programProvider.fetchProgramGroup(id).then( pg => {
 
       console.debug('Promise returned with Program Group data');
 
@@ -52,6 +63,10 @@ Page({
       this.setData({
         programGroup: pg,
         selectedProgram: pg.programs[0]
+      });
+
+      wx.setNavigationBarTitle({
+        title: pg.weapp_display_name
       });
 
     }).catch(err => {
@@ -63,7 +78,12 @@ Page({
         title: err.msg,
       });
 
-      setTimeout(this.fetchProgramGroupData, 3000);
+      setTimeout(this.fetchProgramGroupData, this.data.nextRequestTimeout, id);
+
+      // Increase the delay time each time we request
+      this.setData({
+        nextRequestTimeout: this.data.nextRequestTimeout * 1.5
+      });
 
     }).finally( () => {
 

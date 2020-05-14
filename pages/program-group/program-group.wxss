@@ -236,3 +236,16 @@ loading {
   justify-content: space-between;
   padding: 5rpx;
 }
+
+.full-page-loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-gif {
+  height: 100rpx;
+  width: 100rpx;
+}
