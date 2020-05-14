@@ -417,9 +417,18 @@ Page({
       'fail': res => {
 
         console.error(res);
-        wx.showModal(
-          '付款失败'
-        );
+        wx.showModal({
+          title: '付款失败',
+          content: '付款已取消，您可以随时从注册页面再次付款。',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.debug('"OK" is tapped')
+            } else if (res.cancel) {
+              console.debug('"Cancel" is tapped')
+            }
+          }
+        });
 
       }
     });
