@@ -14,22 +14,26 @@
 }
 
 .program-group-banner-name-container {
-  top: 20rpx;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10rpx;
   font-size: 1.3rem;
   text-align: center;
 }
 
 .program-group-banner-theme-container {
-  bottom: 20rpx;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10rpx;
   font-size: 1.2rem;
   text-align: center;
 }
 
 .program-group-banner-text {
   color: #fcfcfc;
-  text-shadow: 0 0 2px #000;
-
-  background-color: #01ff00;
-  width: fit-content;
-  padding: 10rpx;
+  /* text-shadow: 0 0 2px #000; */
 }
