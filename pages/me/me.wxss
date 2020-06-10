@@ -39,6 +39,12 @@ button.navigator::after {
 .qr-container {
   width: 100%;
   text-align: center;
+  padding: 10rpx;
+}
+
+.qr-header {
+  margin: 0 0 20rpx 40rpx;
+  text-align: left;
 }
 
 .qr-label {
