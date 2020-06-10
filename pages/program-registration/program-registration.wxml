@@ -82,7 +82,9 @@
 
   <view class="modal-content">
 
-    <view>您的联系信息可能不正确，请检查并根据需要进行更新。</view>
+    <view>为方便报名后收取活动信息，请确认您的联系信息，
+      信息正确请点击‘确认信息’按钮，如需修改请点击‘更新信息’按钮进行更新。
+    </view>
 
     <view class="field">
       <text class="highlight">联系电话:</text>
@@ -90,11 +92,9 @@
     </view>
 
     <view class="field">
-      <text class="highlight">微信编号:</text>
+      <text class="highlight">微信ID:</text>
       <text>{{ accountInfo.wechat || '暂无信息' }}</text>
     </view>
-
-    <view>如果您继续付款，之后我们可能无法与您联系。</view>
 
   </view>
 
