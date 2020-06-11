@@ -23,15 +23,11 @@
     
   </view>
 
-  <view class="summary" wx:if="{{ kidSummary && adultSummary }}">
+  <view class="summary" wx:if="{{ summary }}">
 
     <button bindtap="confirm" wx:if="{{ !hasUnselected }}" type="primary">确认</button>
 
-    <view class="kids">{{ kidSummary }}</view>
-    
-    <view class="adult">{{ adultSummary }}</view>
-
-    <view class="price-totals">一共{{ price.kids }}小和{{ price.adults }}大</view>
+    <view>{{ summary }}</view>
 
   </view>
 

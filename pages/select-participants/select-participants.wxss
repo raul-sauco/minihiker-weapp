@@ -25,7 +25,3 @@
 .summary view {
   margin: 20rpx 0;
 }
-
-.summary .price-totals {
-  color: #666;  
-}

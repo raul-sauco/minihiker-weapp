@@ -13,8 +13,7 @@ Page({
     clients: null,
     kidParticipants: 0,
     adultParticipants: 0,
-    kidSummary: '',
-    adultSummary: '',
+    summary: '',
     resUrl: app.globalData.resUrl,
     hasUnselected: true
   },
@@ -115,14 +114,11 @@ Page({
 
         });
 
-        console.debug(clients);
-
         this.setData({
           clients: clients,
           kidParticipants: totalKids,
           adultParticipants: totalAdults,
-          kidSummary: this.generateSummaryMessage(totalKids, true),
-          adultSummary: this.generateSummaryMessage(totalAdults, false),
+          summary: this.generateSummaryMessage(totalAdults, totalKids),
           hasUnselected: this.hasUnselected(totalAdults, totalKids)
         });
 
@@ -182,22 +178,31 @@ Page({
   },
 
   /**
-   * Generate a summary message for either kids or adults.
+   * Generate the summary message
    */
-  generateSummaryMessage: function (current, forKid) {
-
-    let limit = forKid ? this.data.price.kids : this.data.price.adults;
-    let c = forKid ? '小' : '大';
-    let message;
-
-    if (current < limit) {
-      message = '您仍然可以从总共' + limit + '个中选择' + (limit - current) + (forKid ? '小' : '大');
+  generateSummaryMessage: function (adults, kids) {
+    let message = `${this.data.programGroup.weapp_display_name}活动，`;
+    message += `您报名${this.data.price.adults}大${this.data.price.kids}小，`;
+    if (kids > 0) {
+      message += `儿童信息已选择${kids}人，`;
     } else {
-      message = '目前,所有' + (forKid ? '宝贝' : '成人') + '名额已全部填补'
+      message += `您尚未选择儿童，`;
     }
-
+    if (this.data.price.adults > 0) {
+      if (adults > 0) {
+        message += `成人信息已选择${adults}人，`;
+      } else {
+        message += `您尚未选择成人，`;
+      }
+    }
+    const remaining = (this.data.price.adults - adults) + 
+      (this.data.price.kids - kids);
+    if (remaining === 0) {
+      message += '信息已填写';
+    } else {
+      message += `还有${remaining}个信息待填写`;
+    }
     return message;
-
   },
 
   /**
