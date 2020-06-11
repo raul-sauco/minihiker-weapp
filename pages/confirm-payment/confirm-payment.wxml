@@ -9,9 +9,10 @@
     <view class="confirm-success-message">付款成功</view>
 
     <view class="congrat-message">
-      恭喜{{ accountInfo.name }}, 您已成功报名
-      <text class="price-details">{{ price.adults}}大和{{ price.kids }}小</text>参加我们
-      <text class="program-details">{{ programGroup.weapp_display_name }}</text>
+      恭喜{{ accountInfo.name }}, 
+      您已成功报名童行者{{ programGroup.weapp_display_name }}活动，
+      参与人数{{ price.adults }}大{{ price.kids }}小，
+      请您继续补充项目参与者信息，之后工作人员也会与您取得联系，预祝您收获愉快的活动体验。
     </view>
     
   </view>
