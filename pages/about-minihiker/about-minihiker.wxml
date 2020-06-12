@@ -118,11 +118,13 @@
   </swiper-item>
 
   <swiper-item>
-    <view class="slide">
+    <view id="slide-7" class="slide">
       <view class="header">童行者活动掠影</view>
       <view class="photos-container">
 
-        <image mode="aspectFit" src="{{ resUrl + 'img/xcx/about-us/slides/all.png' }}"></image>
+        <image class="slides" mode="widthFix" 
+          src="{{ resUrl + 'img/xcx/about-us/slides/all.png' }}">
+        </image>
 
       </view>
       <view class="footer-container">
