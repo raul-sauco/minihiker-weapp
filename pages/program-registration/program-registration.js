@@ -176,9 +176,9 @@ Page({
    */
   calculateDeposit: function (price) {
 
-    const adults = price.adults || 0,
-      kids = price.kids || 0,
-      perPerson = this.data.programGroup.location.international ? 5000 : 2000;
+    const adults = price.adults || 0;
+    const kids = price.kids || 0;
+    const perPerson = this.data.program.deposit || 0;
 
     return (adults + kids) * perPerson;
 
