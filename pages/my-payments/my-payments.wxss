@@ -150,8 +150,5 @@
 }
 
 .actions > .action-button {
-  border: 1px solid #ddd;
-  width: 100%;
-  text-align: center;
-  padding: 2%;
+  margin: 0 8px;
 }

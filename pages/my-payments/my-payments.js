@@ -88,6 +88,52 @@ Page({
   },
 
   /**
+   * Handle click on the delete payment button.
+   */
+  deletePayment: function (event) {
+    const payment = this.data.payments.find(
+      p => p.id === event.currentTarget.dataset.paymentId
+    );
+    wx.showLoading({
+      title: '更新中',
+    });
+    wx.request({
+      url: app.globalData.url + 'wx-unified-payment-orders/' + payment.id,
+      method: 'PUT',
+      data: { 'hidden': 1 },
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + app.globalData.accessToken
+      },
+      success: res => {
+        if (res.statusCode === 200) {
+          // TODO consider hiding the payment instead of reloading
+          this.fetchPayments();
+        } else if (res.statusCode === 422) {
+          console.error('Validation errors');
+          wx.showToast({
+            title: '服务器错误，请稍后再试',
+          });
+        } else {
+          wx.showToast({
+            title: '服务器错误，请稍后再试',
+          });
+          console.warn('Unrecognized response code ' + res.statusCode);
+        }
+      },
+      fail: res => {
+        wx.showToast({
+          title: '服务器错误，请稍后再试',
+        });
+        console.error(res);
+      },
+      complete: () => {
+        wx.hideLoading();
+      }
+    });
+  },
+
+  /**
    * Handle click in the select participants button for one of the 
    * payments.
    */

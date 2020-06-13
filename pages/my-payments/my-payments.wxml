@@ -100,14 +100,17 @@
     </view>
 
     <view class="actions">
-
-      <view bindtap='editParticipants' 
+      <button bindtap='editParticipants' 
         wx:if="{{ payment.status === 4 }}"
+        data-payment-id='{{ payment.id }}'
+        type="primary" 
+        class="action-button">编辑参与者
+      </button>
+      <button bindtap='deletePayment'
         data-payment-id='{{ payment.id }}' 
-        class="action-button">
-          编辑参与者
-      </view>
-
+        type="warn"
+        class="action-button">删除
+      </button>
     </view>
   
   </view>
