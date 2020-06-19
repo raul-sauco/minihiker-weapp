@@ -37,14 +37,20 @@ button.navigator::after {
 }
 
 .qr-container {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
   width: 100%;
   text-align: center;
-  padding: 10rpx;
+  padding: 30rpx;
+}
+
+.qr-image {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .qr-header {
-  margin: 0 0 20rpx 40rpx;
-  text-align: left;
+  margin-bottom: 20rpx;
 }
 
 .qr-label {

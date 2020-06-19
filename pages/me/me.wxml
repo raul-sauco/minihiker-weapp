@@ -71,9 +71,11 @@
         </official-account>
         <view wx:if="{{ qrCodeVisible }}" class="qr-container">
           <view class="qr-header">童行者的公众号</view>
-          <image src="{{ staticUrl + 'img/xcx/oa-qr-bj.jpg' }}" mode="widthFix" />
+          <image src="{{ staticUrl + 'img/xcx/oa-qr-bj.jpg' }}" 
+            mode="aspectFit" class="qr-image" />
           <view class="qr-label">微信公众号—北京</view>
-          <image src="{{ staticUrl + 'img/xcx/oa-qr-sz.jpg' }}" mode="widthFix" />
+          <image src="{{ staticUrl + 'img/xcx/oa-qr-sz.jpg' }}" 
+            mode="aspectFit" class="qr-image" />
           <view class="qr-label">微信公众号—深圳</view>
         </view>
       </view>
