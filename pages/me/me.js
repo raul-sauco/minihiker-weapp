@@ -71,5 +71,17 @@ Page({
     this.setData({
       qrCodeVisible: true
     });
+  },
+
+  /**
+   * Display the current image in full screen mode
+   */
+  showImage: function (e) {
+    const url = e.currentTarget.dataset.url;
+    console.log(url);
+    wx.previewImage({
+      current: url,
+      urls: [url]
+    });
   }
 })
