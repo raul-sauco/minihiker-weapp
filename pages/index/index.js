@@ -22,16 +22,23 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
+    this.setUserInfo();
+    this.fetchActiveFilters();
+    this.fetchProgramGroups(null, null);
+  },
 
+  /**
+   * Set the user info or poll for it if not ready
+   */
+  setUserInfo: function () {
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
       userInfo: app.globalData.userInfo
     });
-
-    console.debug('User info set from app.globalData', this.data);
-
-    this.fetchActiveFilters();
-    this.fetchProgramGroups(null, null);
+    if (this.data.hasUserInfo === false) {
+      console.debug('hasUserInfo is false, setting timeout');
+      setTimeout(this.setUserInfo, 300);
+    }
   },
 
   /**

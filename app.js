@@ -138,14 +138,13 @@ App({
    * The user information is ready
    */
   userInfoReadyCallback: function (res) {
-    console.log('app: userInfoReadyCallback has been invoked');
-    console.log(res);
+    console.debug('app: userInfoReadyCallback has been invoked', res);
 
     // Try to create the object
     wx.setStorage({
       key: 'user',
       data: this.globalData.userInfo,
-      success: () => { console.log('Saved user information to storage.') },
+      success: () => { console.debug('Saved user information to storage.') },
       fail: () => { console.log('Failed to save user information to storage.') }
     });
 
