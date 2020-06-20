@@ -94,11 +94,29 @@ Page({
     const payment = this.data.payments.find(
       p => p.id === event.currentTarget.dataset.paymentId
     );
+    wx.showModal({
+      title: '是否确认删除项目？',
+      content: '客户端的删除不会影响已经缴费的报名信息',
+      success: res => {
+        if (res.confirm) {
+          this.sendDelete(payment.id);
+        } else if (res.cancel) {
+          console.debug(`Payment ${payment.id} delete cancelled by user`);
+        }
+      }
+    });
+  },
+
+  /**
+   * Send a DELETE request for a given payment, identified by 
+   * it's ID, and handle the response
+   */
+  sendDelete: function (id) {
     wx.showLoading({
       title: '更新中',
     });
     wx.request({
-      url: app.globalData.url + 'wx-unified-payment-orders/' + payment.id,
+      url: app.globalData.url + 'wx-unified-payment-orders/' + id,
       method: 'PUT',
       data: { 'hidden': 1 },
       header: {
