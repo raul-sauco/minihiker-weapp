@@ -61,8 +61,7 @@ Page({
 
       // If there were no errors, we have a program group
       this.setData({
-        programGroup: pg,
-        selectedProgram: pg.programs[0]
+        programGroup: pg
       });
 
       wx.setNavigationBarTitle({
@@ -96,13 +95,17 @@ Page({
    * Change the selected program and refresh the UI
    */
   selectProgram: function (event) {
-
-    this.setData({
-      selectedProgram: this.data.programGroup.programs.find(
-        p => p.id === event.currentTarget.dataset.programId
-      )
-    });
-
+    const program = this.data.programGroup.programs.find(
+      p => p.id === event.currentTarget.dataset.programId
+    );
+    const spotsLeft = program.client_limit - program.registrations;
+    if (program.registration_open && spotsLeft > 0) {
+      this.setData({
+        selectedProgram: program
+      });
+    } else {
+      console.debug('Trying to select non-selectable program');
+    }
   },
 
   /**
@@ -152,28 +155,19 @@ Page({
    * Handle page scrolling event
    */
   onPageScroll: function (e) {
-
     const top = e.scrollTop;
-
     // Scrolling down, hide the scroll button if visible
     if (top < 400 || (this.data.scrollTop < top && this.data.isScrollToTopVisible)) {
-
       this.setData({
         isScrollToTopVisible: false
       });
-
     }
-
     // Scrolling up, display the scroll button if hidden
     if (top > 400 && this.data.scrollTop > top && !this.data.isScrollToTopVisible) {
-
       this.setData({
         isScrollToTopVisible: true
       });
-
-    }
-    
+    }    
     this.data.scrollTop = top;
-
   }
 })

@@ -58,10 +58,13 @@
           <text class='attr-value'>{{ item.end_date }}</text>
         </view>
 
-        <view class='program-vacancies program-inner-entry'>
+        <view class="program-vacancies program-inner-entry">
           <text class='attr-name'>
             <text class='far fa-hourglass'></text> 名额: </text>
-          <text class='attr-value'>仅剩{{ (item.client_limit - item.registrations) }}人</text>
+          <text class='attr-value' 
+            wx:if="{{ item.registration_open && ((item.client_limit - item.registrations) > 0) }}"
+            >仅剩{{ (item.client_limit - item.registrations) }}人</text>
+          <text class='attr-value' wx:else>名额已满</text>
         </view>
       
       </view>
@@ -101,8 +104,8 @@
     </button>
 
     <button bindtap='register' type='primary' 
-      disabled="{{ !selectedProgram }}" loading="{{ !selectedProgram }}">
-      {{ selectedProgram ? '现在报名' : '' }}
+      disabled="{{ !selectedProgram }}" loading="{{ !programGroup.arraywad }}">
+      {{ selectedProgram ? '现在报名' : (programGroup.arraywad ? '选择时期' : '') }}
     </button>
     
   </view>
