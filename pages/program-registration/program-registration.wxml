@@ -51,7 +51,7 @@
 
   <view class="bottom-bar">
 
-    <view class="booking-fee-warning {{ selectedPrice ? '' : 'booking-fee-warning-hidden' }}">
+    <view class="booking-fee-warning {{ deposit > 0 ? '' : 'booking-fee-warning-hidden' }}">
       {{ program.deposit_message }}
     </view>
 
@@ -106,4 +106,3 @@
   </view>
 
 </view>
-

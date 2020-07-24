@@ -311,8 +311,13 @@ Page({
   processPayment: function () {
 
     const selectedPrice = this.data.selectedPrice;
-    const amount = this.data.deposit;     // Clients only pay a deposit when registering
-      // amount = 1,          // TODO fix this amount during testing, change back for production
+    // Check if the program only requires paying a deposit
+    if (this.data.deposit > 0) {
+      const amount = this.data.deposit;
+    } else {
+      const amount = this.data.amountDue;
+    }
+    // amount = 1,          // TODO fix this amount during testing, change back for production
     const data = {
         price: selectedPrice.id,
         amount: amount

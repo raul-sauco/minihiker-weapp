@@ -30,6 +30,7 @@ button.navigator {
   background: #fff;
   line-height: 1.555556;
   border: none;
+  font-size: 34rpx;
 }
 
 button.navigator::after {
