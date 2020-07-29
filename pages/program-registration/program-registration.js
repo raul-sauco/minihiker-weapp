@@ -312,15 +312,14 @@ Page({
 
     const selectedPrice = this.data.selectedPrice;
     // Check if the program only requires paying a deposit
+    let amount = this.data.amountDue;
     if (this.data.deposit > 0) {
-      const amount = this.data.deposit;
-    } else {
-      const amount = this.data.amountDue;
+      amount = this.data.deposit;
     }
     // amount = 1,          // TODO fix this amount during testing, change back for production
     const data = {
         price: selectedPrice.id,
-        amount: amount
+        amount
       };
     const endpoint = 'wx-payment';
     const header = {
