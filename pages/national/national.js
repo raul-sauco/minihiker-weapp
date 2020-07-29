@@ -9,28 +9,20 @@ Page({
     searchQuery: '',
     resUrl: app.globalData.resUrl,
     programGroups: [],
-    filters: [],
-    isSearchBarVisible: true,
-    scrollTop: 0,
-    scrollDetectTimeout: null
+    filters: []
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-
     // Force having user info
-    if (!app.globalData.hasUserInfo) {
-      
+    if (!app.globalData.hasUserInfo) {      
       console.warn('Trying to navigate to pages/national without user info');
-
       wx.switchTab({
         url: '/pages/index/index',
       });
-
     }
-
     this.fetchActiveFilters();
     this.fetchProgramGroups(null, null);
   },
@@ -39,16 +31,12 @@ Page({
    * Lifecycle function--Called when page is shown
    */
   onShow: function () {
-
     // Force having user info
     if (!app.globalData.hasUserInfo) {
-
       console.warn('Trying to navigate to pages/national without user info');
-
       wx.switchTab({
         url: '/pages/index/index',
       });
-
     }
 
   },
@@ -228,85 +216,9 @@ Page({
 
   /** Fetch the next page of data */
   onReachBottom: function () {
-
     if (!this.data.loadingPrograms && this.data.hasNextPage) {
-
       this.fetchProgramGroups(this.data.searchQuery, this.data.nextPageNumber);
-
     }
-
-  },
-
-  /** 
-   * Handle page scrolling event.
-   * This event gets called to often, we add a timeout to simulate a "stop scrolling" event.
-   */
-  onPageScroll: function (e) {
-
-    // TODO possibly check if we are near the top of the page, 
-    // bar should always be visible in that case
-
-    const top = e.scrollTop,
-      diff = Math.abs(top - this.data.scrollTop),
-      delay = 150,
-      sensitivity = 5;
-
-    if (diff > sensitivity) {
-
-      console.debug('Detected fast scroll movement');
-
-      // Clear the current timeout if there is one. 
-      clearTimeout(this.data.scrollDetectTimeout);
-
-      if (this.data.scrollTop < top) {
-
-        this.data.scrollDetectTimeout = setTimeout(this.hideSearchBar, delay);
-
-      }
-
-      if (this.data.scrollTop > top) {
-
-        this.data.scrollDetectTimeout = setTimeout(this.displaySearchBar, delay);
-
-      }
-    }
-
-    this.data.scrollTop = top;
-
-  },
-
-  /**
-   * Display the top search bar if hidden
-   */
-  displaySearchBar: function () {
-
-    if (!this.data.isSearchBarVisible) {
-
-      console.debug('Showing top search bar');
-
-      this.setData({
-        isSearchBarVisible: true
-      });
-
-    }
-
-  },
-
-  /**
-   * Hide the top search bar if visible
-   */
-  hideSearchBar: function () {
-
-    if (this.data.isSearchBarVisible) {
-
-      console.debug('Hiding top search bar');
-
-      this.setData({
-        isSearchBarVisible: false
-      })
-
-    }
-
   },
 
   /**

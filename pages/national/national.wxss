@@ -35,7 +35,7 @@
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   padding: 20rpx;
-  margin-bottom: 20rpx;
+  margin-top: 40px; /* Account for the search bar */
   flex-wrap: nowrap;
 
   /* Needed to keep the scroll-view oneliner */
@@ -148,10 +148,7 @@
   right: 0;
   left: 0;
   transition: all 0.3s ease-in-out;
-}
-
-.search-bar-container-hidden {
-  transform: translateY(-40px);
+  z-index: 999;
 }
 
 .search-bar-components-container {

@@ -1,33 +1,30 @@
 <!--index.wxml-->
-<block wx:if="{{ false }}">
-
-  <!-- This block is used to navigate to the currently developed page quicker 
-    -- Remove on production 
-    -->
-
-    <button bindtap="go" type="primary" class="go">预览变更</button>
-
-</block>
-
 <!-- This block only will be shown after obtaining access to the user information -->
 <block wx:if="{{ hasUserInfo }}">
-
-  <view class="search-bar-clear"></view>
+  <view class="search-bar-container">
+    <view class="search-bar-components-container">
+    <text class="fas fa-search search-bar-icon"></text>
+    <input type="text" confirm-type="search" id="program-search-box"
+      placeholder="请输入关键词，亲子/单飞，地点"
+      bindconfirm="search" value="{{ searchQuery }}"></input>    
+    </view>
+  </view>
+  <view class='filters-container' wx:if="{{ filters }}">
+    <scroll-view scroll-x='true'>
+      <view 
+        wx:for="{{ filters }}" 
+        wx:for-item='filter' 
+        wx:key='title'
+        class='filter-container {{ filter.active ? "active-filter" : "" }}' 
+        bindtap='toggleFilter' 
+        data-filter='{{ filter.title }}'
+      >
+        {{ filter.title }}
+      </view>    
+    </scroll-view>
+  </view>
 
   <banner int="true" class="pg-banner"></banner>
-
-  <view class='filters-container' wx:if="{{ filters }}">
-
-    <scroll-view scroll-x='true'>
-
-      <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
-        class='filter-container {{ filter.active ? "active-filter" : "" }}' bindtap='toggleFilter' data-filter='{{ filter.title }}'>
-        {{ filter.title }}
-      </view>
-    
-    </scroll-view>
-
-  </view>
 
   <view class="container" wx:if='{{ programGroups.length > 0  }}'>
 
@@ -49,16 +46,6 @@
     <view class='no-programs-body'>您所选时间目前暂无活动</view>
     <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
   </view>
-  
-  <view class="search-bar-container {{ isSearchBarVisible ? '' : 'search-bar-container-hidden' }}">
-    <view class="search-bar-components-container">
-    <text class="fas fa-search search-bar-icon"></text>
-    <input type="text" confirm-type="search" id="program-search-box"
-      placeholder="请输入关键词，亲子/单飞，地点"
-      bindconfirm="search" value="{{ searchQuery }}"></input>    
-    </view>
-  </view>
-
 </block>
 
 <!-- This block only will be shown if the app component does not have access to the user information -->

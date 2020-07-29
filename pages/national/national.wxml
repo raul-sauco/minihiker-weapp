@@ -1,47 +1,38 @@
 <!--pages/national/national.wxml-->
-<view class="search-bar-clear"></view>
-
-<banner int="false" class="pg-banner"></banner>
-
-<view class='filters-container' wx:if="{{ filters }}">
-
-  <scroll-view scroll-x='true'>
-
-      <view wx:for="{{ filters }}" wx:for-item='filter' wx:key='title'
-        class='filter-container {{ filter.active ? "active-filter" : "" }}' bindtap='toggleFilter' data-filter='{{ filter.title }}'>
-        {{ filter.title }}
-      </view>
-  
-  </scroll-view>
-
-</view>
-
-<view class="container" wx:if='{{ programGroups.length > 0  }}'>
-
-  <block wx:for="{{ programGroups }}" wx:key='id'>
-
-    <program-group program-group-id='{{ item.id }}'></program-group>
-
-  </block>
-
-</view>
-
-<block wx:if="{{ loadingPrograms }}">    
-  <loading></loading>    
-</block>
-
-<view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
-  <icon type='info' size='60' />
-  <view class='no-programs-header'>我们很抱歉!</view>
-  <view class='no-programs-body'>您所选时间目前暂无活动</view>
-  <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
-</view>
-
-<view class="search-bar-container {{ isSearchBarVisible ? '' : 'search-bar-container-hidden' }}">
+<view class="search-bar-container">
   <view class="search-bar-components-container">
   <text class="fas fa-search search-bar-icon"></text>
   <input type="text" confirm-type="search" id="program-search-box"
     placeholder="请输入关键词，亲子/单飞，地点"
     bindconfirm="search" value="{{ searchQuery }}"></input>    
   </view>
+</view>
+<view class='filters-container' wx:if="{{ filters }}">
+  <scroll-view scroll-x='true'>
+      <view 
+        wx:for="{{ filters }}" 
+        wx:for-item='filter' 
+        wx:key='title'
+        class='filter-container {{ filter.active ? "active-filter" : "" }}' 
+        bindtap='toggleFilter' 
+        data-filter='{{ filter.title }}'
+      >
+        {{ filter.title }}
+      </view>  
+  </scroll-view>
+</view>
+<banner int="false" class="pg-banner"></banner>
+<view class="container" wx:if='{{ programGroups.length > 0  }}'>
+  <block wx:for="{{ programGroups }}" wx:key='id'>
+    <program-group program-group-id='{{ item.id }}'></program-group>
+  </block>
+</view>
+<block wx:if="{{ loadingPrograms }}">    
+  <loading></loading>    
+</block>
+<view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
+  <icon type='info' size='60' />
+  <view class='no-programs-header'>我们很抱歉!</view>
+  <view class='no-programs-body'>您所选时间目前暂无活动</view>
+  <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
 </view>

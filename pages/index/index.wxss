@@ -24,10 +24,6 @@
   font-weight: bold;
 }
 
-.search-bar-clear {
-  height: 40px;
-}
-
 .filters-container {
   box-sizing: border-box;
   width: 100%;
@@ -36,7 +32,7 @@
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   padding: 20rpx;
-  margin-bottom: 20rpx;
+  margin-top: 40px; /* Account for the search bar */
   flex-wrap: nowrap;
 
   /* Needed to keep the scroll-view oneliner */
@@ -152,11 +148,7 @@ loading {
   top: 0;
   right: 0;
   left: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.search-bar-container-hidden {
-  transform: translateY(-40px);
+  z-index: 999;
 }
 
 .search-bar-components-container {
@@ -171,11 +163,4 @@ loading {
   font-size: 1.2rem;
   text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
   padding: 10rpx;
-}
-
-/* TODO remove for production build */
-.go {
-  position: fixed;
-  top: 50%;
-  z-index: 9999;
 }
