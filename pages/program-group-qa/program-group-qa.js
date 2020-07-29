@@ -27,10 +27,9 @@ Page({
     // TODO get rid of the next block of logs
 
     if (this.data.programGroup.qaFetchTimestamp === undefined) {
-      console.log('qaFetchTimestamp is undefined, fetching qa');
+      console.debug('qaFetchTimestamp is undefined, fetching qa');
       this.fetchProgramGroupQa();
     } else {
-      console.log('qaFetchTimestamp is not undefined');
       this.setData({
         qas: this.data.programGroup.qas
       });
@@ -80,11 +79,7 @@ Page({
         console.warn('Request failed. ' + app.globalData.url + endpoint);
       },
       complete: (res) => {
-
-        // Hide the loader
         wx.hideLoading();
-        
-        console.log('Request completed. ' + app.globalData.url + endpoint);
       }
     })
   },

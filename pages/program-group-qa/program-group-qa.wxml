@@ -8,10 +8,14 @@
       <view class='qa-avatar'>
         <image src='{{ qa.user_avatar_url }}'></image>
       </view>
-      <view class='qa-user-nickname'>{{ qa.user_nickname }}</view>
-      <view class='qa-asked'>{{ qa.asked }}</view>
-      <view class='qa-question'>{{ qa.question }}</view>
-      <view class='qa-answer'>{{ qa.answer ? qa.answer : '暂时没有答案' }}</view>
+      <view class="right-column">
+        <view class="right-column-first-row">
+          <view class='qa-user-nickname'>{{ qa.user_nickname }}</view>
+          <view class='qa-asked'>{{ qa.asked }}</view>        
+        </view>
+        <view class='qa-question'>{{ qa.question }}</view>
+        <view class='qa-answer'>{{ qa.answer ? qa.answer : '暂时没有答案' }}</view>
+      </view>
     </view>
 
   </block>
@@ -21,7 +25,7 @@
   </view>
 
   <view class='program-group-qa-action-bar'>
-    <button bindtap='askQuestion'>请留下您的问题</button>
+    <button bindtap='askQuestion' type="primary">请留下您的问题</button>
   </view>
 
 </view>
