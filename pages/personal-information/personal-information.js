@@ -1,5 +1,6 @@
 // pages/personal-information/personal-information.js
-const app = getApp()
+const app = getApp();
+const utils = require('../../utils/util.js');
 
 Page({
 
@@ -26,8 +27,8 @@ Page({
    */
   onLoad: function (options) {
 
-    let title = '创建新营员',
-      client = {};
+    let title = '创建新营员';
+    let client = {};
 
     if (options.id) {
 
@@ -58,32 +59,35 @@ Page({
   },
 
   /**
-   * Handler for the blur event on the Client's name input field
+   * Handler for the blur event on an input field
    */
   updatePI: function (e) {
-
-    let attr = e.target.dataset.attr;
+    const attr = e.target.dataset.attr;
     let updatedValue = e.detail.value;
     let oldValue = this.data.client[attr];
-
     // Prepare variables 
     if (typeof oldValue === 'string' && typeof updatedValue === 'string') {
-
       oldValue = oldValue.trim();
       updatedValue = updatedValue.trim();
-
     }
-    
-    // TODO improve the check on updated attributes
     if (this.isValueUpdated(oldValue, updatedValue)) {
-
-      console.log('The user has updated ' + attr + ' value from ' + this.data.client[attr] + ' to ' + updatedValue);
-      this.saveUpdatedClientInfo(attr, updatedValue);
-
+      console.debug(`User updated ${attr} from ${oldValue} to ${updatedValue}`);
+      // ID card number client side validation
+      if (attr === 'id_card_number') {
+        const validation = utils.verifyIdCard(updatedValue);
+        if (validation !== true) {
+          const errors = this.data.errors;
+          errors.id_card_number = validation;
+          this.setData({
+            errors
+          });
+          return false;
+        }
+      }
+      return this.saveUpdatedClientInfo(attr, updatedValue);
     } else {
-
-      console.log('User information was not updated');
-
+      console.debug('User information was not updated');
+      return false;
     }
   },
 
@@ -92,55 +96,33 @@ Page({
    * return true | false
    */
   isValueUpdated: function (oldValue, newValue) {
-
     if (!oldValue) {
-
       if (!newValue) {
-
         // Both values are empty no change
         return false;
-
       }
-
       // Old value is empty and new value has a value, update
       return true;
-
-    } else if (oldValue === newValue) {
-
-      // The old value and new value are the same do not update
-      return false;
-
-    } else {
-
-      // Changed value, update
-      return true;
-      
     }
+    return oldValue !== newValue;
   },
 
   /**
    * Save the updated client information on all relevant places.
    */
   saveUpdatedClientInfo: function (attr, updatedValue) {
-
     // Semantically should be a PATCH but wx.request does not allow it
     let method = 'PUT';
     let endpoint = 'clients';
-
     if (!this.data.client.id) {
-
       console.debug('New client entry, POST', this.data.client);
       method = 'POST';
-
     } else {
-
       console.debug('Existing client with ID ' + this.data.client.id + ' PUT ');
-
       // Update endpoint to include the client ID ie 'clients/45'
       endpoint += '/' + this.data.client.id;
-      
     }
-
+    wx.showNavigationBarLoading();
     wx.request({
       url: app.globalData.url + endpoint, 
       method: method,
@@ -152,34 +134,24 @@ Page({
         'Authorization': 'Bearer ' + app.globalData.accessToken
       },
       success: res => {
-
-        if (res.statusCode == 200 || res.statusCode == 201) {
-
+        if (res.statusCode === 200 || res.statusCode === 201) {
           this.setData({
             client: res.data,
             errors: {}
           });
-
           this.showToast({
             icon: 'success',
             content: '保存所有更改'
           });
-
           // Update the global provider information with client data and persist it
           app.globalData.accountInfoProvider.updateClientInfo(res.data);
-
-        } else if (res.statusCode == 422) {
-
+        } else if (res.statusCode === 422) {
           // The request was correct but there were some validation errors
           console.debug('PI::saveUser server encountered validation errors 422 code returned');
           console.debug(res.data);
-
           this.updateModelErrors(res.data);
-
         } else {
-
           console.warn('PI::saveUser Server returned a ' + res.statusCode + ' code.');
-
           this.showToast({
             icon: 'error',
             content: '有些不对劲'
@@ -187,17 +159,16 @@ Page({
         }
       },
       fail: res => {
-
         this.showToast({
           icon: 'error',
           content: '有些不对劲'
         });
-
         console.warn('PI::saveUser request failed');
       },
-      complete: res => {}
+      complete: res => {
+        wx.hideNavigationBarLoading();
+      }
     });
-
   },
 
   /**

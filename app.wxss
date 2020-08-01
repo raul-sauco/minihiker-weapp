@@ -192,7 +192,7 @@ picker .picker-box {
   justify-content: space-evenly;
 }
 
-.has-error .input-label {
+.has-error .input-label, .error-message-container {
   color: #a94442;
 }
 
