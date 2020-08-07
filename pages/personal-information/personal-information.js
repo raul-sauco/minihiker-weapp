@@ -154,23 +154,32 @@ Page({
           console.warn('PI::saveUser Server returned a ' + res.statusCode + ' code.');
           this.showToast({
             icon: 'error',
-            content: '有些不对劲'
+            content: '服务器错误15157'
           });
           app.log({
             message: 'Error updating client ' + this.data.client.id + ' personal information',
+            extra: 'Unexpected response status code ' + res.statusCode + '; MH error code 15157',
             res: JSON.stringify(res),
-            extra: 'Unexpected response code: ' + res.statusCode,
             level: 1,
             page: 'pages/personal-information',
             method: 'saveUpdatedClientInformation',
-            line: '160',
+            line: '160'
           });
         }
       },
       fail: res => {
         this.showToast({
           icon: 'error',
-          content: '有些不对劲'
+          content: '网络错误15173'
+        });
+        app.log({
+          message: 'Error updating client ' + this.data.client.id + ' personal information',
+          extra: 'wx.request fail. MH error code 15173',
+          res: JSON.stringify(res),
+          level: 1,
+          page: 'pages/personal-information',
+          method: 'saveUpdatedClientInformation',
+          line: '175'
         });
         console.warn('PI::saveUser request failed');
       },
@@ -353,8 +362,6 @@ Page({
             // request sends mulitpart data, parse response
             const clientData = JSON.parse(res.data);
 
-            console.debug('Image Upload success');
-
             if (res.statusCode === 200) {
 
               console.debug('Image Upload 200; Updating UI');
@@ -372,33 +379,32 @@ Page({
               // Update the global provider information with client data and persist it
               app.globalData.accountInfoProvider.updateClientInfo(clientData);
 
-            } else if (res.statusCode == 422) {
+            } else if (res.statusCode === 422) {
 
-              // The request was correct but there were some validation errors
-              console.log('PI::uploadImage encountered validation errors 422 code returned');
-              console.warn(clientData);
+              console.warn('PI::uploadImage encountered validation errors 422 code returned', clientData);
 
               this.updateModelErrors(clientData);
 
               this.showToast({
                 icon: 'error',
-                content: '资料有误'
+                content: '信息有误'
               });
 
             } else {
-
               console.warn('PI::uploadImage; Server returned a ' + res.statusCode + ' code.');
-
               this.showToast({
                 icon: 'error',
-                content: '有些不对劲'
+                content: '服务器错误15399'
               });
-
-              wx.showModal({
-                title: '有些不对劲',
-                content: JSON.stringify(err),
+              app.log({
+                message: 'Error uploading client passport image',
+                extra: 'Unexpected response code ' + res.statusCode + '. MH error code 15399',
+                res: JSON.stringify(res),
+                level: 1,
+                page: 'pages/personal-information',
+                method: 'uploadImage',
+                line: '399'
               });
-
             }
           },
           fail: err => {
@@ -406,23 +412,32 @@ Page({
 
             this.showToast({
               icon: 'error',
-              content: '网络错误'
+              content: '网络错误15415'
             });
 
             if (err.errMsg && err.errMsg.indexOf('url') !== 1) {
 
               wx.showModal({
-                title: '网络错误',
+                title: '网络错误15421',
                 content: `${err.errMsg}; url: ${url}`,
               });
 
             } else {
 
               wx.showModal({
-                title: '网络错误',
+                title: '网络错误15428',
                 content: JSON.stringify(err),
               });
             }
+            app.log({
+              message: 'Request failed uploading client passport image',
+              extra: 'MH error code 15421',
+              res: JSON.stringify(err),
+              level: 1,
+              page: 'pages/personal-information',
+              method: 'uploadImage',
+              line: '399'
+            });
 
           },
           complete: () => {
@@ -437,12 +452,16 @@ Page({
 
         this.showToast({
           icon: 'error',
-          content: '选择图片时出错'
+          content: '选择图片时出错15455'
         });
-
-        wx.showModal({
-          title: '有些不对劲',
-          content: JSON.stringify(err),
+        app.log({
+          message: 'Native wx.chooseimage function error',
+          extra: 'MH error code 15455',
+          res: JSON.stringify(err),
+          level: 1,
+          page: 'pages/personal-information',
+          method: 'uploadImage',
+          line: '449'
         });
 
       }
@@ -511,7 +530,7 @@ Page({
         });
 
         console.warn('PI::saveUser request failed', err);
-        
+
         // Log this error to the server
         app.log({
           message: 'Error deleting client ' + this.data.client.id,
