@@ -268,9 +268,8 @@ Page({
 
     } else {
 
-
       wx.showToast({
-        title: '成功！ 保存所有更改',
+        title: '更新信息成功！',
         icon: 'success'
       });
 
@@ -358,7 +357,7 @@ Page({
 
               this.showToast({
                 icon: 'success',
-                content: '保存所有更改'
+                content: '更新信息成功！'
               });
 
               // Update the global provider information with client data and persist it
