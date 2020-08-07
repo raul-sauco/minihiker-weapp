@@ -27,7 +27,7 @@ Page({
    */
   onLoad: function (options) {
 
-    let title = '创建新营员';
+    let title = '创建新成员';
     let client = {};
 
     if (options.id) {
@@ -231,7 +231,7 @@ Page({
 
     const errors = {};
 
-    let requiredAttrs = ['name_zh','id_card_number','family_role_id'],
+    let requiredAttrs = ['name_zh', 'id_card_number', 'family_role_id', 'is_male','birthdate'],
       missing = false;
     if (this.data.client.hasInt) {
       requiredAttrs.push('passport_number', 'passport_issue_date', 'passport_expire_date', 'passport_place_of_issue');
@@ -273,7 +273,7 @@ Page({
       // There are some errors, report and don't exit
       wx.showModal({
         title: '错误！',
-        content: '无法保存数据，请检查错误消息，然后重试。',
+        content: '请您将必填信息补充完整。',
         cancelText: '放弃更改',
         success: function (res) {
           if (res.confirm) {

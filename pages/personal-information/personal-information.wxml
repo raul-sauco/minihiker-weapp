@@ -6,7 +6,7 @@
 
     <view class='input-group {{ errors.name_zh ? "has-error" : "" }}'>
       <view class='input-label'>
-        营员名称
+        姓名
         <text class="input-label-required-icon">*</text>
       </view>
       <input name='name_zh' maxlength='12'
@@ -39,7 +39,10 @@
     </view>
 
     <view class='input-group {{ errors.birthdate ? "has-error" : "" }}'>
-      <view class='input-label'>出生日期</view>
+      <view class='input-label'>
+        出生日期
+        <text class="input-label-required-icon">*</text>
+      </view>
       <picker name='birthdate' mode='date' bindchange='updatePI'
         data-attr='birthdate' value='{{ client.birthdate }}'>
         <view class='picker-box'>{{ client.birthdate || '' }}</view>
@@ -61,7 +64,10 @@
 
     <!--  TODO control that null || 0 || '0' || undefined all produce the expected results -->
     <view class='input-group {{ errors.is_male ? "has-error" : "" }}'>
-      <view class='input-label'>性别</view>
+      <view class='input-label'>
+        性别
+        <text class="input-label-required-icon">*</text>
+        </view>
       <picker bindchange="updatePI" value='{{ client.is_male }}' 
         range="{{ sexRange }}" data-attr='is_male'>
         <view class="picker-box">{{ sexRange[client.is_male] }}</view>
@@ -240,7 +246,9 @@
     <!-- END photo upload section -->
 
     <view class='input-group {{ errors.remarks ? "has-error" : "" }}'>
-      <view class='input-label'>备注</view>
+      <view class='input-label'>
+        备注（如关于饮食禁忌、身体情况或者需要老师注意的特殊事项）
+      </view>
       <textarea name='remarks' bindblur='updatePI'
         value='{{ client.remarks }}' data-attr='remarks'>
       </textarea>
