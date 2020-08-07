@@ -62,7 +62,28 @@
       </view>
     </view>
 
-    <!--  TODO control that null || 0 || '0' || undefined all produce the expected results -->
+    <wxs module="pi">
+      console.log('Hello from personal information wxs');
+      module.exports.getNumericGender = function (gender) {
+        if (
+          gender === 1 || 
+          gender === '1' || 
+          gender === true || 
+          gender === 'true') {
+            return 1;
+          }
+        if (
+          gender === 0 ||
+          gender === '0' ||
+          gender === false ||
+          gender === 'false'
+        ) {
+          return 0;
+        }
+        // If not match is found return the original value
+        return gender;
+      }
+    </wxs>
     <view class='input-group {{ errors.is_male ? "has-error" : "" }}'>
       <view class='input-label'>
         性别
@@ -70,7 +91,7 @@
         </view>
       <picker bindchange="updatePI" value='{{ client.is_male }}' 
         range="{{ sexRange }}" data-attr='is_male'>
-        <view class="picker-box">{{ sexRange[client.is_male] }}</view>
+        <view class="picker-box">{{ sexRange[pi.getNumericGender(client.is_male)] }}</view>
       </picker>
       <view class='error-message-container' wx:if='{{ errors.is_male }}'>
         {{ errors.is_male }}
