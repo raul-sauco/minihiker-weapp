@@ -128,8 +128,19 @@ Page({
         icon: 'none',
         title: err.msg,
       });
+
+      app.log({
+        message: 'Error fetching international program groups',
+        res: err,
+        extra: JSON.stringify(err),
+        level: 3,
+        page: 'pages/index',
+        method: 'fetchProgramGroups',
+        line: '132',
+        timestamp: Date.now()
+      });
       
-      setTimeout(this.fetchProgramGroups, 3000, searchQuery, page);
+      // setTimeout(this.fetchProgramGroups, 3000, searchQuery, page);
 
     });
 

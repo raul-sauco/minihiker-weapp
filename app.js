@@ -245,6 +245,44 @@ App({
     }
   },
 
+  /**
+   * Send an error message to the server. Accepted parameters are: 
+   * {
+   *   message: string,
+   *   res: string,
+   *   extra: string,
+   *   page: string,
+   *   method: string,
+   *   line: string,
+   *   timestamp: string,
+   *   level: number
+   * }
+   */
+  log: function (data) {
+    data.timestamp = '' + Date.now();
+    const endpoint = 'weapp-logs';
+    const url = this.globalData.url + endpoint;
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.globalData.accessToken
+    };
+    wx.request({
+      url,
+      header,
+      data,
+      method: 'POST',
+      success: res => {
+        if (res.statusCode !== 201) {
+          console.warn('Error sending log to server', res);
+        }
+      },
+      fail: err => {
+        console.warn('Error sending log to server', err);
+      }
+    });
+
+  },
+
   globalData: {
     userInfo: null,
     hasUserInfo: false,

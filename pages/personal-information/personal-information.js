@@ -156,6 +156,15 @@ Page({
             icon: 'error',
             content: '有些不对劲'
           });
+          app.log({
+            message: 'Error updating client ' + this.data.client.id + ' personal information',
+            res: JSON.stringify(res),
+            extra: 'Unexpected response code: ' + res.statusCode,
+            level: 1,
+            page: 'pages/personal-information',
+            method: 'saveUpdatedClientInformation',
+            line: '160',
+          });
         }
       },
       fail: res => {
@@ -477,9 +486,19 @@ Page({
 
           this.showToast({
             icon: 'error',
-            content: '有些不对劲'
+            content: '删除错误'
           });
 
+          // Log this error to the server
+          app.log({
+            message: 'Error deleting client ' + this.data.client.id,
+            res: JSON.stringify(res),
+            extra: 'Unexpected response code: ' + res.statusCode,
+            level: 1,
+            page: 'pages/personal-information',
+            method: 'deleteClient',
+            line: '160',
+          });
         }
       },
       fail: err => {
@@ -488,12 +507,22 @@ Page({
 
         this.showToast({
           icon: 'error',
-          content: '有些不对劲'
+          content: '删除错误'
         });
 
         console.warn('PI::saveUser request failed', err);
+        
+        // Log this error to the server
+        app.log({
+          message: 'Error deleting client ' + this.data.client.id,
+          res: JSON.stringify(err),
+          level: 1,
+          line: '507',
+          page: 'pages/personal-information',
+          method: 'deleteClient'
+        });
       },
-      complete: res => { }
+      // complete: res => { }
     });
   }
 })
