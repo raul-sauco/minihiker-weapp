@@ -160,6 +160,17 @@ Page({
             message: 'Error updating client ' + this.data.client.id + ' personal information',
             extra: 'Unexpected response status code ' + res.statusCode + '; MH error code 15157',
             res: JSON.stringify(res),
+            req: JSON.stringify({
+              url: app.globalData.url + endpoint,
+              method: method,
+              data: {
+                [attr]: updatedValue
+              },
+              header: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + app.globalData.accessToken
+              }
+            }),
             level: 1,
             page: 'pages/personal-information',
             method: 'saveUpdatedClientInformation',
@@ -176,6 +187,17 @@ Page({
           message: 'Error updating client ' + this.data.client.id + ' personal information',
           extra: 'wx.request fail. MH error code 15173',
           res: JSON.stringify(res),
+          req: JSON.stringify({
+            url: app.globalData.url + endpoint,
+            method: method,
+            data: {
+              [attr]: updatedValue
+            },
+            header: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + app.globalData.accessToken
+            }
+          }),
           level: 1,
           page: 'pages/personal-information',
           method: 'saveUpdatedClientInformation',
@@ -394,12 +416,23 @@ Page({
               console.warn('PI::uploadImage; Server returned a ' + res.statusCode + ' code.');
               this.showToast({
                 icon: 'error',
-                content: '服务器错误15399'
+                content: '请您先将必填信息补充完整。错误代码15399'
               });
               app.log({
-                message: 'Error uploading client passport image',
-                extra: 'Unexpected response code ' + res.statusCode + '. MH error code 15399',
+                message: 'Error uploading client passport image. Unexpected response code ' + res.statusCode,
+                extra: 'MH error code 15399',
                 res: JSON.stringify(res),
+                req: JSON.stringify({
+                  url,
+                  header: {
+                    'Authorization': 'Bearer ' + app.globalData.accessToken
+                  },
+                  filePath: tempFilePaths[0],
+                  name: 'image',
+                  formData: {
+                    'client': this.data.client.id
+                  }
+                }),
                 level: 1,
                 page: 'pages/personal-information',
                 method: 'uploadImage',
@@ -433,6 +466,17 @@ Page({
               message: 'Request failed uploading client passport image',
               extra: 'MH error code 15421',
               res: JSON.stringify(err),
+              req: JSON.stringify({
+                url,
+                header: {
+                  'Authorization': 'Bearer ' + app.globalData.accessToken
+                },
+                filePath: tempFilePaths[0],
+                name: 'image',
+                formData: {
+                  'client': this.data.client.id
+                }
+              }),
               level: 1,
               page: 'pages/personal-information',
               method: 'uploadImage',
@@ -489,7 +533,7 @@ Page({
 
         wx.hideLoading();
 
-        if (res.statusCode == 204) {
+        if (res.statusCode === 204) {
 
           this.showToast({
             icon: 'success',
@@ -512,11 +556,18 @@ Page({
           app.log({
             message: 'Error deleting client ' + this.data.client.id,
             res: JSON.stringify(res),
-            extra: 'Unexpected response code: ' + res.statusCode,
+            req: JSON.stringify({
+              url,
+              method: 'DELETE',
+              header: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + app.globalData.accessToken
+            }}),
+            extra: 'Unexpected response code: ' + res.statusCode + '. Mh error code 15556',
             level: 1,
             page: 'pages/personal-information',
             method: 'deleteClient',
-            line: '160',
+            line: '570',
           });
         }
       },
@@ -535,8 +586,17 @@ Page({
         app.log({
           message: 'Error deleting client ' + this.data.client.id,
           res: JSON.stringify(err),
+          req: JSON.stringify({
+            url,
+            method: 'DELETE',
+            header: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + app.globalData.accessToken
+            }
+          }),
+          extra: 'Request failed. Mh error code 15586',
           level: 1,
-          line: '507',
+          line: '599',
           page: 'pages/personal-information',
           method: 'deleteClient'
         });
