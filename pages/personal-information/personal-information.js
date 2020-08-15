@@ -280,6 +280,11 @@ Page({
         errors: errors
       });
 
+      this.showToast({
+        icon: 'warn',
+        content: '请您先将必填信息补充完整'
+      });
+
     } else {
 
       // If all the required fields have data, continue. Conclude update will check other validation errors
@@ -348,7 +353,7 @@ Page({
         content: ''
       };
       this.setData({notification: notification});
-    }, 1500);
+    }, 3000);
   },
 
   /**
@@ -410,7 +415,7 @@ Page({
               this.updateModelErrors(clientData);
 
               this.showToast({
-                icon: 'error',
+                icon: 'warn',
                 content: '请检查字段中的错误'
               });
 
