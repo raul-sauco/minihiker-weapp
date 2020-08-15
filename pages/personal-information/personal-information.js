@@ -152,9 +152,10 @@ Page({
           this.updateModelErrors(res.data);
         } else {
           console.warn('PI::saveUser Server returned a ' + res.statusCode + ' code.');
-          this.showToast({
-            icon: 'error',
-            content: '服务器错误15157'
+          wx.showModal({
+            title: '服务器错误',
+            content: '处理您的请求时出错，请稍后重试。 （错误15157）',
+            showCancel: false
           });
           app.log({
             message: 'Error updating client ' + this.data.client.id + ' personal information',
@@ -179,9 +180,10 @@ Page({
         }
       },
       fail: res => {
-        this.showToast({
-          icon: 'error',
-          content: '网络错误15173'
+        wx.showModal({
+          title: '网络错误',
+          content: '处理您的请求时出错，请稍后重试。 （错误15183）',
+          showCancel: false
         });
         app.log({
           message: 'Error updating client ' + this.data.client.id + ' personal information',
@@ -409,14 +411,15 @@ Page({
 
               this.showToast({
                 icon: 'error',
-                content: '信息有误'
+                content: '请检查字段中的错误'
               });
 
             } else {
               console.warn('PI::uploadImage; Server returned a ' + res.statusCode + ' code.');
-              this.showToast({
-                icon: 'error',
-                content: '请您先将必填信息补充完整。错误代码15399'
+              wx.showModal({
+                title: '服务器错误',
+                content: '处理您的请求时出错，请稍后重试。 （错误15423）',
+                showCancel: false
               });
               app.log({
                 message: 'Error uploading client passport image. Unexpected response code ' + res.statusCode,
@@ -442,21 +445,12 @@ Page({
           },
           fail: err => {
             console.error(err);
-
-            this.showToast({
-              icon: 'error',
-              content: '网络错误15415'
-            });
-
             if (err.errMsg && err.errMsg.indexOf('url') !== 1) {
-
               wx.showModal({
                 title: '网络错误15421',
                 content: `${err.errMsg}; url: ${url}`,
               });
-
             } else {
-
               wx.showModal({
                 title: '网络错误15428',
                 content: JSON.stringify(err),
@@ -490,17 +484,16 @@ Page({
           }
         })
       },
-      fail: err => {
-        
+      fail: err => {        
         console.error('wx.chooseImage error');
-
-        this.showToast({
-          icon: 'error',
-          content: '选择图片时出错15455'
+        wx.showModal({
+          title: '选择图片时出错',
+          content: '请稍后重试。（错误15491）',
+          showCancel: false
         });
         app.log({
           message: 'Native wx.chooseimage function error',
-          extra: 'MH error code 15455',
+          extra: 'MH error code 15491',
           res: JSON.stringify(err),
           level: 1,
           page: 'pages/personal-information',
@@ -544,15 +537,12 @@ Page({
           wx.navigateBack({ delta: 1 });
 
         }  else {
-
           console.warn('Client delete encountered an error', res);
-
-          this.showToast({
-            icon: 'error',
-            content: '删除错误'
+          wx.showModal({
+            title: '删除错误',
+            content: '处理您的请求时出错，请稍后重试。 （错误15543）',
+            showCancel: false
           });
-
-          // Log this error to the server
           app.log({
             message: 'Error deleting client ' + this.data.client.id,
             res: JSON.stringify(res),
@@ -563,21 +553,20 @@ Page({
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + app.globalData.accessToken
             }}),
-            extra: 'Unexpected response code: ' + res.statusCode + '. Mh error code 15556',
+            extra: 'Unexpected response code: ' + res.statusCode + '. Mh error code 15543',
             level: 1,
             page: 'pages/personal-information',
             method: 'deleteClient',
-            line: '570',
+            line: '560',
           });
         }
       },
       fail: err => {
-
         wx.hideLoading();
-
-        this.showToast({
-          icon: 'error',
-          content: '删除错误'
+        wx.showModal({
+          title: '删除错误',
+          content: '处理您的请求时出错，请稍后重试。 （错误15586）',
+          showCancel: false
         });
 
         console.warn('PI::saveUser request failed', err);
