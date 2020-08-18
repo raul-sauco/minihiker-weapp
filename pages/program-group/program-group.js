@@ -99,7 +99,7 @@ Page({
       p => p.id === event.currentTarget.dataset.programId
     );
     const spotsLeft = program.client_limit - program.registrations;
-    if (program.registration_open && spotsLeft > 0) {
+    if (!program.selfRegistered && program.registration_open && spotsLeft > 0) {
       this.setData({
         selectedProgram: program
       });

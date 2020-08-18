@@ -33,7 +33,7 @@
   <scroll-view scroll-x="true" id='programs-container' wx:if='selectedProgram'>
 
     <view wx:for='{{ programGroup.programs }}' wx:key='id' 
-      class='program-container {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
+      class='program-container {{ item.selfRegistered ? "self-program" : "" }} {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
       data-program-id='{{ item.id }}' ontap='selectProgram'>
 
       <view class='program-inner'>
@@ -43,6 +43,10 @@
           <text class='attr-value selected-program-confirmation' 
             wx:if='{{ item.id === selectedProgram.id }}'>
             <text class='fas fa-check-circle'></text>已选
+          </text>
+          <text class='attr-value self-registered-confirmation' 
+            wx:if='{{ item.selfRegistered }}'>
+            <text class='fas fa-check-circle'></text>已报名
           </text>
         </view>
 

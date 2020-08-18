@@ -294,7 +294,7 @@ class ProgramProvider {
     return new Promise((resolve, reject) => {
 
       const url = `${this.url}program-groups/${id}?` +
-      'expand=location,programs,type,programs.registrations,programs.period,programs.prices,arraywad,arraywap,arraywar,registration_open';
+      'expand=location,programs,type,programs.registrations,programs.period,programs.prices,programs.selfRegistered,arraywad,arraywap,arraywar,registration_open';
 
       wx.request({
         url: url,

@@ -192,49 +192,16 @@ loading {
   margin: 20rpx 0;
 }
 
-.wart-image-caption {
-  font-style: italic;
-  font-size: 0.9rem;
+/* Styles for programs that the user has registered for already */
+#programs-container .self-program .fas, 
+#programs-container .self-program .far, 
+.self-program .program-group-details-container .fas,
+.self-program .program-inner-entry {
+  color: #4285f4;
 }
 
-.wart-icon {
-  color: #0ba360;
-  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
-}
-
-.wart-icon-h-padded {
-  padding: 0 0.5rem;
-}
-
-.wart-bullet-big {
-  color: #0ba360;
-  font-size: 1.3rem;
-  width: 1.5rem;
-  text-align: left;
-  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
-}
-
-.wart-italic-block {
-  font-style: italic;
-}
-
-.wart-padded-block {
-  padding: 1rem;
-}
-
-.wart-poem-container {
-  font-style: italic;
-  margin: 40rpx 0;
-}
-
-.wart-p {
-  padding: 5rpx 0 10rpx;
-}
-
-.wart-fun-fact {
-  display: flex;
-  justify-content: space-between;
-  padding: 5rpx;
+.self-program > .program-inner {
+  border: 1px solid #4285f4;
 }
 
 .full-page-loading {
