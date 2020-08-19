@@ -197,11 +197,15 @@ loading {
 #programs-container .self-program .far, 
 .self-program .program-group-details-container .fas,
 .self-program .program-inner-entry {
-  color: #4285f4;
+  color: #dc3545;
 }
 
 .self-program > .program-inner {
-  border: 1px solid #4285f4;
+  border: 1px solid #dc3545;
+}
+
+#programs-container .self-program .program-period {
+  font-weight: bold;
 }
 
 .full-page-loading {
