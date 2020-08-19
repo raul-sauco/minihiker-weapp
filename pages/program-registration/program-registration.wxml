@@ -7,22 +7,18 @@
 
   <view class='program-details'>
 
-    <view class='program-details-name-date'>
+    <view class='program-details-entry'>
+      <text class='fas fa-info'></text>
+      活动名称: {{ programGroup.weapp_display_name }}</view>
 
-      <view class='program-name'>{{ programGroup.weapp_display_name }}</view>
-
-      <view class='program-dates'>
-        {{ program.formattedStartDate }}-{{ program.formattedEndDate }}
-      </view>
-    
+    <view class='program-details-entry'>
+      <text class='fas fa-calendar-alt'></text>
+      活动时间: {{ program.formattedStartDate }}-{{ program.formattedEndDate }}
     </view>
 
-    <view>
-    
-      <view class='program-details-price'>    
-        {{ selectedPrice ? selectedPrice.price : program.minPrice  + '-' + program.maxPrice }}元
-      </view>
-
+    <view class='program-details-entry'>
+      <text class='fas fa-yen-sign'></text>
+      活动金额: {{ selectedPrice ? selectedPrice.price : program.minPrice  + '-' + program.maxPrice }}元
     </view>
 
     <view class="select-price-warning-container {{ selectPriceWarningVisible ? 'warning-visible' : '' }}">

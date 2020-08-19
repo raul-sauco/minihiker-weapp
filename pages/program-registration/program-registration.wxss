@@ -1,17 +1,36 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .program-group-cover-image {
   width: 100%;
 }
 
 .program-details {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  margin: 20rpx;
+  width: 95%;
 }
 
-.program-dates {
-  font-size: 1rem;
-  color: #999;
+.program-details .fas, 
+.program-details .far {
+  color: #0ba360;
+  width: 60rpx;
+  text-align: center;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 1px #ddd, 0 3px 5px rgb(200,200,200,0.7);
+}
+
+.program-details-entry {
+  text-align: left;
+  /* color: #777; */
+  padding: 0.4rem 0.3rem;
+  border-bottom: 1px solid #aaa;
+}
+
+.program-details-entry:last-child {
+  border-bottom: none;
 }
 
 .select-price-warning-container {
@@ -50,13 +69,14 @@
 .select-price-warning-alert .fas {
   margin-right: 0.3rem;
   font-size: 1.3rem;
+  color: #d9534f;
 }
 
 .program-prices {
   display: flex;
   flex-wrap: wrap;
-
-  margin: 20rpx;
+  width: 95%;
+  margin: 20rpx 0;
 }
 
 .program-price-container {
