@@ -11,11 +11,10 @@ class ProgramProvider {
   /**
    * Initialize the ProgramProvider by creating an empty
    * programGroup Map.
-   * 
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
    */
   constructor () {
     this.programGroups = new Map();
+    this.accessToken = 'guest';
   }
 
   setApiUrl (url) {
