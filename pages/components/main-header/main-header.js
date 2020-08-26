@@ -1,21 +1,13 @@
 const app = getApp()
 
 Component({
-  /**
-   * Component properties
-   */
-  properties: {
+  /** Component properties */
+  properties: { },
 
-  },
-
-  /**
-   * Component initial data
-   */
+  /** Component initial data */
   data: {
     accountInfo: app.globalData.accountInfoProvider,
-    resUrl: app.globalData.resUrl,
-    hasUserInfo: false,
-    userInfo: null
+    staticUrl: app.globalData.staticUrl
   },
 
   /**
@@ -24,16 +16,10 @@ Component({
    */
   attached: function () {
     this.setData({
-      accountInfo: app.globalData.accountInfoProvider,
-      hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo
+      accountInfo: app.globalData.accountInfoProvider
     });
   },
 
-  /**
-   * Component methods
-   */
-  methods: {
-
-  }
+  /** Component methods */
+  methods: { }
 })

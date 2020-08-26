@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "编辑会员信息",
-  "usingComponents": {}
+  "usingComponents": {
+    "main-header": "/pages/components/main-header/main-header"
+  }
 }
