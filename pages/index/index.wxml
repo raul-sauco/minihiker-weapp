@@ -1,82 +1,38 @@
 <!--index.wxml-->
-<!-- This block only will be shown after obtaining access to the user information -->
-<block wx:if="{{ hasUserInfo }}">
-  <view class="search-bar-container">
-    <view class="search-bar-components-container">
-    <text class="fas fa-search search-bar-icon"></text>
-    <input type="text" confirm-type="search" id="program-search-box"
-      placeholder="请输入关键词，亲子/单飞，地点"
-      bindconfirm="search" value="{{ searchQuery }}"></input>    
-    </view>
+<view class="search-bar-container">
+  <view class="search-bar-components-container">
+  <text class="fas fa-search search-bar-icon"></text>
+  <input type="text" confirm-type="search" id="program-search-box"
+    placeholder="请输入关键词，亲子/单飞，地点"
+    bindconfirm="search" value="{{ searchQuery }}"></input>    
   </view>
-  <view class='filters-container' wx:if="{{ filters }}">
-    <scroll-view scroll-x='true'>
-      <view 
-        wx:for="{{ filters }}" 
-        wx:for-item='filter' 
-        wx:key='title'
-        class='filter-container {{ filter.active ? "active-filter" : "" }}' 
-        bindtap='toggleFilter' 
-        data-filter='{{ filter.title }}'
-      >
-        {{ filter.title }}
-      </view>    
-    </scroll-view>
-  </view>
-
-  <banner int="true" class="pg-banner"></banner>
-
-  <view class="container" wx:if='{{ programGroups.length > 0  }}'>
-
-    <block wx:for="{{ programGroups }}" wx:key='id'>
-
-      <program-group program-group-id='{{ item.id }}'></program-group>
-
-    </block>
-
-  </view>
-
-  <block wx:if="{{ loadingPrograms }}">    
-    <loading></loading>
+</view>
+<view class='filters-container' wx:if="{{ filters }}">
+  <scroll-view scroll-x='true'>
+    <view 
+      wx:for="{{ filters }}" 
+      wx:for-item='filter' 
+      wx:key='title'
+      class='filter-container {{ filter.active ? "active-filter" : "" }}' 
+      bindtap='toggleFilter' 
+      data-filter='{{ filter.title }}'
+    >
+      {{ filter.title }}
+    </view>    
+  </scroll-view>
+</view>
+<banner int="true" class="pg-banner"></banner>
+<view class="container" wx:if='{{ programGroups.length > 0  }}'>
+  <block wx:for="{{ programGroups }}" wx:key='id'>
+    <program-group program-group-id='{{ item.id }}'></program-group>
   </block>
-
-  <view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
-    <icon type='info' size='60' />
-    <view class='no-programs-header'>我们很抱歉!</view>
-    <view class='no-programs-body'>您所选时间目前暂无活动</view>
-    <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
-  </view>
+</view>
+<block wx:if="{{ loadingPrograms }}">    
+  <loading></loading>
 </block>
-
-<!-- This block only will be shown if the app component does not have access to the user information -->
-<block  wx:if="{{ hasUserInfo === false }}">
-
-  <view class="obtain-permission-container">
-
-    <block wx:if='{{ canIUseUserInfo }}'>
-      
-      <image class="blurry-logo" src="{{ resUrl + 'img/logo-only-blur-200.png'}}" />
-
-      <text class='authorize-text'>我们需要一些信息来为您创建一个帐户，请使用下面的按钮授权访问您的个人资料照片和昵称。</text>
-
-      <button open-type='getUserInfo' type="primary" id="obtain-permission-button"
-        bindgetuserinfo='bindGetUserInfo'>微信授权登录</button>
-
-      <view class="mh-logo-container">
-        <image class="mh-logo" mode="aspectFit" src="{{ resUrl + 'img/logo200.png'}}" />
-      </view>
-    
-    </block>
-
-    <text wx:else>请更新您的微信版本。</text>
-
-  </view>
-
-</block>
-
-<!-- This block only will be shown if the index page has not loaded yet the globalData -->
-<block  wx:if="{{ hasUserInfo === null }}">
-
-  正在启动...
-
-</block>
+<view wx:if="{{ !loadingPrograms && programGroups.length === 0 }}" class='no-programs-message-container'>
+  <icon type='info' size='60' />
+  <view class='no-programs-header'>我们很抱歉!</view>
+  <view class='no-programs-body'>您所选时间目前暂无活动</view>
+  <button bindtap='toggleFilter' data-filter='no' type='primary'>查看所有活动</button>
+</view>

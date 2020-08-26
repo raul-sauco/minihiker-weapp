@@ -16,29 +16,8 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-    // Force having user info
-    if (!app.globalData.hasUserInfo) {      
-      console.warn('Trying to navigate to pages/national without user info');
-      wx.switchTab({
-        url: '/pages/index/index',
-      });
-    }
     this.fetchActiveFilters();
     this.fetchProgramGroups(null, null);
-  },
-
-  /**
-   * Lifecycle function--Called when page is shown
-   */
-  onShow: function () {
-    // Force having user info
-    if (!app.globalData.hasUserInfo) {
-      console.warn('Trying to navigate to pages/national without user info');
-      wx.switchTab({
-        url: '/pages/index/index',
-      });
-    }
-
   },
 
   /**

@@ -51,31 +51,22 @@ App({
    * Recover the user information from storage if present there
    */
   fetchUserData: function () {
-
     wx.getStorage({
       key: 'user',
       success: (res) => {
-
         if (res.data) {
-
           // We have user info in storage
           this.globalData.userInfo = res.data;
           this.globalData.hasUserInfo = true;
-
           console.debug('Obtained user data from wxStorage', res.data);
-
         } else {
-
           console.debug('Fetching wx user data from wx server');
-
           // Get user info if the user has authorized it previously
           this.obtainUserInfo();
-
         }
-
       },
       fail: (err) => {
-        consoel.warn('Failed to access wxStorage', err);
+        console.warn('Failed to access wxStorage', err);
         this.obtainUserInfo();
       }
     });
@@ -88,12 +79,10 @@ App({
    * to obtain permanent user openid and temporary session_key.
    */
   requestLogin: function () {
-
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log('wx.login returned code: ' + res.code);
-
         // Authenticate the user on the backend
         this.loginUser(res.code);
       }
@@ -291,8 +280,11 @@ App({
     programProvider: null,
     accountInfoProvider: null,
     payments: null,
-    url: 'https://wxapiv1.minihiker.com/',
-    resUrl: 'https://minihiker.com/webapp/',
-    staticUrl: 'https://static.minihiker.com/'
+    // url: 'https://wxapiv1.minihiker.com/',
+    // resUrl: 'https://minihiker.com/webapp/',
+    // staticUrl: 'https://static.minihiker.com/',
+    url: 'http://wxapi.mh/',
+    resUrl: 'http://static.mh/',
+    staticUrl: 'http://static.mh/'
   }
 })

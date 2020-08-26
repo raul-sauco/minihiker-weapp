@@ -3,9 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
-    hasUserInfo: null,
-    userInfo: null,
     loadingPrograms: true,
     hasNextPage: false,
     nextPageNumber: null,
@@ -19,34 +16,17 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function () {
-    this.setUserInfo();
     this.fetchActiveFilters();
     this.fetchProgramGroups(null, null);
-  },
-
-  /**
-   * Set the user info or poll for it if not ready
-   */
-  setUserInfo: function () {
-    this.setData({
-      hasUserInfo: app.globalData.hasUserInfo,
-      userInfo: app.globalData.userInfo
-    });
-    if (this.data.hasUserInfo === false) {
-      console.debug('hasUserInfo is false, setting timeout');
-      setTimeout(this.setUserInfo, 300);
-    }
   },
 
   /**
    * Fetch all the active program-types for the international programs.
    */
   fetchActiveFilters: function () {
-
     wx.showLoading({
       title: '下载中',
     });
-
     const endpoint = 'program-types?weapp-visible=true&int=true';
 
     wx.request({
@@ -199,29 +179,6 @@ Page({
 
     // Return all the active filter titles separated by ','
     return filters.join();
-
-  },
-
-  /**
-   * If the user authorizes access to userInfo, we will get 
-   * the userInfo on the event.
-   */
-  bindGetUserInfo: function (e) {
-
-    let userInfo = e.detail.userInfo;
-
-    // Set the info on the app
-    app.globalData.userInfo = userInfo;
-    app.globalData.hasUserInfo = true;
-
-    // Call the application userInfoReadyCallback
-    app.userInfoReadyCallback(userInfo);
-
-    // Set the info on the page, will refresh the view
-    this.setData({
-      hasUserInfo: true,
-      userInfo: userInfo,
-    });
 
   },
 
