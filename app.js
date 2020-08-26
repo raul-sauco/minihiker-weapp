@@ -1,14 +1,22 @@
 //app.js
 const ProgramProvider = require('./helpers/programProvider.js');
 const AccountInfoProvider = require('./helpers/accountInfoProvider.js');
+const Logger = require('./helpers/logger.js');
+const ENV = 'dev';
 
 App({
   onLaunch: function () {
     this.globalData.accessToken = wx.getStorageSync('accessToken');
 
+    this.globalData.logger = new Logger(this.globalData.url, ENV);
+    if (this.globalData.accessToken) {
+      this.globalData.logger.setAccessToken(this.globalData.accessToken);
+    }
+
     // Get an instance of AccountInfoProvider
     this.globalData.accountInfoProvider = new AccountInfoProvider();
     this.globalData.accountInfoProvider.setApiUrl(this.globalData.url);
+    this.globalData.accountInfoProvider.setLogger(this.globalData.logger);
     if (this.globalData.accessToken) {
       this.globalData.accountInfoProvider.setAccessToken(this.globalData.accessToken);
     }
@@ -87,44 +95,16 @@ App({
     this.globalData.accessToken = accessToken;
     this.globalData.programProvider.setAccessToken(accessToken);
     this.globalData.accountInfoProvider.setAccessToken(accessToken);
+    this.globalData.logger.setAccessToken(accessToken);
   },
 
   /**
-   * Send an error message to the server. Accepted parameters are: 
-   * {
-   *   message: string,
-   *   res: string,
-   *   extra: string,
-   *   page: string,
-   *   method: string,
-   *   line: string,
-   *   timestamp: string,
-   *   level: number
-   * }
+   * @deprecated, clients should switch to calling log directly on the 
+   * logger instance.
    */
   log: function (data) {
-    data.timestamp = '' + Date.now();
-    const endpoint = 'weapp-logs';
-    const url = this.globalData.url + endpoint;
-    const header = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.globalData.accessToken
-    };
-    wx.request({
-      url,
-      header,
-      data,
-      method: 'POST',
-      success: res => {
-        if (res.statusCode !== 201) {
-          console.warn('Error sending log to server', res);
-        }
-      },
-      fail: err => {
-        console.warn('Error sending log to server', err);
-      }
-    });
-
+    console.warn('Calling deprecated method app.log(), please update your code to use logger.log()');
+    this.globalData.logger.log(data);
   },
 
   globalData: {
@@ -132,6 +112,7 @@ App({
     hasUserInfo: false,
     accessToken: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    logger: null,
     programProvider: null,
     accountInfoProvider: null,
     payments: null,

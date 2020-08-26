@@ -6,6 +6,8 @@ const util = require('../utils/util.js');
 
 class AccountInfoProvider {
 
+  logger;
+
   maxCache = 1000 * 60 * 60 * 2; // Two hours
   accessToken;
   url;
@@ -38,6 +40,11 @@ class AccountInfoProvider {
     });
   }
 
+  /** Get a handle to the application logger */
+  setLogger(logger) {
+    this.logger = logger;
+  }
+
   /** Setter for API URL */
   setApiUrl(url) {
     this.url = url;
@@ -56,8 +63,18 @@ class AccountInfoProvider {
   fetchAccountInfo() {
     return new Promise((resolve, reject) => {
       if (!this.accessToken) {
-        // We have to wait until we have an access token
-        console.warn('Tried to fetch account info without access token');        
+        const message = 'Tried to fetch account info without access token';
+        console.warn(message);
+        this.logger.log({
+          message: message,
+          res: null,
+          req: null,
+          extra: null,
+          page: 'accountInfoProvider',
+          method: 'fetchAccountInfo',
+          line: 75,
+          level: 2
+        });      
         // Reject promise and let the component handle retry
         reject({
           error: true,
@@ -98,10 +115,22 @@ class AccountInfoProvider {
             } else {
 
               // There was a problem with the request
-              console.group('Fetch account info success not 200');
-              console.warn(`Request success but code not 200 fetching account info ${this.id}`);
-              console.debug(res);
-              console.groupEnd();
+              const message = `Unexpected response code ${res.statusCode} fetching account info. Expected 200`;
+              console.warn(message);
+              this.logger.log({
+                message: message,
+                res,
+                req: {
+                  url,
+                  headers, 
+                  method: 'GET'
+                },
+                extra: `Response ${res.statusCode} fetching account info for token ${this.accessToken}`,
+                page: 'accountInfoProvider',
+                method: 'fetchAccountInfo',
+                line: 131,
+                level: 2
+              });  
 
               reject({
                 error: true,
@@ -118,6 +147,22 @@ class AccountInfoProvider {
             console.warn(`Request fail fetching account info ${this.id}`);
             console.debug(res);
             console.groupEnd();
+            const message = 'Fetch account info fail';
+            console.warn(message);
+            this.logger.log({
+              message: message,
+              res,
+              req: {
+                url,
+                headers,
+                method: 'GET'
+              },
+              extra: `wx.request failed fetching account info for token ${this.accessToken}`,
+              page: 'accountInfoProvider',
+              method: 'fetchAccountInfo',
+              line: 163,
+              level: 2
+            }); 
 
             reject({
               error: true,
