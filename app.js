@@ -116,11 +116,11 @@ App({
     programProvider: null,
     accountInfoProvider: null,
     payments: null,
-    // url: 'https://wxapiv1.minihiker.com/',
-    // resUrl: 'https://minihiker.com/webapp/',
-    // staticUrl: 'https://static.minihiker.com/',
-    url: 'http://wxapi.mh/',
-    resUrl: 'http://static.mh/',
-    staticUrl: 'http://static.mh/'
+    url: 'https://wxapiv1.minihiker.com/',
+    resUrl: 'https://minihiker.com/webapp/',
+    staticUrl: 'https://static.minihiker.com/',
+    // url: 'http://wxapi.mh/',
+    // resUrl: 'http://static.mh/',
+    // staticUrl: 'http://static.mh/'
   }
 })

@@ -181,6 +181,7 @@ Page({
             } else {
               const message = `Unexpected response http code ${res.statusCode}`;
               console.warn(message);
+              wx.hideLoading();
               wx.showModal({
                 title: '服务器错误',
                 content: '处理您的请求时出错，请稍后重试。 （错误81185）',
@@ -207,6 +208,7 @@ Page({
           },
           fail: err => {
             console.error(err);
+            wx.hideLoading();
             if (err.errMsg && err.errMsg.indexOf('url') !== 1) {
               wx.showModal({
                 title: '网络错误81211',
