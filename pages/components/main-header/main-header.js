@@ -2,7 +2,10 @@ const app = getApp()
 
 Component({
   /** Component properties */
-  properties: { },
+  properties: { 
+    name: null,
+    avatar: null
+  },
 
   /** Component initial data */
   data: {

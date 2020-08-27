@@ -1,55 +1,57 @@
-<main-header></main-header>
-<block wx:if='{{ accountInfo }}'>
+<main-header name="{{ name }}" avatar="{{ avatar }}"></main-header>
 
-  <view class="container">
-
-    <form bindsubmit="formSubmit">
-
-      <view class='input-group {{ errors.name ? "has-error" : "" }}'>
-        <view class='input-label'>
-          帐户名称
-          <text class="input-label-required-icon">*</text>
-        </view>
-        <input name='name' maxlength='12'
-          value='{{ accountInfo.name }}' data-attr='name'>
-        </input>
-        <view class='error-message-container' wx:if='{{ errors.name }}'>
-          {{ errors.name }}
-        </view>
-      </view>
-
-      <view class='input-group {{ errors.phone ? "has-error" : "" }}'>
-        <view class='input-label'>
-          帐户电话号码
-          <text class="input-label-required-icon">*</text>
-        </view>
-        <input name='phone' maxlength='18' 
-          value='{{ accountInfo.phone }}' data-attr='phone'>
-        </input>
-        <view class='error-message-container' wx:if='{{ errors.phone }}'>
-          {{ errors.phone }}
-        </view>
-      </view>
-
-      <view class='input-group {{ errors.wechat ? "has-error" : "" }}'>
-        <view class='input-label'>
-          帐户微信编号
-          <text class="input-label-required-icon">*</text>
-        </view>
-        <input name='wechat' maxlength='64'focus 
-          value='{{ accountInfo.wechat }}' data-attr='wechat'>
-        </input>
-        <view class='error-message-container' wx:if='{{ errors.wechat }}'>
-          {{ errors.wechat }}
-        </view>
-      </view>
-      
-      <view class="form-btn-area">
-        <button form-type="submit" type='primary'>更新</button>
-      </view>
-    
-    </form>
+<view class="container" wx:if='{{ accountInfo }}'>
   
-  </view>
+  <button bindtap="updateAvatar" type='primary' class="update-avatar-button">
+    <text class="far fa-image"></text>
+    更新头像
+  </button>
 
-</block>
+  <form bindsubmit="formSubmit">
+
+    <view class='input-group {{ errors.name ? "has-error" : "" }}'>
+      <view class='input-label'>
+        帐户名称
+        <text class="input-label-required-icon">*</text>
+      </view>
+      <input name='name' maxlength='12'
+        value='{{ accountInfo.name }}' data-attr='name'>
+      </input>
+      <view class='error-message-container' wx:if='{{ errors.name }}'>
+        {{ errors.name }}
+      </view>
+    </view>
+
+    <view class='input-group {{ errors.phone ? "has-error" : "" }}'>
+      <view class='input-label'>
+        帐户电话号码
+        <text class="input-label-required-icon">*</text>
+      </view>
+      <input name='phone' maxlength='18' 
+        value='{{ accountInfo.phone }}' data-attr='phone'>
+      </input>
+      <view class='error-message-container' wx:if='{{ errors.phone }}'>
+        {{ errors.phone }}
+      </view>
+    </view>
+
+    <view class='input-group {{ errors.wechat ? "has-error" : "" }}'>
+      <view class='input-label'>
+        帐户微信编号
+        <text class="input-label-required-icon">*</text>
+      </view>
+      <input name='wechat' maxlength='64'focus 
+        value='{{ accountInfo.wechat }}' data-attr='wechat'>
+      </input>
+      <view class='error-message-container' wx:if='{{ errors.wechat }}'>
+        {{ errors.wechat }}
+      </view>
+    </view>
+    
+    <view class="form-btn-area">
+      <button form-type="submit" type='primary'>更新</button>
+    </view>
+  
+  </form>
+
+</view>

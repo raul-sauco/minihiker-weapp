@@ -13,10 +13,8 @@ Page({
     qrCodeVisible: false
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
+  /** Lifecycle function--Called when page load */
+  onShow: function (options) {
     this.setData({
       accountInfo: app.globalData.accountInfoProvider,
     });    

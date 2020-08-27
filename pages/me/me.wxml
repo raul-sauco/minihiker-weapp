@@ -1,4 +1,4 @@
-<main-header></main-header>
+<main-header name="{{ accountInfo.name }}" avatar="{{ accountInfo.avatar }}"></main-header>
 
 <view class='container'>
 

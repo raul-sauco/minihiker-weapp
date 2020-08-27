@@ -1,106 +1,72 @@
-<main-header></main-header>
+<main-header name="{{ accountInfo.name }}" avatar="{{ accountInfo.avatar }}"></main-header>
 
-<block wx:if='{{ accountInfo }}'>
+<view class="container" wx:if='{{ accountInfo }}'>
 
-  <view class="container">
-  
-    <view class="account-info card active-card" bindtap='editAccountDetails'>
-
-      <view class="account-info-details">
-        
-        <view>帐户名称: {{ accountInfo.name }}</view>
-        
-        <view>帐户类型: {{ accountInfo.category }}</view>
-
-        <view wx:if="{{ accountInfo.category === '会员' }}">
-          会员注册日期: {{ accountInfo.mDate }}
-        </view>
-        
-        <view wx:if="{{ accountInfo.phone }}">
-          帐号电话号码: {{ accountInfo.phone }}
-        </view>
-        <view wx:else class="error-container">
-          请提供至少一个客户的<text class="missing-attribute-name">电话号码</text>
-        </view>
-        
-        <view wx:if="{{ accountInfo.wechat }}">
-          帐号微信号码: {{ accountInfo.wechat }}
-        </view>
-        <view wx:else class="error-container">
-            请提供至少一个客户的<text class="missing-attribute-name">微信ID</text>
-        </view>
-      
+  <view class="account-info card active-card" bindtap='editAccountDetails'>
+    <view class="account-info-details">      
+      <view>帐户名称: {{ accountInfo.name }}</view>      
+      <view>帐户类型: {{ accountInfo.category }}</view>
+      <view wx:if="{{ accountInfo.category === '会员' }}">
+        会员注册日期: {{ accountInfo.mDate }}
+      </view>      
+      <view wx:if="{{ accountInfo.phone }}">
+        帐号电话号码: {{ accountInfo.phone }}
       </view>
-
-      <text class='fas fa-user-edit edit-user-icon'></text>
-
-    </view>
-
-    <view class='client-info-header card active-card' bindtap='addClient'>
-    
-      <text>家庭信息: {{ accountInfo.clients.length }}</text>
-
-      <text class='fas fa-user-plus' id="add-client-icon"></text>      
-
-    </view>
-    
-    <view wx:for='{{ accountInfo.clients }}' wx:key='id' 
-      class="client-container card active-card {{ (!client.name_zh || !client.id_card_number || !client.family_role_id) ? 'has-error card-danger' : '' }}" 
-      wx:for-item='client'
-      data-client-id='{{ client.id }}' bindtap='updateClient'>
-
-      <view>
-
-        <view class='client-index'>家庭成员 {{ index + 1 }}</view>
-      
-        <view>{{ client.nickname || client.name_zh || client.name_en || client.id }}</view>
-
-        <view class="errors-container">
-        
-          <view wx:if="{{ !client.name_zh }}">
-            <text class="missing-attribute-name">名称</text>必填
-          </view>
-        
-          <view wx:if="{{ !client.id_card_number }}">
-            <text class="missing-attribute-name">身份证号码</text>必填
-          </view>
-        
-          <view wx:if="{{ !client.family_role_id }}">
-            <text class="missing-attribute-name">家庭角色</text>必填
-          </view>
-
-          <block wx:if="{{ client.hasInt }}">
-
-            <view class="international-header" wx:if="{{ !client.passport_number || !client.passport_issue_date || !client.passport_expire_date || !client.passport_issuing_authority }}">
-              由于您将参加我们的一项国际计划，因此我们需要您提供一些其他信息。
-            </view>
-
-            <view wx:if="{{ !client.passport_number }}">
-              <text class="missing-attribute-name">护照号码</text>必填
-            </view>
-
-            <view wx:if="{{ !client.passport_issue_date }}">
-              <text class="missing-attribute-name">护照签发日期</text>必填
-            </view>
-
-            <view wx:if="{{ !client.passport_expire_date }}">
-              <text class="missing-attribute-name">护照到期日</text>必填
-            </view>
-
-            <view wx:if="{{ !client.passport_issuing_authority }}">
-              <text class="missing-attribute-name">护照签发地</text>必填
-            </view>
-          
-          </block>
-        
-        </view>
-        
+      <view wx:else class="error-container">
+        请提供至少一个客户的<text class="missing-attribute-name">电话号码</text>
+      </view>      
+      <view wx:if="{{ accountInfo.wechat }}">
+        帐号微信号码: {{ accountInfo.wechat }}
       </view>
-
-      <text class='fas fa-user-edit edit-user-icon'></text>
-
+      <view wx:else class="error-container">
+          请提供至少一个客户的<text class="missing-attribute-name">微信ID</text>
+      </view>    
     </view>
-  
+    <text class='fas fa-user-edit edit-user-icon'></text>
   </view>
 
-</block>
+  <view class='client-info-header card active-card' bindtap='addClient'>  
+    <text>家庭信息: {{ accountInfo.clients.length }}</text>
+    <text class='fas fa-user-plus' id="add-client-icon"></text>
+  </view>
+  
+  <view wx:for='{{ accountInfo.clients }}' wx:key='id' 
+    class="client-container card active-card {{ (!client.name_zh || !client.id_card_number || !client.family_role_id) ? 'has-error card-danger' : '' }}" 
+    wx:for-item='client'
+    data-client-id='{{ client.id }}' bindtap='updateClient'>
+    <view>
+      <view class='client-index'>家庭成员 {{ index + 1 }}</view>    
+      <view>{{ client.nickname || client.name_zh || client.name_en || client.id }}</view>
+      <view class="errors-container">      
+        <view wx:if="{{ !client.name_zh }}">
+          <text class="missing-attribute-name">名称</text>必填
+        </view>      
+        <view wx:if="{{ !client.id_card_number }}">
+          <text class="missing-attribute-name">身份证号码</text>必填
+        </view>      
+        <view wx:if="{{ !client.family_role_id }}">
+          <text class="missing-attribute-name">家庭角色</text>必填
+        </view>
+        <block wx:if="{{ client.hasInt }}">
+          <view class="international-header" wx:if="{{ !client.passport_number || !client.passport_issue_date || !client.passport_expire_date || !client.passport_issuing_authority }}">
+            由于您将参加我们的一项国际计划，因此我们需要您提供一些其他信息。
+          </view>
+          <view wx:if="{{ !client.passport_number }}">
+            <text class="missing-attribute-name">护照号码</text>必填
+          </view>
+          <view wx:if="{{ !client.passport_issue_date }}">
+            <text class="missing-attribute-name">护照签发日期</text>必填
+          </view>
+          <view wx:if="{{ !client.passport_expire_date }}">
+            <text class="missing-attribute-name">护照到期日</text>必填
+          </view>
+          <view wx:if="{{ !client.passport_issuing_authority }}">
+            <text class="missing-attribute-name">护照签发地</text>必填
+          </view>        
+        </block>      
+      </view>      
+    </view>
+    <text class='fas fa-user-edit edit-user-icon'></text>
+  </view>
+
+</view>

@@ -4,12 +4,12 @@
 
     <image 
       class="user-avatar" 
-      src="{{ staticUrl + 'img/u/' + accountInfo.avatar }}"
+      src="{{ staticUrl + 'img/f/' + (avatar || accountInfo.avatar) }}"
       wx:if='{{ accountInfo }}'
     ></image>
 
     <view class="user-nickname" wx:if='{{ accountInfo }}'>
-      {{ accountInfo.name }}
+      {{ name || accountInfo.name }}
     </view>
 
   </view>
