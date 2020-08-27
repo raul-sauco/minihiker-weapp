@@ -1,6 +1,6 @@
 <view class='user-details-header'>
 
-  <view class="profile-info-container">
+  <view class="profile-info-container" bindtap="editAccountDetails">
 
     <image 
       class="user-avatar" 

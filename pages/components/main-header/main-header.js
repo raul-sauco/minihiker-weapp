@@ -24,5 +24,12 @@ Component({
   },
 
   /** Component methods */
-  methods: { }
+  methods: {
+    /** Navigate to edit-account-details */
+    editAccountDetails: function () {
+      wx.navigateTo({
+        url: '/pages/edit-account-details/edit-account-details',
+      });
+    }
+  }
 })

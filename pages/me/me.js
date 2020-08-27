@@ -13,7 +13,7 @@ Page({
     qrCodeVisible: false
   },
 
-  /** Lifecycle function--Called when page load */
+  /** Lifecycle function--Called when page displays */
   onShow: function (options) {
     this.setData({
       accountInfo: app.globalData.accountInfoProvider,
