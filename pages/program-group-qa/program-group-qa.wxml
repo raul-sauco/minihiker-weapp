@@ -1,8 +1,6 @@
 <!--pages/program-group-qa/program-group-qa.wxml-->
 <view class='container'>
-
   <block wx:if='{{ qas.length > 0 }}'>
-
     <view class='program-group-qa-container' wx:for='{{qas}}' 
       wx:for-item='qa' wx:key='id'>
       <view class='qa-avatar'>
@@ -17,15 +15,14 @@
         <view class='qa-answer'>{{ qa.answer ? qa.answer : '暂时没有答案' }}</view>
       </view>
     </view>
-
   </block>
-
-  <view id='qa-no-qas-found' wx:else>
-    暂时没有问答
-  </view>
-
+  <block wx:else>
+    <view id='qa-no-qas-found' wx:if="{{ !loading }}">
+      暂时没有问答
+    </view>
+  </block>
+  <block wx:if="{{ loading }}"><loading></loading></block>
   <view class='program-group-qa-action-bar'>
     <button bindtap='askQuestion' type="primary">请留下您的问题</button>
   </view>
-
 </view>

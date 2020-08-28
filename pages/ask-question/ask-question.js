@@ -32,6 +32,7 @@ Page({
     this.setData({
       loading: true
     });
+    wx.showNavigationBarLoading();
     const url = app.globalData.url + 'qas?expand=wxAccountNickname,wxAccountAvatar';
     const data = {
       program_group_id: this.data.programGroup.id,
@@ -46,21 +47,15 @@ Page({
       data,
       method: 'POST',
       header,
-      success: res => {        
-        // TODO check for errors on the response
-        // Add the new qa to the ProgramGroup
-        const pg = app.globalData.programProvider.get(this.data.programGroup.id);
-        pg.qas.push(res.data);
-        this.setData({
-          programGroup: pg,
-          loading: false
-        });
-        wx.navigateBack({
-          delta: 1,
-        });
+      success: res => {
+        wx.navigateBack({ delta: 1 });
       },
       fail: res => {
         console.warn('Request failed. ' + url);
+      },
+      complete: () => {
+        this.setData({ loading: false});
+        wx.hideNavigationBarLoading();
       }
     });
   }

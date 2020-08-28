@@ -6,9 +6,14 @@ Page({
   /** Page initial data */
   data: {
     programGroup: null,
-    qas: null,
-    staticUrl: null
+    qas: [],
+    staticUrl: null,
+    loading: false,
+    hasNextPage: false,
+    nextPageNumber: null
   },
+
+  timeout: null,
 
   /** Lifecycle function--Called when page load */
   onLoad: function (options) {
@@ -19,62 +24,112 @@ Page({
     wx.setNavigationBarTitle({
       title: '问答 ' + this.data.programGroup.weapp_display_name
     });
-
-    if (this.data.programGroup.qaFetchTimestamp === undefined) {
-      console.debug('qaFetchTimestamp is undefined, fetching qa');
-    } else {
-      this.setData({
-        qas: this.data.programGroup.qas
-      });
-    }
   },
 
-  /**
-   * Fetch the Current ProgramGroup's Qa and add a timestamp 
-   * recording when they were last fetched.
-   */
-  fetchProgramGroupQa: function () {
-
-    // Fetching server data, display a loader
-    wx.showLoading({
-      title: '下载中',
+  /** Reload QAs on page show */
+  onShow: function () {
+    this.setData({
+      qas: []
     });
+    this.fetchProgramGroupQa(null);
+  },
 
-    const endpoint = 'qas?program_group=' + this.data.programGroup.id + '&expand=wxAccountNickname,wxAccountAvatar';
+  /** Clean up */
+  onHide: function () {
+    clearTimeout(this.timeout);
+  },
 
+  /** Clean up */
+  onUnload: function () {
+    clearTimeout(this.timeout);
+  },
+
+  /** Fetch the Current ProgramGroup's Qa */
+  fetchProgramGroupQa: function (page) {
+    this.setData({ loading: true });
+    wx.showNavigationBarLoading();
+    let url = app.globalData.url + 'qas?program_group=' + 
+      this.data.programGroup.id + '&expand=wxAccountNickname,wxAccountAvatar';
+    if (page !== null) {
+      url += `&page=${page}`;
+    }
+    const header = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + app.globalData.accessToken
+    };
     wx.request({
-      url: app.globalData.url + endpoint,
-      header: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + app.globalData.accessToken
-      },
+      url,
+      header,
       success: (res) => {
+        if (res.statusCode === 200) {
+          // Calculate pagination
+          const currentPage = res.header['X-Pagination-Current-Page'];
+          const totalPages = res.header['X-Pagination-Page-Count'];
+          const hasNextPage = currentPage < totalPages;
+          const nextPageNumber = hasNextPage ? +res.header['X-Pagination-Current-Page'] + 1 : null;
 
-        // If the request is successful we should get ProgramGroup Qas
-
-        // Get the ProgramGroup from the provider
-        let pg = app.globalData.programProvider.get(this.data.programGroup.id);
-
-        // Store the Qas on the Program Group and save the fetch time
-        pg.qas = res.data;
-        pg.qaFetchTs = Math.round(new Date().getTime()/1000);
-
-        // Create a human-readable time-ago string from the timestamp
-        pg.qas.forEach(qa => {
-          qa.asked = this.ago(qa.created_at);
-        });
-
-        this.setData({
-          qas: pg.qas
-        });
+          const qas = this.data.qas.concat(res.data);
+          qas.sort( (a,b) => b.created_at - a.created_at );
+          this.setData({
+            qas,
+            hasNextPage,
+            nextPageNumber
+          });
+          this.calculateTimestamps();
+        } else {
+          const message = `Unexpected return code ${res.statusCode}`;
+          console.warn(message);
+          app.globalData.logger.log({
+            message,
+            res,
+            req: {
+              url, header, page: 'program-group-qa', line: '60', extra: 'MH error code 68060'
+            }
+          });
+        }
       },
       fail: (res) => {
-        console.warn('Request failed. ' + app.globalData.url + endpoint);
+        const message = `Request ${url} failed`;
+        console.warn(message)
+        app.globalData.logger.log({
+          message,
+          res,
+          req: {
+            url, header, page: 'program-group-qa', line: '72', extra: 'MH error code 68072'
+          }
+        });;
       },
       complete: (res) => {
-        wx.hideLoading();
+        wx.hideNavigationBarLoading();
+        this.setData({ loading: false });
       }
     })
+  },
+
+  /** Calculate a human readable version of the creation time */
+  calculateTimestamps: function () {
+    clearTimeout(this.timeout);
+    const qas = this.data.qas;
+    let timeoutDelay = 30000;
+    let mostRecentTimestamp = 0;
+    if (qas.length > 0) {
+      qas.forEach(qa => {
+        qa.asked = this.ago(qa.created_at);
+        if (qa.created_at > mostRecentTimestamp) {
+          mostRecentTimestamp = qa.created_at;
+        }
+      });
+      // If we have any recent questions, update the UI frequently
+      if (mostRecentTimestamp > 0) {
+        mostRecentTimestamp *= 1000;
+        const diff = 0 | (Date.now() - mostRecentTimestamp) / 1000;
+        if (diff < 60) {
+          timeoutDelay = 1000;
+        }
+      }
+      this.setData({ qas });
+      this.timeout = setTimeout(this.calculateTimestamps, timeoutDelay);
+    }
   },
 
   /**
@@ -122,30 +177,21 @@ Page({
   },
 
   /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-    // Refresh the UI with all the qa
-    if (this.data.qas) {
-      this.setData({
-        qas: app.globalData.programProvider.get(this.data.programGroup.id).qas
-      });
-    }
-
-  },
-
-  /**
    * Page event handler function--Called when user drop down
    */
   onPullDownRefresh: function () {
-    console.log('TODO reload questions');
+    this.setData({
+      qas: [],
+      hasNextPage: false,
+      nextPageNumber: null
+    });
+    this.fetchProgramGroupQa(null);
   },
 
-  /**
-   * Called when page reach bottom
-   */
+  /** Called when page reach bottom */
   onReachBottom: function () {
-    console.log('TODO load more QAs when the user reaches the bottom');
+    if (!this.data.loading && this.data.hasNextPage) {
+      this.fetchProgramGroupQa(this.data.nextPageNumber);
+    }
   }
 })
