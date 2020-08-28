@@ -3,32 +3,25 @@ const app = getApp()
 
 Page({
 
-  /**
-   * Page initial data
-   */
+  /** Page initial data */
   data: {
     programGroup: null,
-    qas: null
+    qas: null,
+    staticUrl: null
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
+  /** Lifecycle function--Called when page load */
   onLoad: function (options) {
-
     this.setData({
-      programGroup: app.globalData.programProvider.get(options.id)
+      programGroup: app.globalData.programProvider.get(options.id),
+      staticUrl: app.globalData.staticUrl
     });
-
     wx.setNavigationBarTitle({
       title: '问答 ' + this.data.programGroup.weapp_display_name
     });
 
-    // TODO get rid of the next block of logs
-
     if (this.data.programGroup.qaFetchTimestamp === undefined) {
       console.debug('qaFetchTimestamp is undefined, fetching qa');
-      this.fetchProgramGroupQa();
     } else {
       this.setData({
         qas: this.data.programGroup.qas
@@ -47,7 +40,7 @@ Page({
       title: '下载中',
     });
 
-    let endpoint = 'qas?program_group=' + this.data.programGroup.id;
+    const endpoint = 'qas?program_group=' + this.data.programGroup.id + '&expand=wxAccountNickname,wxAccountAvatar';
 
     wx.request({
       url: app.globalData.url + endpoint,

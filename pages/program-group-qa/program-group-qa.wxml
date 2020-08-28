@@ -6,11 +6,11 @@
     <view class='program-group-qa-container' wx:for='{{qas}}' 
       wx:for-item='qa' wx:key='id'>
       <view class='qa-avatar'>
-        <image src='{{ qa.user_avatar_url }}'></image>
+        <image src="{{ staticUrl + 'img/f/' + qa.wxAccountAvatar }}"></image>
       </view>
       <view class="right-column">
         <view class="right-column-first-row">
-          <view class='qa-user-nickname'>{{ qa.user_nickname }}</view>
+          <view class='qa-user-nickname'>{{ qa.wxAccountNickname }}</view>
           <view class='qa-asked'>{{ qa.asked }}</view>        
         </view>
         <view class='qa-question'>{{ qa.question }}</view>

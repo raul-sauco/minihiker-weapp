@@ -64,12 +64,6 @@ App({
     });
   },
 
-  /** The user information is ready */
-  userInfoReadyCallback: function (res) {
-    // TODO, update information on the server
-    console.warn('TODO: implement this callback', res);
-  },
-
   /** Send login information to the backend to authenticate user. */
   loginUser: function (code) {
     wx.request({
@@ -108,10 +102,7 @@ App({
   },
 
   globalData: {
-    userInfo: null,
-    hasUserInfo: false,
     accessToken: null,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     logger: null,
     programProvider: null,
     accountInfoProvider: null,
