@@ -54,7 +54,6 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.debug('wx.login returned code: ' + res.code);
         // Authenticate the user on the backend
         this.loginUser(res.code);
       },
@@ -72,9 +71,9 @@ App({
       data: { jsCode:code },
       header: {'Content-Type':'application/json'},
       success: res => {
-        console.debug(`Login success`);
         this.setAccessToken(res.data.access_token);        
-      }
+      },
+      fail: err => { console.warn('Login user error', err); }
     });
   },
 
@@ -108,7 +107,7 @@ App({
     accountInfoProvider: null,
     payments: null,
     url: 'https://wxapiv1.minihiker.com/',
-    resUrl: 'https://minihiker.com/webapp/',
+    resUrl: 'https://static.minihiker.com/',
     staticUrl: 'https://static.minihiker.com/',
     // url: 'http://wxapi.mh/',
     // resUrl: 'http://static.mh/',
