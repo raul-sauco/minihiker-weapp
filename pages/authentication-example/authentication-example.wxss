@@ -1,0 +1,27 @@
+/* pages/authentication-example/authentication-example.wxss */
+.container{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.example-text{
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #408DE9;
+  margin-top: 20rpx;
+}
+.example-imgBox{
+  margin: 0 auto;
+  width: 60%;
+  height: 600rpx;
+  background: pink;
+}
+.example_textb{
+  margin-top: 20rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 40rpx;
+  color: #666;
+}

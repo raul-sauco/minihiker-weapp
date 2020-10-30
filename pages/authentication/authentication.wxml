@@ -1,0 +1,40 @@
+<view class="container">
+<!-- 上传身份证人像面 -->
+  <!-- <view class="id_cardBox">
+    <image class="idCard_img" src="../../img/idcard.png"></image>
+    <view class="id_text">上传身份证人像面</view>
+    <image class="idCard_imgb" src="../../img/jia.png"></image>
+  </view> -->
+
+<!-- 姓名 -->
+<view class="listbox">
+  <view class="item_texta">姓名：</view>
+  <view class="item_textb"><input type="text" placeholder="输入姓名" bindinput="btn_name"></input></view>
+</view>
+
+<!-- 身份证 -->
+<view class="listbox">
+  <view class="item_texta">身份证：</view>
+  <view class="item_textb"><input type="idcard" placeholder="输入身份证" bindinput="btn_idcard"></input></view>
+</view>
+
+<!-- 手机号 -->
+ <view class="verification_codeBox">
+  <view class="code_txt">手机号：</view>
+  <input class="code_input" bindinput="btn_code" placeholder="输入手机号"></input>
+  <button class="code_button" disabled="{{codeDis}}" bindtap="btn_codetime">{{code}}</button>
+ </view>
+
+<!-- 验证码 -->
+<view class="listbox">
+  <view class="item_texta">验证码：</view>
+  <view class="item_textb"><input type="number" placeholder="输入验证码" bindinput="btn_vercode"></input></view>
+</view>
+
+
+
+
+<!-- 下一步 -->
+<view class="next_box" bindtap="btn_begign">开始认证</view>
+
+</view>

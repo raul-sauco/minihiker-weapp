@@ -1,0 +1,20 @@
+<view class="container">
+  <!-- 前往认证 -->
+  <view class="togo_authentication" hidden="{{authHidden}}">
+    <image src="../../img/qian.png"></image>
+    <view class="qian_texta">签署电子合同需要实名认证，请前往认证</view>
+    <view class="qian_textb" bindtap="btn_authentication">前往认证</view>
+  </view>
+  <!-- 需要我签名 -->
+  <view class="autograph_item" bindtap="btn_list">
+     <view class="need_a">未完成签约({{unfinished}})</view>
+     <view class='navigator-arrow'></view>
+  </view>
+
+    <!-- 需要我签名 -->
+  <view class="autograph_item" bindtap="btn_completed">
+     <view class="need_a">已完成签约({{finished}})</view>
+     <view class='navigator-arrow'></view>
+  </view>
+
+</view>

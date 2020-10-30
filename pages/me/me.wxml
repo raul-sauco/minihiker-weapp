@@ -11,6 +11,14 @@
         <view class='navigator-text'>我的订单</view>
         <view class='navigator-arrow'></view>
       </navigator>
+
+      <!-- 电子合同 -->
+      <navigator class='navigator' url='/pages/electronic-contract/electronic-contract'>
+        <text class="fas fa-file-invoice navigator-icon"></text>
+        <view class='navigator-text'>电子合同</view>
+        <view class='navigator-arrow'></view>
+      </navigator>
+      <!-- 电子合同 -->
     
     </view>
 

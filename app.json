@@ -18,7 +18,13 @@
     "pages/navigation-history/navigation-history",
     "pages/recommended/recommended",
     "pages/about-minihiker/about-minihiker",
-    "pages/edit-account-details/edit-account-details"
+    "pages/edit-account-details/edit-account-details",
+    "pages/electronic-contract/electronic-contract",
+    "pages/authentication/authentication",
+    "pages/authentication-example/authentication-example",
+    "pages/contract-list/contract-list",
+    "pages/completed-contract/completed-contract",
+    "pages/webView/webView"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -71,7 +71,9 @@ App({
       data: { jsCode:code },
       header: {'Content-Type':'application/json'},
       success: res => {
-        this.setAccessToken(res.data.access_token);        
+        this.setAccessToken(res.data.access_token);
+        // YHT
+        wx.setStorageSync('userId', res.data.user_id);
       },
       fail: err => { console.warn('Login user error', err); }
     });

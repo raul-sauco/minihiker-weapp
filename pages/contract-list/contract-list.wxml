@@ -1,0 +1,18 @@
+<view class="container">
+
+	<view class="contract_listBox">
+		<view class="item" wx:for="{{htItem}}" bindtap="btn_web" data-id="{{item.id}}">
+
+			<view class="item_texta">
+				<image style="width:40rpx;height:40rpx;margin-right:20rpx" src="../../img/ht.png"></image>{{item.contracttitle}}
+			</view>
+						<view class='finedItem' style="font-size:28rpx;color:#0ba360;line-height:80rpx;padding:0 10rpx">详情</view>
+
+		</view>
+	</view>
+
+	<view class="no_more">没有更多了～</view>
+
+
+
+</view>
