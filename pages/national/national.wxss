@@ -32,10 +32,10 @@
   width: 100%;
   display: flex;
   font: 0.8rem;
+  /* margin-top: 40px; /* Account for the search bar */
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   padding: 20rpx;
-  margin-top: 40px; /* Account for the search bar */
   flex-wrap: nowrap;
 
   /* Needed to keep the scroll-view oneliner */

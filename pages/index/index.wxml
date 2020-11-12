@@ -7,6 +7,8 @@
     bindconfirm="search" value="{{ searchQuery }}"></input>    
   </view>
 </view>
+<view class="search-bar-clear"></view>
+<banner int="true" class="pg-banner"></banner>
 <view class='filters-container' wx:if="{{ filters }}">
   <scroll-view scroll-x='true'>
     <view 
@@ -21,7 +23,6 @@
     </view>    
   </scroll-view>
 </view>
-<banner int="true" class="pg-banner"></banner>
 <view class="container" wx:if='{{ programGroups.length > 0  }}'>
   <block wx:for="{{ programGroups }}" wx:key='id'>
     <program-group program-group-id='{{ item.id }}'></program-group>
