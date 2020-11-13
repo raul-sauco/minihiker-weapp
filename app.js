@@ -111,6 +111,7 @@ App({
     url: 'https://wxapiv1.minihiker.com/',
     resUrl: 'https://static.minihiker.com/',
     staticUrl: 'https://static.minihiker.com/',
+    webviewUrl: 'https://backend.minihiker.com/',
     // url: 'http://wxapi.mh/',
     // resUrl: 'http://static.mh/',
     // staticUrl: 'http://static.mh/'

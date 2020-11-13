@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    webUrl:app.globalData.resUrl+'contracts/usersign'
+    webUrl:app.globalData.webviewUrl+'contracts/usersign'
   },
 
   /**
