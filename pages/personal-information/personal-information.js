@@ -263,8 +263,10 @@ Page({
 
     requiredAttrs.forEach( a => {
 
-      // Check if a required field is empty
-      if (!this.data.client[a]) {
+      // Check if a required field is empty.
+      // Check against null and empty string to avoid `gender: false` and
+      // `familyRole: 0` triggering false empties.
+      if (this.data.client[a] === null || this.data.client[a] === '') {
 
         missing = true;
         errors[a] = '请填写必填项';

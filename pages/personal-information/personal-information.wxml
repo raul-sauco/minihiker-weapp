@@ -63,7 +63,6 @@
     </view>
 
     <wxs module="pi">
-      console.log('Hello from personal information wxs');
       module.exports.getNumericGender = function (gender) {
         if (
           gender === 1 || 
