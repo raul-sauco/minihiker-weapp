@@ -22,13 +22,29 @@ class Logger {
   setAccessToken(token) {
     this.accessToken = token;
   }
+  
+  /** Sanitize the data to be sent to the server */
+  sanitizeData(data) {
+    const stringFields = ['message','res','req','extra','page','method','line'];
+    stringFields.forEach(f => {
+      if (typeof data[f] !== 'string') {
+        data[f] = JSON.stringify(data[f], null, 2);
+      }
+    });
+    if (typeof data.level !== 'number') {
+      data.level = parseInt(data.level, 10);
+    }
+    return data;
+  }
 
   /**
    * Send an error message to the server. Accepted parameters are: 
    * {
    *   message: string,
    *   res: string,
+   *   req: string,
    *   extra: string,
+   *   level: number,
    *   page: string,
    *   method: string,
    *   line: string,
@@ -37,10 +53,11 @@ class Logger {
    * }
    */
   log (data) {
+    data = this.sanitizeData(data);
     data.timestamp = '' + Date.now();
     const header = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.accessToken
+      'Authorization': 'Bearer ' + (this.accessToken || 'guest')
     };
     wx.request({
       url: this.url + 'weapp-logs',

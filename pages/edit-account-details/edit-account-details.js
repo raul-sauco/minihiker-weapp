@@ -70,7 +70,7 @@ Page({
     wx.request({
       url,
       method: 'PUT',
-      data: data,
+      data,
       header,
       success: res => {
         if (res.statusCode === 200) {
@@ -79,6 +79,19 @@ Page({
           });
         } else if (res.statusCode === 422) {
           this.updateModelErrors(res.data);
+          wx.showToast({
+            title: '信息未更新。 请检查错误。',
+            icon: 'none'
+          });
+          this.data.logger.log({
+            message: `Validation error ${res.statusCode} on response`,
+            extra: this.data.accountInfo.toString(),
+            req: { url, header, data, method: 'PUT' },
+            res,
+            page: 'edit-account-details',
+            method: 'sendData',
+            line: '88'
+          });
         } else {
           wx.showToast({
             title: '服务器错误，请稍后再试',
@@ -86,9 +99,11 @@ Page({
           });
           this.data.logger.log({
             message: `Unexpected status code ${res.statusCode} on response`,
+            extra: this.data.accountInfo.toString(),
             req: { url, header, data, method: 'PUT' },
             res,
             page: 'edit-account-details',
+            method: 'sendData',
             line: '88'
           });
           console.warn('Unrecognized response code ' + res.statusCode);
@@ -97,9 +112,11 @@ Page({
       fail: res => {
         this.data.logger.log({
           message: `wx.request fail`,
+          extra: this.data.accountInfo.toString(),
           req: { url, header, data, method: 'PUT' },
           res,
           page: 'edit-account-details',
+          method: 'sendData',
           line: '100'
         });
         wx.showToast({
@@ -112,7 +129,6 @@ Page({
         wx.hideLoading();
       }
     });
-
   },
 
   /**
@@ -254,7 +270,7 @@ Page({
         });
         this.data.logger.log({
           message: 'Native wx.chooseimage function error',
-          extra: 'MH error code 21250',
+          extra: 'MH error code 21250. AccountInfo: ' + this.data.accountInfo.toString(),
           res: JSON.stringify(err),
           level: 1,
           page: 'edit-account-details',

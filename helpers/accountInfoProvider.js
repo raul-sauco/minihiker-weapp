@@ -259,6 +259,25 @@ class AccountInfoProvider {
     return this.phone_verified && this.wechat && this.phone;
     // TODO add methods to check if phone number is valid
   }
+
+  // Override default to string
+  toString() {
+    return JSON.stringify({
+      id: this.id,
+      name: this.name,
+      avatar: this.avatar,
+      serial_number: this.serial_number,
+      category: this.category,
+      phone: this.phone,
+      phone_verified: this.phone_verified,
+      wechat: this.wechat,
+      membership_date: this.membership_date,
+      mDate: this.mDate,
+      address: this.address,
+      place_of_residence: this.place_of_residence,
+      remarks: this.remarks
+    }, null, 2);
+  }
 }
 
 module.exports = AccountInfoProvider;

@@ -46,76 +46,76 @@
 		"miniprogram": {
 			"current": -1,
 			"list": [
-        {
-          "id": -1,
-          "name": "pages/electronic-contract/electronic-contract",
-          "pathName": "pages/electronic-contract/electronic-contract",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/electronic-contract/electronic-contract",
-          "pathName": "pages/electronic-contract/electronic-contract",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/authentication/authentication",
-          "pathName": "pages/authentication/authentication",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/authentication-example/authentication-example",
-          "pathName": "pages/authentication-example/authentication-example",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/contract-list/contract-list",
-          "pathName": "pages/contract-list/contract-list",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/authentication/authentication",
-          "pathName": "pages/authentication/authentication",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/electronic-contract/electronic-contract",
-          "pathName": "pages/electronic-contract/electronic-contract",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/authentication/authentication",
-          "pathName": "pages/authentication/authentication",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/electronic-contract/electronic-contract",
-          "pathName": "pages/electronic-contract/electronic-contract",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/contract-list/contract-list",
-          "pathName": "pages/contract-list/contract-list",
-          "scene": null
-        }
-      ]
+				{
+					"id": -1,
+					"name": "pages/electronic-contract/electronic-contract",
+					"pathName": "pages/electronic-contract/electronic-contract",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/electronic-contract/electronic-contract",
+					"pathName": "pages/electronic-contract/electronic-contract",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/authentication/authentication",
+					"pathName": "pages/authentication/authentication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/authentication-example/authentication-example",
+					"pathName": "pages/authentication-example/authentication-example",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/contract-list/contract-list",
+					"pathName": "pages/contract-list/contract-list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/authentication/authentication",
+					"pathName": "pages/authentication/authentication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/electronic-contract/electronic-contract",
+					"pathName": "pages/electronic-contract/electronic-contract",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/authentication/authentication",
+					"pathName": "pages/authentication/authentication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/electronic-contract/electronic-contract",
+					"pathName": "pages/electronic-contract/electronic-contract",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/contract-list/contract-list",
+					"pathName": "pages/contract-list/contract-list",
+					"scene": null
+				}
+			]
 		}
 	}
 }
