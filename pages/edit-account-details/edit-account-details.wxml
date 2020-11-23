@@ -24,7 +24,7 @@
 
     <view class='input-group {{ errors.phone ? "has-error" : "" }}'>
       <view class='input-label'>
-        帐户电话号码
+        电话号码
         <text class="input-label-required-icon">*</text>
       </view>
       <input name='phone' maxlength='18' 
@@ -37,7 +37,7 @@
 
     <view class='input-group {{ errors.wechat ? "has-error" : "" }}'>
       <view class='input-label'>
-        帐户微信编号
+        微信号
         <text class="input-label-required-icon">*</text>
       </view>
       <input name='wechat' maxlength='64'focus 

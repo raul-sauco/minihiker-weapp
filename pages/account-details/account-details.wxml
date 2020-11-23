@@ -10,13 +10,13 @@
         会员注册日期: {{ accountInfo.mDate }}
       </view>      
       <view wx:if="{{ accountInfo.phone }}">
-        帐号电话号码: {{ accountInfo.phone }}
+        电话号码: {{ accountInfo.phone }}
       </view>
       <view wx:else class="error-container">
         请提供至少一个客户的<text class="missing-attribute-name">电话号码</text>
       </view>      
       <view wx:if="{{ accountInfo.wechat }}">
-        帐号微信号码: {{ accountInfo.wechat }}
+        微信号: {{ accountInfo.wechat }}
       </view>
       <view wx:else class="error-container">
           请提供至少一个客户的<text class="missing-attribute-name">微信ID</text>
