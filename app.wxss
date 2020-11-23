@@ -212,3 +212,21 @@ picker .picker-box {
 .blur {
   filter: blur(2px) grayscale(50%);
 }
+
+/* Some application wide widgets */
+.notification-warning {
+  box-shadow: 0 1px 3px rgba(0,0,0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0,0,0, 0.24);
+  margin: 10rpx 0;
+  padding: 20rpx;
+  width: 95%;
+  box-sizing: border-box;
+  color:#222;
+  font-weight: bold;
+  background-color: #FFC837;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease-in-out;
+}

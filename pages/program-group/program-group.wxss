@@ -145,6 +145,10 @@ loading {
   
   background-image: radial-gradient(at 10% 10%, #0ba360 0%, #3cba92 100%);
 }
+.program-group-action-bar > button:last-child.disabled {  
+  color: #dc3545;
+  background-image: radial-gradient(at 10% 10%, #FFC837 0%, #ffc107 100%);
+}
 
 .go-back-to-top-container {
   position: fixed;

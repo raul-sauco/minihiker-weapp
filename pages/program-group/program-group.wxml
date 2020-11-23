@@ -30,7 +30,7 @@
 
   </view>
 
-  <scroll-view scroll-x="true" id='programs-container' wx:if='selectedProgram'>
+  <scroll-view scroll-x="true" id='programs-container' wx:if='{{ programGroup.programs.length > 0 }}'>
 
     <view wx:for='{{ programGroup.programs }}' wx:key='id' 
       class='program-container {{ item.selfRegistered ? "self-program" : "" }} {{ item.id === selectedProgram.id ? "selected-program" : "" }}' 
@@ -76,6 +76,11 @@
     </view>
   
   </scroll-view>
+  <block wx:else>
+    <view wx:if='{{ !loading }}' class="notification-warning">
+      我们很抱歉! 目前暂无活动
+    </view>
+  </block>
 
   <view class='program-group-description' wx:if="{{ programGroup.arraywad }}">
     <rich-text nodes="{{ programGroup.arraywad }}"></rich-text>
@@ -107,9 +112,9 @@
       分享
     </button>
 
-    <button bindtap='register' type='primary' 
-      disabled="{{ !selectedProgram }}" loading="{{ !programGroup.arraywad }}">
-      {{ selectedProgram ? '现在报名' : (programGroup.arraywad ? '选择时期' : '') }}
+    <button bindtap='register' disabled="{{ !selectedProgram }}" loading="{{ loading }}" 
+      class='{{ !loading && !programGroup.programs.length > 0 ? "disabled" : "" }}'>
+      {{ selectedProgram ? '现在报名' : (!programGroup.arraywad ? '' : (programGroup.programs.length > 0 ? '选择时期' : '∅')) }}
     </button>
     
   </view>

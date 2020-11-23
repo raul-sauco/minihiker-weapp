@@ -12,7 +12,8 @@ Page({
     resUrl: app.globalData.resUrl,
     isScrollToTopVisible: false,
     scrollTop: 0,
-    nextRequestTimeout: 3000
+    nextRequestTimeout: 3000,
+    loading: false
   },
 
   /**
@@ -54,6 +55,9 @@ Page({
 
     // Loading status feedback can be subtle
     wx.showNavigationBarLoading();
+    this.setData({
+      loading: true
+    });
 
     app.globalData.programProvider.fetchProgramGroup(id).then( pg => {
 
@@ -61,7 +65,8 @@ Page({
 
       // If there were no errors, we have a program group
       this.setData({
-        programGroup: pg
+        programGroup: pg,
+        loading: false
       });
 
       wx.setNavigationBarTitle({

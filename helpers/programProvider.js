@@ -67,29 +67,37 @@ class ProgramProvider {
    * start date.
    */
   reorderPrograms(pg) {
-
     // Only sort if the Program Group has programs
-    if (pg.programs) {
-
+    if (pg.programs && Array.isArray(pg.programs)) {
+      // Remove old programs
+      pg.programs = this.removeOldPrograms(pg.programs);
+      // Sort the programs by date
       pg.programs.sort((p1, p2) => {
         let date1 = new Date(p1.start_date);
         let date2 = new Date(p2.start_date);
-
-        if (date1 < date2) {
-          return -1;
-        } else if (date2 < date1) {
-          return 1;
-        } else {
-          return 0;
-        }
+        if (date1 < date2) { return -1; } 
+        else if (date2 < date1) { return 1; } 
+        else { return 0; }
       });
-
     } else {
-
       // If pg.programs is empty, assign a value to it
       pg.programs = [];
-
     }
+  }
+
+  /**
+   * Create a new program array with only programs from the old 
+   * array where the starting date is before the current date.
+   */
+  removeOldPrograms(programs) {
+    const currentDate = new Date();
+    const updatedPrograms = [];
+    programs.forEach(p => {
+      if (new Date(p.start_date) > currentDate) {
+        updatedPrograms.push(p);
+      }
+    });
+    return updatedPrograms;
   }
 
   /**
