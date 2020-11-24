@@ -69,7 +69,7 @@
 
     <view class="price-details">
 
-      <view class="price">¥{{ payment.price.price }}</view>
+      <view class="price">¥{{ payment.total_fee / 100 }}</view>
 
       <view class="payment-date">{{ payment.created_at_fmt }}</view>
 
