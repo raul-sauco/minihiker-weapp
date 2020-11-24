@@ -181,14 +181,15 @@ Page({
    * Get the textual meaning of the status.
    */
   getStatusText: function (status) {
-    let texts = [
+    const texts = [
       '发起',
       '服务器错误',
       '正在等待用户确认',
       '确认错误',
-      '付款已确认'
+      '付款已确认',
+      '订单已过期',
+      '客户取消付款'
     ];
-
     return texts[status];
   },
 
@@ -207,14 +208,15 @@ Page({
    * Get the icon that corresponds the status.
    */
   getStatusIconCss: function (status) {
-    let texts = [
+    const texts = [
       'fas fa-info-circle text-info',
       'fas fa-exclamation-triangle text-warning',
       'far fa-clock text-primary',
       'fas fa-ban text-danger',
-      'fas fa-check text-success'
+      'fas fa-check text-success',
+      'far fa-times-circle text-danger',
+      'far fa-times text-warning',
     ];
-
     return texts[status];
   },
 
