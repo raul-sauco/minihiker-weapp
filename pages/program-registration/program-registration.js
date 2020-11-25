@@ -313,8 +313,8 @@ Page({
     const selectedPrice = this.data.selectedPrice;
     // Check if the program only requires paying a deposit
     let amount = this.data.amountDue;
-    // Only use the deposit value if less than the actual price
-    if (this.data.deposit < amount) {
+    // Only use the deposit value if exists, not 0, and less than the price
+    if (this.data.deposit && this.data.deposit < amount) {
       amount = this.data.deposit;
     }
     const data = {
