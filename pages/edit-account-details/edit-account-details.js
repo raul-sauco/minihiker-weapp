@@ -16,8 +16,14 @@ Page({
   /** Lifecycle function--Called when page load */
   onLoad: function (options) {
     this.setData({
-      accountInfo: app.globalData.accountInfoProvider,
       logger: app.globalData.logger
+    });
+  },
+
+  /** Refresh account info on every page refresh */
+  onShow: function () {
+    this.setData({
+      accountInfo: app.globalData.accountInfoProvider
     });
   },
 
@@ -74,8 +80,13 @@ Page({
       header,
       success: res => {
         if (res.statusCode === 200) {
-          wx.navigateBack({
-            delta: 1
+          wx.showLoading({ title: '下载中' });
+          // Have the account info provider refresh the data it has.
+          this.data.accountInfo.fetchAccountInfo().then(() => {
+            wx.hideLoading();
+            wx.navigateBack({
+              delta: 1
+            });
           });
         } else if (res.statusCode === 422) {
           this.updateModelErrors(res.data);
@@ -182,7 +193,12 @@ Page({
           success: res => {
             const data = JSON.parse(res.data);
             if (res.statusCode === 200) {
-              console.debug('Avatar update success, updating UI');
+              // Have the account info provider refresh.
+              this.data.accountInfo.fetchAccountInfo().then(() => {
+                this.setData({
+                  accountInfo: app.globalData.accountInfoProvider
+                });
+              });
               this.setData({ avatar: data.avatar });
               wx.showToast({
                 icon: 'success',
