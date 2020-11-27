@@ -112,7 +112,8 @@
       分享
     </button>
 
-    <button bindtap='register' disabled="{{ !selectedProgram }}" loading="{{ loading }}" 
+    <button bindtap='register' loading="{{ loading }}" 
+      disabled="{{ loading }}"
       class='{{ !loading && !programGroup.programs.length > 0 ? "disabled" : "" }}'>
       {{ selectedProgram ? '现在报名' : (!programGroup.arraywad ? '' : (programGroup.programs.length > 0 ? '选择时期' : '∅')) }}
     </button>
@@ -130,4 +131,11 @@
     class="loading-gif" 
     src="{{ '/img/loading-color-50.gif' }}">
   </image> 
+</view>
+
+<!-- Display this warning when a client tries to register without having selected a program first -->
+<view class="select-program-warning-container {{ selectProgramWarningVisible ? 'warning-visible' : '' }}">
+  <view class="select-program-warning-alert has-error">
+    <text class="fas fa-exclamation-triangle text-danger"></text> {{ selectProgramWarningMessage }}
+  </view>
 </view>

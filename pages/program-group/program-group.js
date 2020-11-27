@@ -9,41 +9,31 @@ Page({
   data: {
     programGroup: null,
     selectedProgram: null,
-    resUrl: app.globalData.resUrl,
+    resUrl: app.globalData.staticUrl,
     isScrollToTopVisible: false,
     scrollTop: 0,
     nextRequestTimeout: 3000,
-    loading: false
+    loading: false,
+    selectProgramWarningVisible: false,
+    selectProgramWarningMessage: '请先选择您要报名的项目'
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
     const programGroup = app.globalData.programProvider.get(options.id);
     if (programGroup) {
-
       // Initial set data to display whatever the provider has
-      this.setData({
-        programGroup
-      });
-
+      this.setData({ programGroup });
       wx.setNavigationBarTitle({
         title: programGroup.weapp_display_name
       });
-      
     } else {
-
-      wx.setNavigationBarTitle({
-        title: '正在下载'
-      });
-
+      wx.setNavigationBarTitle({ title: '正在下载' });
     }
-
     // Fetch full program group data
     this.fetchProgramGroupData(options.id);
-
   },
 
   /**
@@ -52,52 +42,38 @@ Page({
    * textual descriptions as an array of nodes.
    */
   fetchProgramGroupData: function (id) {
-
     // Loading status feedback can be subtle
     wx.showNavigationBarLoading();
     this.setData({
       loading: true
     });
-
     app.globalData.programProvider.fetchProgramGroup(id).then( pg => {
-
-      console.debug('Promise returned with Program Group data');
-
       // If there were no errors, we have a program group
       this.setData({
         programGroup: pg,
         loading: false
       });
-
       wx.setNavigationBarTitle({
         title: pg.weapp_display_name
       });
-
     }).catch(err => {
-
       console.error(err);
-
       wx.showToast({
         icon: 'none',
         title: err.msg,
       });
-
       setTimeout(this.fetchProgramGroupData, this.data.nextRequestTimeout, id);
-
       // Increase the delay time each time we request
       this.setData({
         nextRequestTimeout: this.data.nextRequestTimeout * 1.5
       });
-
     }).finally( () => {
-
       wx.hideNavigationBarLoading();
-      
     });
   },
 
   /** 
-   * Change the selected program and refresh the UI
+   * Change the selected program and refresh the UI.
    */
   selectProgram: function (event) {
     const program = this.data.programGroup.programs.find(
@@ -108,8 +84,10 @@ Page({
       this.setData({
         selectedProgram: program
       });
-    } else {
-      console.debug('Trying to select non-selectable program');
+      // Hide the select program warning if currently visible.
+      if (this.data.selectProgramWarningVisible) {
+        this.hideSelectProgramWarning();
+      }
     }
   },
 
@@ -136,10 +114,33 @@ Page({
    * Register for the currently selected program of this ProgramGroup.
    */
   register: function (event) {
-    wx.navigateTo({
-      url: '/pages/program-registration/program-registration?pg=' + this.data.programGroup.id + 
-        '&p=' + this.data.selectedProgram.id,
-    });
+    if (this.data.selectedProgram) {
+      wx.navigateTo({
+        url: '/pages/program-registration/program-registration?pg=' +
+          this.data.programGroup.id + '&p=' + this.data.selectedProgram.id,
+      });
+    } else {
+      // Display a warning with the details of why you can't register.
+      // Right now a visible program group could have no programs, that may change
+      // later and the message could become hardcoded into the wxml.
+      const data = {
+        selectProgramWarningVisible: true
+      };
+      if (this.data.programGroup.programs.length < 1) {
+        data.selectProgramWarningMessage = '目前暂无可选的活动';
+      }
+      this.setData( data );
+      setTimeout(this.hideSelectProgramWarning, 3000);
+    }
+  },
+
+  /** Hide the select program warning */
+  hideSelectProgramWarning: function () {
+    if (this.data.selectProgramWarningVisible) {
+      this.setData({
+        selectProgramWarningVisible: false
+      });
+    }
   },
 
   /** Navigate home */
