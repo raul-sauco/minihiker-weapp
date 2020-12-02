@@ -423,7 +423,7 @@ Page({
         console.error(res);
         wx.showModal({
           title: '付款失败',
-          content: '付款已取消，您可以随时从注册页面再次付款。',
+          content: '付款已取消，您可以随时重新发起订单。',
           showCancel: false,
           success(res) {
             if (res.confirm) {
