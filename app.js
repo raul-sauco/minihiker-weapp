@@ -43,6 +43,29 @@ App({
         this.requestLogin();
       }
     });
+
+    // Wait 60 seconds and check if the account name is the default.
+    setTimeout(this.checkDefaultAccountName, 60000);
+  },
+
+  /**
+   * Check if the clients have updated the default user name.
+   */
+  checkDefaultAccountName: function () {
+    if (this.globalData.accountInfoProvider.name === '未注册') {
+      wx.showModal({
+        title: '请更新信息',
+        content: '请点击确定按钮，修改您的昵称和微信号，方便报名活动后，我们邀请您进入活动群',
+        success: res => {
+          if (res.confirm) {
+            // The user agrees to go update their details now.
+            wx.navigateTo({
+              url: '/pages/edit-account-details/edit-account-details',
+            });
+          }
+        }
+      });
+    }
   },
 
   /**
