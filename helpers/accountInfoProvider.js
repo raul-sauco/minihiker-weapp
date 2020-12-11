@@ -50,6 +50,11 @@ class AccountInfoProvider {
     this.url = url;
   }
 
+  /** Wether this account info provider is ready to do work. */
+  ready() {
+    return this.accessToken && this.id && this.url;
+  }
+
   /** Setter for user's API access token */
   setAccessToken(token) {
     if (token) {

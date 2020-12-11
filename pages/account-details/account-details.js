@@ -21,29 +21,56 @@ Page({
 
   /** Fetch the account information and store it */
   fetchAccountInfo: function () {
-    wx.showLoading({
-      title: '下载中',
-    });
-    wx.showNavigationBarLoading();
-    app.globalData.accountInfoProvider.fetchAccountInfo().then( res => {
-      this.setData({
-        accountInfo: res.accountInfo
+    if (app.globalData.accountInfoProvider.ready()) {
+      wx.showLoading({
+        title: '下载中',
       });
-    }).catch( err => {
-      if (err.code === 100) {
-        // Wrong login status, request login and retry
-        // No need to show a toast
-        app.requestLogin();
-      } else {
+      wx.showNavigationBarLoading();
+      app.globalData.accountInfoProvider.fetchAccountInfo().then(res => {
+        this.setData({
+          accountInfo: res.accountInfo
+        });
+        wx.hideLoading();
+        wx.hideNavigationBarLoading();
+      }).catch(err => {
+        wx.hideLoading();
+        wx.hideNavigationBarLoading();
+        if (err.code === 100) {
+          // Wrong login status, request login and retry
+          // No need to show a toast
+          app.checkLoginStatus();
+        }
+        // Always show the error.
+        console.error(err.msg, err);
         wx.showToast({
           title: err.msg,
         });
-      }
-      this.setTimeout(this.fetchAccountInfo, 3000);
-    }).finally( () => {
-      wx.hideLoading();
-      wx.hideNavigationBarLoading();
-    });
+        this.setTimeout(this.fetchAccountInfo, 3000);
+        app.globalData.logger.log({
+          message: 'Error updating account information from provider',
+          res: err,
+          req: 'accountInfoProvider.fetchAccountInfo()',
+          extra: { 'accountInfo': app.globalData.accountInfoProvider.toString() },
+          level: 1,
+          page: 'account-details.js',
+          method: 'fetchAccountInfo',
+          line: '55'
+        });
+      });
+    } else {
+      const message = 'Account info provider not ready when expected.';
+      app.globalData.logger.log({
+        message,
+        res: 'Account info provider ready "false"',
+        req: 'accountInfoProvider.fetchAccountInfo()',
+        extra: { 'accountInfo': app.globalData.accountInfoProvider.toString() },
+        level: 1,
+        page: 'account-details.js',
+        method: 'fetchAccountInfo',
+        line: '70'
+      });
+      console.error(message);
+    }
   },
 
   /** Navigate to the personal-info page to add a new client PI */
