@@ -33,6 +33,9 @@ App({
 
     // Wait 60 seconds and check if the account name is the default.
     setTimeout(this.checkDefaultAccountName, 60000);
+
+    // Wait 120 seconds to check account validity.
+    setTimeout(this.checkAccountInfoValidity, 120000);
   },
 
   /**
@@ -47,12 +50,12 @@ App({
       clearTimeout(timeoutId);
     }
     // Check if the user session is still valid
-    console.debug('Checking loggin status');
+    console.debug('Checking login status');
     wx.checkSession({
       success: res => {
         // Check if the accountInfoProvider needs to fetch an auth_token
-        if (!this.globalData.accessToken) {
-          const message = 'User session is valid but no accessToken stored, requesting wx.login()';
+        if (!this.globalData.accountInfoProvider.ready()) {
+          const message = 'User session is valid but account info provider not ready, requesting wx.login()';
           console.warn(message);
           this.globalData.logger.log({
             message,
@@ -77,7 +80,6 @@ App({
         this.requestLogin();
       }
     });
-
   },
 
   /**
@@ -86,6 +88,7 @@ App({
    * to obtain permanent user openid and temporary session_key.
    */
   requestLogin: function () {
+    console.debug('Requesting wx.login()');
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -108,6 +111,7 @@ App({
       },
       complete: res => {
         // Set periodic login status checks.
+        clearTimeout(this.globalData.checkLoginStatusTimeoutId);
         this.globalData.checkLoginStatusTimeoutId = setTimeout(this.checkLoginStatus, 30000);
       }
     });
@@ -191,6 +195,47 @@ App({
     this.globalData.programProvider.setAccessToken(accessToken);
     this.globalData.accountInfoProvider.setAccessToken(accessToken);
     this.globalData.logger.setAccessToken(accessToken);
+  },
+
+  /**
+   * Check wether the currently stored account info is considered still valid.
+   */
+  checkAccountInfoValidity: function () {
+    console.debug('Checking Account information validity');
+    this.globalData.accountInfoProvider.checkAccountInfoValidity().then(res => {
+      if (res.error) {
+        const message = 'Invalid account info detected';
+        this.globalData.logger.log({
+          message,
+          res,
+          req: 'accountInfoProvider.checkAccountInfoValidity()',
+          extra: { 'accountInfo': this.globalData.accountInfoProvider.toString() },
+          level: 1,
+          page: 'app.js',
+          method: 'checkAccountInfoValidity',
+          line: '215'
+        });
+        console.error(message);
+        this.requestLogin();
+      } else {
+        console.debug('Account information is still valid.');
+      }
+    }).catch(err => {
+      const message = 'Invalid account info error.';
+      this.globalData.logger.log({
+        message,
+        res: err,
+        req: 'accountInfoProvider.checkAccountInfoValidity()',
+        extra: { 'accountInfo': this.globalData.accountInfoProvider.toString() },
+        level: 1,
+        page: 'app.js',
+        method: 'checkAccountInfoValidity',
+        line: '230'
+      });
+      console.error(message);
+      this.requestLogin();
+    });
+    setTimeout(this.checkAccountInfoValidity, 120000);
   },
 
   /**

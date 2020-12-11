@@ -76,6 +76,72 @@ class AccountInfoProvider {
   }
 
   /**
+   * Check wether the current account information is valid and up to date.
+   * @returns Promise with the account information is valid.
+   */
+  checkAccountInfoValidity() {
+    return new Promise((resolve, reject) => {
+      if (!this.accessToken) {
+        const message = 'Tried to validate account info without access token';
+        console.warn(message);
+        this.logger.log({
+          message,
+          res: null,
+          req: null,
+          extra: this.toString(),
+          page: 'accountInfoProvider',
+          method: 'checkAccountInfoValidity',
+          line: 95,
+          level: 2
+        });
+        // Reject promise and let the component handle retry
+        reject({
+          error: true,
+          msg: 'There is no account information.',
+          code: 100 // Missing login status
+        });
+      } else {
+        const endpoint = `account-info`;
+        const url = this.url + endpoint;
+        const header = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`
+        };
+        const method = 'GET';
+        wx.request({ url, header, method,
+          success: res => {
+            if (res.statusCode === 200 && +res.data.id === +this.id) {
+                resolve({
+                  error: false,
+                  accountInfo: res.data
+                });
+            } else {
+              reject({
+                error: true,
+                msg: 'Invalid account info data. Unexpected response.',
+                backendRes: res,
+                code: res.statusCode,   // Request success but not expected status code
+                resAccountInfo: res.data,
+                storedAccountInfo: this.toString
+              });
+            }
+          },
+          fail: res => {
+            reject({
+              error: true,
+              msg: 'Invalid account info data. Request error.',
+              backendRes: res,
+              code: res.statusCode,   // Request success but not expected status code
+              resAccountInfo: res.data,
+              storedAccountInfo: this.toString
+            });
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * Fetch current user's account information from the backend
    * @returns Promise with the data or object with error details
    */
