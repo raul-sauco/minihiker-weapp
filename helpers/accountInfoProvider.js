@@ -52,8 +52,22 @@ class AccountInfoProvider {
 
   /** Setter for user's API access token */
   setAccessToken(token) {
-    this.accessToken = token;
-    this.fetchAccountInfo();
+    if (token) {
+      this.accessToken = token;
+      this.fetchAccountInfo();
+    } else {
+      const message = `Tried to set access token to invalid '${token}' value`;
+      this.logger.log({
+        message,
+        res: null,
+        req: null,
+        extra: this.toString(),
+        page: 'accountInfoProvider',
+        method: 'setAccessToken',
+        line: 66,
+        level: 2
+      });
+    }
   }
 
   /**
@@ -69,7 +83,7 @@ class AccountInfoProvider {
           message: message,
           res: null,
           req: null,
-          extra: null,
+          extra: this.toString(),
           page: 'accountInfoProvider',
           method: 'fetchAccountInfo',
           line: 75,
