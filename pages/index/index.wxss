@@ -24,6 +24,10 @@
   font-weight: bold;
 }
 
+.search-bar-clear {
+  height: 40px;
+}
+
 .filters-container {
   box-sizing: border-box;
   width: 100%;
